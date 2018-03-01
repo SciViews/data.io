@@ -107,7 +107,12 @@ read <- function(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
     fun <- strsplit(fun, "::", fixed = TRUE)[[1]]
     if (length(fun) == 2) {
       fun <- getExportedValue(fun[1], fun[2])
-    } else fun <- getFunction(fun[1])
+    } else {
+      fun <- get0(fun[1], envir = parent.frame(), mode = "function",
+        inherits = TRUE)
+      if (is.null(fun))
+        stop("function '", fun[1], "' not found")
+    }
   }
   # Read the data
   skip_all <- skip + n_header
@@ -137,7 +142,7 @@ type_from_extension <- function(file) {
   NULL
 }
 
-options(read_write = tribble(
+options(read_write = tibble::tribble(
   ~type,     ~read_fun,            ~write_fun,
   "csv",     "readr::read_csv",    "readr::write_csv",
   "csv2",    "readr::read_csv2",   NA,
@@ -154,13 +159,13 @@ options(read_write = tribble(
   # This is buggy right now!! "csvy",    "csvy::read_csvy",    "csvy::write_csvy",
   "xls",     "readxl::read_excel", "WriteXLS::WriteXLS",
   "xlsx",    "readxl::read_excel", "openxlsx::write.xlsx",
-  "dta",     "haven::read_dta",    "write_dta",
-  "por",     "haven::read_por",    "write_por",
-  "sas",     "haven::read_sas",    "write_sas",
-  "sav",     "haven::read_sav",    "write_sav",
+  "dta",     "haven::read_dta",    "haven::write_dta",
+  "por",     "haven::read_por",    "haven::write_por",
+  "sas",     "haven::read_sas",    "haven::write_sas",
+  "sav",     "haven::read_sav",    "haven::write_sav",
   "spss",    "haven:read_spss",    NA,
   "stata",   "haven:read_stata",   NA,
-  "xpt",     "haven::read_xpt",    "write_xpt",
+  "xpt",     "haven::read_xpt",    "haven::write_xpt",
   "feather", "feather::read_feather", "feather::write_feather"
 ))
 

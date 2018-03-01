@@ -1,6 +1,3 @@
-#' @importFrom tibble tibble tribble
-NULL
-
 #' Sea urchins biometry.
 #'
 #' Various measurement on *Paracentrotus lividus* sea urchins providing from
@@ -44,7 +41,14 @@ NULL
 #'   visual inspection of the gonads.}
 #' }
 #'
-#' For further details on the farming of these sea urchins, see \url{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}
+#' A stratified sample was done to make sure all size classes (from 5 to 5 mm in
+#' test diameter) are equally represented in each sub-population. Hence, the
+#' size or weight-classes distributions are **not** representative of the
+#' populations. However, those data are more suitable to study allometric
+#' relationships between body measurements and/or body parts of the sea urchins.
+#'
+#' For further details on the farming of these sea urchins, see
+#' \url{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}
 #'
 "urchin_bio"
 
@@ -53,6 +57,15 @@ NULL
 #' Size at age for a cohort of farmed sea urchins, *Paracentrotus lividus*.
 #'
 #' @format A data frame with 3 variables: \code{date}, \code{age} (in years), \code{diameter} (in mm).
+#'
+#' The same cohort of farmed urchins being measured at vairous time intervals,
+#' the observations are not completelly independent from each other: the same
+#' individuals aree repeatedly measured here. As the sea urchins are not
+#' individually tagged, it is not possible to track them from one measurement to
+#' the other. However, the whole dataset is representative of the growth, and
+#' spreading of growth in a single cohort. Also, mortality could be derived from
+#' the number of measurement made at each time period, since **all** the
+#' individuals still alive are measured (noe sub-sampling).
 #'
 #' @examples
 #' SciViews::R
