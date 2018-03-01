@@ -3,7 +3,7 @@
 #' Various measurement on *Paracentrotus lividus* sea urchins providing from
 #' fishery (Brittany, France), or from a sea urchins farm in Normandy.
 #'
-#' @format A data frame with ... variables:
+#' @format A data frame with 18 variables:
 #' \describe{
 #' \item{\code{origin}}{A **factor** with two levels: `"Farm"`, and `"Fishery"`.}
 #' \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
@@ -34,21 +34,22 @@
 #'   that the test, plus spines and lantern form the whole calcareous skeleton
 #'   of the animal.}
 #' \item{\code{spines}}{Dry weight (in g) of the spines.}
-#' \item{\code{maturity}}{Gonads maturity index, measured on a scale of 3
+#' \item{\code{maturity}}{Gonads maturity index (integer), measured on a scale of 3
 #' states: state 0 means the gonad is absent or spent, state 1 means it is
 #' growing but not mature, and state 2 means the gonad is mature.}
 #' \item{\code{sex}}{When it is possible, the sex of the animal is determined by
-#'   visual inspection of the gonads.}
+#'   visual inspection of the gonads (**factor** with levels `"F"` and `"M"`).}
 #' }
 #'
-#' A stratified sample was done to make sure all size classes (from 5 to 5 mm in
-#' test diameter) are equally represented in each sub-population. Hence, the
-#' size or weight-classes distributions are **not** representative of the
-#' populations. However, those data are more suitable to study allometric
-#' relationships between body measurements and/or body parts of the sea urchins.
+#' A stratified sample was performed to make sure all size classes (from 5 to 5
+#' mm in test diameter) from each sub-population are equally represented in the
+#' dataset. Hence, the size or weight-classes distributions among each
+#' population **cannot** be studied with this dataset. However, those data are
+#' more suitable to explore allometric relationships between body measurements
+#' and/or body parts of the sea urchins over the whole size range.
 #'
 #' For further details on the farming of these sea urchins, see
-#' \url{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}
+#' [here](https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale).
 #'
 "urchin_bio"
 
@@ -58,14 +59,14 @@
 #'
 #' @format A data frame with 3 variables: \code{date}, \code{age} (in years), \code{diameter} (in mm).
 #'
-#' The same cohort of farmed urchins being measured at vairous time intervals,
-#' the observations are not completelly independent from each other: the same
-#' individuals aree repeatedly measured here. As the sea urchins are not
-#' individually tagged, it is not possible to track them from one measurement to
-#' the other. However, the whole dataset is representative of the growth, and
-#' spreading of growth in a single cohort. Also, mortality could be derived from
-#' the number of measurement made at each time period, since **all** the
-#' individuals still alive are measured (noe sub-sampling).
+#' The same cohort of farmed sea urchins being measured at various time
+#' intervals, the observations are not completelly independent from each other:
+#' the same individuals aree repeatedly measured here. As the sea urchins are
+#' not individually tagged, it is not possible to track them from one
+#' measurement to the other. However, the whole dataset is representative of the
+#' growth, and spreading of growth in a single cohort. Also, mortality could be
+#' derived from the number of measurements made at each time period, since
+#' **all** the individuals still alive are measured (no sub-sampling).
 #'
 #' @examples
 #' SciViews::R

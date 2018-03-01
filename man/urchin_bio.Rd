@@ -4,7 +4,7 @@
 \name{urchin_bio}
 \alias{urchin_bio}
 \title{Sea urchins biometry.}
-\format{A data frame with ... variables:
+\format{A data frame with 18 variables:
 \describe{
 \item{\code{origin}}{A \strong{factor} with two levels: \code{"Farm"}, and \code{"Fishery"}.}
 \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
@@ -35,21 +35,22 @@ the sea urchin).}
 that the test, plus spines and lantern form the whole calcareous skeleton
 of the animal.}
 \item{\code{spines}}{Dry weight (in g) of the spines.}
-\item{\code{maturity}}{Gonads maturity index, measured on a scale of 3
+\item{\code{maturity}}{Gonads maturity index (integer), measured on a scale of 3
 states: state 0 means the gonad is absent or spent, state 1 means it is
 growing but not mature, and state 2 means the gonad is mature.}
 \item{\code{sex}}{When it is possible, the sex of the animal is determined by
-visual inspection of the gonads.}
+visual inspection of the gonads (\strong{factor} with levels \code{"F"} and \code{"M"}).}
 }
 
-A stratified sample was done to make sure all size classes (from 5 to 5 mm in
-test diameter) are equally represented in each sub-population. Hence, the
-size or weight-classes distributions are \strong{not} representative of the
-populations. However, those data are more suitable to study allometric
-relationships between body measurements and/or body parts of the sea urchins.
+A stratified sample was performed to make sure all size classes (from 5 to 5
+mm in test diameter) from each sub-population are equally represented in the
+dataset. Hence, the size or weight-classes distributions among each
+population \strong{cannot} be studied with this dataset. However, those data are
+more suitable to explore allometric relationships between body measurements
+and/or body parts of the sea urchins over the whole size range.
 
 For further details on the farming of these sea urchins, see
-\url{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}}
+\href{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}{here}.}
 \usage{
 urchin_bio
 }
