@@ -1,0 +1,20 @@
+Package: data
+Type: Package
+Version: 1.0.0
+Title: Read Data from Files or Datasets in R Packages in Different Formats
+Description: Read data from many different formats (tabular datasets, images,
+  ...) into R objects.
+Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
+  email = "phgrosjean@sciviews.org"))
+Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
+Depends: R (>= 3.3.0)
+Imports: tibble
+Suggests: covr, knitr, testthat
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/SciViews/data, http://www.sciviews.org/SciViews-R
+BugReports: https://github.com/SciViews/data/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
