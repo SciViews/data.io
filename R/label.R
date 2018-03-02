@@ -10,12 +10,14 @@
 #' @param units The units (optional) as a character string to set for `x`.
 #' @param as.labelled Should the object be converted as a `labelled` S3 object
 #' (no by default)?
-#' @param ... Further arguments (not used yet).
+#' @param ... Further arguments: itesm to be concatenated in a vector using
+#' `c(...)` for `cl()`.
 #'
 #' @description Set the `label`, as well as the `units` attributes to an object.
 #' The label can be used for better display as plot axes labels, or as table
-#' headers in pettry-formatted \R outputs. The units are usually associated to
-#' the label in axes labels for plots.
+#' headers in pretty-formatted \R outputs. The units are usually associated to
+#' the label in axes labels for plots. `cl()` is a shortcut for concatenate
+#' (`c()`) and `set_label()`.
 #'
 #' @return The `x` object plus a `label` attribute, and possibly, a `units`
 #' attribute.
@@ -33,21 +35,25 @@
 #' @examples
 #' # TODO...
 set_label <- function(x, label, units = NULL, as.labelled = FALSE, ...) {
-  # On the contrary to
-  if (is.list(label)) {
-    stop("cannot assign a list to be a object label")
+  if (!is.null(label)) {
+    if (is.list(label))
+      stop("cannot assign a list to be a object label")
+    if (length(label) != 1L)
+      stop("label must be character vector of length 1")
+    attr(x, "label") <- label
+    if (isTRUE(as.labelled) && !"labelled" %in% class(x))
+      class(x) <- c("labelled", class(x))
   }
-  if (length(label) != 1L) {
-    stop("label must be character vector of length 1")
-  }
-  attr(x, "label") <- label
-  if (isTRUE(as.labelled) && !"labelled" %in% class(x))
-    class(x) <- c("labelled", class(x))
 
   if (!missing(units))
     units(x) <- units
   x
 }
+
+#' @export
+#' @rdname set_label
+cl <- function(..., label = NULL, units = NULL, as.labelled = FALSE)
+  set_label(c(...), label = label, units = units, as.labelled = as.labelled)
 
 #' @importFrom Hmisc label
 #' @export

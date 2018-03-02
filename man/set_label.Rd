@@ -2,9 +2,12 @@
 % Please edit documentation in R/label.R
 \name{set_label}
 \alias{set_label}
+\alias{cl}
 \title{Set label (and units)}
 \usage{
 set_label(x, label, units = NULL, as.labelled = FALSE, ...)
+
+cl(..., label = NULL, units = NULL, as.labelled = FALSE)
 }
 \arguments{
 \item{x}{An object.}
@@ -16,7 +19,8 @@ set_label(x, label, units = NULL, as.labelled = FALSE, ...)
 \item{as.labelled}{Should the object be converted as a \code{labelled} S3 object
 (no by default)?}
 
-\item{...}{Further arguments (not used yet).}
+\item{...}{Further arguments: itesm to be concatenated in a vector using
+\code{c(...)} for \code{cl()}.}
 }
 \value{
 The \code{x} object plus a \code{label} attribute, and possibly, a \code{units}
@@ -25,8 +29,9 @@ attribute.
 \description{
 Set the \code{label}, as well as the \code{units} attributes to an object.
 The label can be used for better display as plot axes labels, or as table
-headers in pettry-formatted \R outputs. The units are usually associated to
-the label in axes labels for plots.
+headers in pretty-formatted \R outputs. The units are usually associated to
+the label in axes labels for plots. \code{cl()} is a shortcut for concatenate
+(\code{c()}) and \code{set_label()}.
 }
 \details{
 The same mechanism as the one used in package \strong{Hmisc} is used

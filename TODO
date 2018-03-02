@@ -4,3 +4,5 @@
 
 * Use a Github repository that provides scripts to translated datasets in
   different languages, and use it in read(...., lang = "xx").
+
+* Integrate units with the convertr, prettyunits and units packages.
