@@ -25,6 +25,6 @@ The **data** package provides several example datasets in a standardized way. Th
 
 - Uppercase for factor levels,
 
-- data frames are `c("data_frame", "tbl_df", "tbl", "data.frame")`. Thus, their are also **tibble**s, and an additional `data_frame` class, that can be used for custom methods like `summary()` (not used yet).
+- data frames are `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, their are also **tibble**s, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
 
 - variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
