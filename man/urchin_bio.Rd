@@ -4,7 +4,7 @@
 \name{urchin_bio}
 \alias{urchin_bio}
 \title{Sea urchins biometry.}
-\format{A data frame with 18 variables:
+\format{A data frame with 19 variables:
 \describe{
 \item{\code{origin}}{A \strong{factor} with two levels: \code{"Farm"}, and \code{"Fishery"}.}
 \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
@@ -29,12 +29,12 @@ including its content.}
 and its content.}
 \item{\code{gonads}}{Weight (in g) of the gonads.}
 \item{\code{dry_gonads}}{Dry weight (in g) of the gonads.}
+\item{\code{skeleton}}{Weight of the skeleton (g), calculated as the sum of
+lantern + test + spines.}
 \item{\code{lantern}}{Dry weight (in g) of the lantern (the jaw and teeths of
 the sea urchin).}
-\item{\code{test}}{Dry weight (in g) of the calcarous part of the test. Note
-that the test, plus spines and lantern form the whole calcareous skeleton
-of the animal.}
-\item{\code{spines}}{Dry weight (in g) of the spines.}
+\item{\code{test}}{Dry weight (in g) of the calcareous part of the test.}
+\item{\code{spines}}{Dry weight (in g) of calcareous parts of the spines.}
 \item{\code{maturity}}{Gonads maturity index (integer), measured on a scale of 3
 states: state 0 means the gonad is absent or spent, state 1 means it is
 growing but not mature, and state 2 means the gonad is mature.}
