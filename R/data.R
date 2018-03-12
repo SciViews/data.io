@@ -69,9 +69,8 @@
 #' **all** the individuals still alive are measured (no sub-sampling).
 #'
 #' @examples
-#' #SciViews::R
-#' library(chart)
-#' chart(urchin_growth, formula = diameter ~ age) +
+#' library(ggplot2)
+#' ggplot(urchin_growth, aes(age, diameter)) +
 #'   geom_jitter(alpha = 0.2) +
 #'   xlab(label(urchin_growth$age, units = TRUE)) +
 #'   ylab(label(urchin_growth$diameter, units = TRUE)) +

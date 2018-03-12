@@ -1,5 +1,7 @@
 = data To Do list
 
+* Look at fst package for ultra-fast csv read/write (+ data.table).
+
 * write()
 
 * Use a Github repository that provides scripts to translated datasets in
