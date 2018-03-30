@@ -5,13 +5,13 @@
 #'
 #' @format A data frame with 19 variables:
 #' \describe{
-#' \item{\code{origin}}{A **factor** with two levels: `"Farm"`, and `"Fishery"`.}
+#' \item{\code{origin}}{A **factor** with two levels: `"Culture"`, and `"Fishery"`.}
 #' \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
 #'   (its widest part).}
 #' \item{\code{diameter2}}{A second diameter (in mm) measured at the ambitus,
 #'   perpendicular to the first one. The idea here is to calculate the average
 #'   of `diameter1` and `diameter2` in order to eliminate the effect of possible
-#'   slight departure from a nearly circulat ambitus.}
+#'   slight departure from a nearly circular ambitus.}
 #' \item{\code{height}}{The height of the test (in mm), measured from month to
 #' anus, thus, orthogonally to the two diameters.}
 #' \item{\code{buoyant_weight}}{Weight (in g) of the sea urchin immersed in

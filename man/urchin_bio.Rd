@@ -6,13 +6,13 @@
 \title{Sea urchins biometry.}
 \format{A data frame with 19 variables:
 \describe{
-\item{\code{origin}}{A \strong{factor} with two levels: \code{"Farm"}, and \code{"Fishery"}.}
+\item{\code{origin}}{A \strong{factor} with two levels: \code{"Culture"}, and \code{"Fishery"}.}
 \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
 (its widest part).}
 \item{\code{diameter2}}{A second diameter (in mm) measured at the ambitus,
 perpendicular to the first one. The idea here is to calculate the average
 of \code{diameter1} and \code{diameter2} in order to eliminate the effect of possible
-slight departure from a nearly circulat ambitus.}
+slight departure from a nearly circular ambitus.}
 \item{\code{height}}{The height of the test (in mm), measured from month to
 anus, thus, orthogonally to the two diameters.}
 \item{\code{buoyant_weight}}{Weight (in g) of the sea urchin immersed in

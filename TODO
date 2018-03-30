@@ -1,5 +1,9 @@
 = data To Do list
 
+* The labelVector also defines a set_label() function, but differently and it
+  does not handle units. Try to homogenize, and otherwise, change the name, to
+  say, labellize().
+
 * Look at fst package for ultra-fast csv read/write (+ data.table).
 
 * write()
