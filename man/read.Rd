@@ -7,7 +7,7 @@
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), comments = NULL, package = NULL,
-  fun = NULL, fun_list = getOption("read_write"), ...)
+  fun = NULL, fun_list = NULL, ...)
 
 type_from_extension(file)
 }

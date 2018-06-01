@@ -33,8 +33,16 @@
 #' # TODO...
 read <- function(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), comments = NULL, package = NULL, fun = NULL,
-  fun_list = getOption("read_write"), ...) {
-  # if package is provided, get data from a package
+  fun_list = NULL, ...) {
+  # Get fun_list from options() (and possibly install it)
+  if (is.null(fun_list))
+    fun_list <- getOption("read_write")
+  # If not installed yet, do it now!
+  if (is.null(fun_list)) {
+    .install_read_write_options()
+    fun_list <- getOption("read_write")
+  }
+  # If package is provided, get data from a package
   if (!is.null(package)) {
     if (missing(file)) {# List of datasets available in the package
       return(data(package = package))
@@ -142,32 +150,34 @@ type_from_extension <- function(file) {
   NULL
 }
 
-options(read_write = tibble::tribble(
-  ~type,     ~read_fun,            ~write_fun,
-  "csv",     "readr::read_csv",    "readr::write_csv",
-  "csv2",    "readr::read_csv2",   NA,
-  "tsv",     "readr::read_tsv",    "readr::write_tsv",
-  "csv.gz",  "readr::read_csv",     "readr::write_csv",
-  "csv2.gz", "readr::read_csv2",   NA,
-  "tsv.gz",  "readr::read_tsv",    "readr::write_tsv",
-  "csv.bz2", "readr::read_csv",    "readr::write_csv",
-  "csv2.bz2","readr::read_csv2",   NA,
-  "tsv.bz2", "readr::read_tsv",    "readr::write_tsv",
-  "csv.xz",  "readr::read_csv",    "readr::write_csv",
-  "csv2.xz", "readr::read_csv2",   NA,
-  "tsv.xz",  "readr::read_tsv",    "readr::write_tsv",
-  # This is buggy right now!! "csvy",    "csvy::read_csvy",    "csvy::write_csvy",
-  "xls",     "readxl::read_excel", "WriteXLS::WriteXLS",
-  "xlsx",    "readxl::read_excel", "openxlsx::write.xlsx",
-  "dta",     "haven::read_dta",    "haven::write_dta",
-  "por",     "haven::read_por",    "haven::write_por",
-  "sas",     "haven::read_sas",    "haven::write_sas",
-  "sav",     "haven::read_sav",    "haven::write_sav",
-  "spss",    "haven:read_spss",    NA,
-  "stata",   "haven:read_stata",   NA,
-  "xpt",     "haven::read_xpt",    "haven::write_xpt",
-  "feather", "feather::read_feather", "feather::write_feather"
-))
+.install_read_write_options <- function() {
+  options(read_write = tibble::tribble(
+    ~type,     ~read_fun,            ~write_fun,
+    "csv",     "readr::read_csv",    "readr::write_csv",
+    "csv2",    "readr::read_csv2",   NA,
+    "tsv",     "readr::read_tsv",    "readr::write_tsv",
+    "csv.gz",  "readr::read_csv",     "readr::write_csv",
+    "csv2.gz", "readr::read_csv2",   NA,
+    "tsv.gz",  "readr::read_tsv",    "readr::write_tsv",
+    "csv.bz2", "readr::read_csv",    "readr::write_csv",
+    "csv2.bz2","readr::read_csv2",   NA,
+    "tsv.bz2", "readr::read_tsv",    "readr::write_tsv",
+    "csv.xz",  "readr::read_csv",    "readr::write_csv",
+    "csv2.xz", "readr::read_csv2",   NA,
+    "tsv.xz",  "readr::read_tsv",    "readr::write_tsv",
+    # This is buggy right now!! "csvy",    "csvy::read_csvy",    "csvy::write_csvy",
+    "xls",     "readxl::read_excel", "WriteXLS::WriteXLS",
+    "xlsx",    "readxl::read_excel", "openxlsx::write.xlsx",
+    "dta",     "haven::read_dta",    "haven::write_dta",
+    "por",     "haven::read_por",    "haven::write_por",
+    "sas",     "haven::read_sas",    "haven::write_sas",
+    "sav",     "haven::read_sav",    "haven::write_sav",
+    "spss",    "haven:read_spss",    NA,
+    "stata",   "haven:read_stata",   NA,
+    "xpt",     "haven::read_xpt",    "haven::write_xpt",
+    "feather", "feather::read_feather", "feather::write_feather"
+  ))
+}
 
 # TODO: for xls/xlsx, check Openxlsx::write.xlsx, XLConnect
 # TODO: check import and rio

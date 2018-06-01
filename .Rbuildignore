@@ -13,3 +13,5 @@ Makefile
 ^\.Rproj\.user$
 ^.*\.Rproj$
 LICENSE
+raw
+raw/*
