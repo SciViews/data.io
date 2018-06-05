@@ -3,13 +3,16 @@
 \name{read}
 \alias{read}
 \alias{type_from_extension}
+\alias{$.subsettable_type}
 \title{Read data in \R in different formats}
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), comments = NULL, package = NULL,
-  fun = NULL, fun_list = NULL, ...)
+  sidecar_file = TRUE, fun = NULL, fun_list = NULL, ...)
 
 type_from_extension(file)
+
+\method{$}{subsettable_type}(x, name)
 }
 \arguments{
 \item{file}{The path to the file to read, or the name of the dataset to get
@@ -31,6 +34,12 @@ argument).}
 \item{package}{The package where to look for the dataset. If \code{file=} is not
 provided, a list of available datasets in the package is displayed.}
 
+\item{sidecar_file}{If \code{TRUE} and a file with same name as \code{file=} + \code{.R} is
+found in the same directory, it is considered as code to import these data
+and it is sourced with \code{local = TRUE}, \code{chdir = TRUE} and
+\code{verbose = FALSE}. That script \strong{must} create an object named \code{dataset},
+which is the result that is returned by the function.}
+
 \item{fun}{The function to delegate reading of the data. If \code{NULL} (default),
 The function is chosen from \code{fun_list}.}
 
@@ -38,6 +47,10 @@ The function is chosen from \code{fun_list}.}
 functions.}
 
 \item{...}{Further arguments passed to the function \code{fun=}.}
+
+\item{x}{A \code{subsettable_type} function.}
+
+\item{name}{The value to use for the \code{type=} argument.}
 }
 \value{
 An \R object with the data (its class depends on the data being read).
@@ -52,7 +65,90 @@ data, but it delegates the actual work to various other functions dispatched
 accross several \R packages. See \code{getOption("read_write")}.
 }
 \examples{
-# TODO...
+# Use of read() as a more flexible substitute to data() (can change dataset
+# name and syntax more similar to read R datasets and datasets from files)
+read() # List all available datasets in your installed version of R
+# List datasets in one particular package
+read(package = "data")
+# Read one dataset from an R package, possibly changing its name
+(urchin <- read("urchin_bio", package = "data"))
+
+# Many example data files in the /extdata subdirectory of the package
+data_example <- function(path)
+  system.file("extdata", path, package = "data", mustWork = TRUE)
+
+# Various versions of the famous iris dataset
+(iris <- read(data_example("iris.csv")))
+(iris <- read(data_example("iris.csv.zip")))
+(iris <- read(data_example("iris.csv.tar"))) ##
+(iris <- read(data_example("iris.csv.tar.gz"))) ##
+(iris <- read(data_example("iris.csv.gz")))
+(iris <- read(data_example("iris.csv.bz2")))
+#(iris <- read(data_example("iris.csv.7z"))) ##
+(iris <- read(data_example("iris.tsv")))
+(iris <- read(data_example("iris.xls")))
+(iris <- read(data_example("iris.xlsx")))
+(iris <- read(data_example("iris.rds"))) # Does not tranform into tibble!
+#(iris <- read(data_example("iris.syd"))) ##
+(iris <- read(data_example("iris_short_header.csv"))) ##
+#(iris <- read(data_example("iris.csvy"))) ##
+#(iris <- read(data_example("iris.csvy.zip"))) ##
+
+# Require the feather package
+(iris <- read(data_example("iris.feather")))
+
+# Challenging datasets from the readr package
+library(readr)
+(mtcars <- read(readr_example("mtcars.csv")))
+(mtcars <- read(readr_example("mtcars.csv.zip")))
+(mtcars <- read(readr_example("mtcars.csv.bz2")))
+(challenge <- read(readr_example("challenge.csv"), guess_max = 1001))
+(massey <- read(readr_example("massey-rating.txt")))
+# By default, the type cannot be guessed from the extension
+# This is a space-separated vaules file (ssv)
+(massey <- read(readr_example("massey-rating.txt"), type = "ssv"))
+# or ...
+(massey <- read$ssv(readr_example("massey-rating.txt")))
+(epa <- read$ssv(readr_example("epa78.txt"), col_names = FALSE))
+(example_log <- read(readr_example("example.log")))
+# There are different ways to specify columns for fixed-width files (fwf)
+# See ?read_fwf in package readr
+(fwf_sample <- read$fwf(readr_example("fwf-sample.txt"),
+   col_positions =  fwf_cols(name = 20, state = 10, ssn = 12)))
+
+# Various examples of Excel datasets from readxl
+library(readxl)
+(xl <- read(readxl_example("datasets.xls")))
+(xl <- read(readxl_example("datasets.xlsx"), sheet = "mtcars"))
+(xl <- read(readxl_example("datasets.xlsx"), sheet = 3))
+# Accomodate a column with disparate types via col_type = "list"
+(clip <- read(readxl_example("clippy.xls"), col_types = c("text", "list")))
+(clip <- read(readxl_example("clippy.xlsx"), col_types = c("text", "list")))
+tibble::deframe(clip)
+# Read from a specific range in a sheet
+(xl <- read(readxl_example("datasets.xlsx"), range = "mtcars!B1:D5"))
+(deaths <- read(readxl_example("deaths.xls"), range = cell_rows(5:15)))
+(deaths <- read(readxl_example("deaths.xlsx"), range = cell_rows(5:15)))
+(type_me <- read(readxl_example("type-me.xls"), sheet = "logical_coercion",
+  col_types = c("logical", "text")))
+(type_me <- read(readxl_example("type-me.xlsx"), sheet = "numeric_coercion",
+  col_types = c("numeric", "text")))
+(type_me <- read(readxl_example("type-me.xls"), sheet = "date_coercion",
+  col_types = c("date", "text")))
+(type_me <- read(readxl_example("type-me.xlsx"), sheet = "text_coercion",
+  col_types = c("text", "text")))
+(xl <- read(readxl_example("geometry.xls"), col_names = FALSE))
+(xl <- read(readxl_example("geometry.xlsx"), range = cell_rows(4:8)))
+
+# Various examples from haven
+library(haven)
+haven_example <- function(path)
+  system.file("examples", path, package = "haven", mustWork = TRUE)
+(iris2 <- read(haven_example("iris.dta"))) # Stata v. 8-14
+(iris2 <- read(haven_example("iris.sav"))) # SPSS, TODO: labelled -> factor?
+(pbc <- read(data_example("pbc.por"))) # SPSS, POR format
+(iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
+(afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 }
 \seealso{
 \code{\link[=read_csv]{read_csv()}}
