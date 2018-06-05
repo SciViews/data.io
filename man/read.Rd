@@ -3,14 +3,23 @@
 \name{read}
 \alias{read}
 \alias{type_from_extension}
+\alias{hread_text}
+\alias{hread_xls}
+\alias{hread_xlsx}
 \alias{$.subsettable_type}
 \title{Read data in \R in different formats}
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), comments = NULL, package = NULL,
-  sidecar_file = TRUE, fun = NULL, fun_list = NULL, ...)
+  sidecar_file = TRUE, hfun = NULL, fun = NULL, fun_list = NULL, ...)
 
 type_from_extension(file)
+
+hread_text(file, header.max, skip = 0L, locale = default_locale(), ...)
+
+hread_xls(file, header.max, skip = 0L, locale = default_locale(), ...)
+
+hread_xlsx(file, header.max, skip = 0L, locale = default_locale(), ...)
 
 \method{$}{subsettable_type}(x, name)
 }
@@ -39,6 +48,11 @@ found in the same directory, it is considered as code to import these data
 and it is sourced with \code{local = TRUE}, \code{chdir = TRUE} and
 \code{verbose = FALSE}. That script \strong{must} create an object named \code{dataset},
 which is the result that is returned by the function.}
+
+\item{hfun}{The function to read the header (lines starting with a special
+mark, usually '#' at the beginning of the file). This function must have
+the same arguments as \code{hread_text()} and should return a character string
+with the first \code{header.max} lines.}
 
 \item{fun}{The function to delegate reading of the data. If \code{NULL} (default),
 The function is chosen from \code{fun_list}.}

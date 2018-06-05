@@ -3,7 +3,7 @@
 \docType{data}
 \name{urchin_bio}
 \alias{urchin_bio}
-\title{Sea urchins biometry.}
+\title{Sea urchins biometry}
 \format{A data frame with 19 variables:
 \describe{
 \item{\code{origin}}{A \strong{factor} with two levels: \code{"Culture"}, and \code{"Fishery"}.}

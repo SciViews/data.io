@@ -16,6 +16,10 @@
 #'   and it is sourced with `local = TRUE`, `chdir = TRUE` and
 #'   `verbose = FALSE`. That script **must** create an object named `dataset`,
 #'   which is the result that is returned by the function.
+#' @param hfun The function to read the header (lines starting with a special
+#'   mark, usually '#' at the beginning of the file). This function must have
+#'   the same arguments as `hread_text()` and should return a character string
+#'   with the first `header.max` lines.
 #' @param fun The function to delegate reading of the data. If `NULL` (default),
 #'   The function is chosen from `fun_list`.
 #' @param fun_list The table with correspondance of the types, read, and write
@@ -121,7 +125,7 @@
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
   skip = 0L, locale = default_locale(), comments = NULL, package = NULL,
-  sidecar_file = TRUE, fun = NULL, fun_list = NULL, ...) {
+  sidecar_file = TRUE, hfun = NULL, fun = NULL, fun_list = NULL, ...) {
   # Is there a sidecar file?
   if (missing(file)) {
     if (missing(package)) # No file or package provided: list all datasets
@@ -163,28 +167,42 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 
   if (is.null(type))
     type <- type_from_extension(file)
+  # Do we need type to get fun or hfun, and is it a known type?
+  if (is.null(fun) || is.null(hfun)) {
+    if (is.null(type))
+      stop("no type provided, and impossible to guess")
+    if (!type %in% fun_list$type) {
+      stop("type '", type, "' is unknown")
+    } else fun_item <- fun_list[fun_list$type == type, ]
+  }
 
-  # If header is not NULL, read as many lines as there are starting with this string
-  if (!is.null(header) && header != "") {
-    dat <- read_lines(file, n_max = header.max, skip = 0, locale = locale)
-    is_header <- !cumsum(!substring(dat, 1, nchar(header)) == header)
+  # If header is not NULL and a hread_xxx() function is available,
+  # read as many lines as there are starting with this string
+  # and decrypt header data/metadata
+  if (is.null(hfun))
+      hfun <- .get_function(fun_item$read_header)
+  if (is.function(hfun) && !is.null(header) && header != "") {
+    dat <- hfun(file = file, header.max = header.max, skip = skip,
+      locale = locale)
+    dat[is.na(dat)] <- FALSE
+    is_header <- !cumsum(!substring(dat, 1L, nchar(header)) == header)
     n_header <- sum(is_header)
     if (n_header) {
       dat <- trimws(substring(dat[1:n_header], nchar(header) + 1))
       # Eliminate empty lines
       dat <- dat[dat != ""]
       # If first line contains '---', it is probably a YAML header
-      if (dat[1] == "--") {
+      if (dat[1L] == "--") {
         # TODO: how do we deal with yaml header?
       } else {# A short form of header
         # If first line starts with a ., it is the type
-        if (substring(dat[1], 1, 1) == ".") {
-          type <- substring(dat[1], 2)
-          dat <- dat[-1]
+        if (substring(dat[1L], 1L, 1L) == ".") {
+          type <- substring(dat[1L], 2L)
+          dat <- dat[-1L]
         }
         # There may be one line without key. It is comment: by default
         if (!grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat[1]))
-          dat[1] <- paste("comment:", dat[1])
+          dat[1L] <- paste("comment:", dat[1])
         # Eliminate all lines not conforming withe the key: value syntax
         dat <- dat[grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat)]
         # Now, split the strings into key - values
@@ -195,40 +213,12 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 
       }
     }
-  }
+  } else n_header <- 0L
+
   # Do we have a function to read these data?
-  if (is.null(fun)) {
-    # Get the type of the file
-    if (is.null(type)) {
-      # Try guessing from the extension
-      # TODO: special case for URLs with more arguments!
-      if (grepl("^.+\\.[a-zA-Z0-9]+$", file)) {
-        type <- sub("^.+\\.([a-zA-Z0-9]+)$", "\\1", file)
-        # If this is a compressed file, look further for the complete extension
-        if (type %in% c("gz", "bz2", "xz", "zip") &&
-            grepl("^.+\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$", file)) {
-          type <- sub("^.+\\.([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)$", "\\1", file)
-        }
-      }
-    }
-    # Is it a known type?
-    if (is.null(type))
-      stop("no type provided, and impossible to guess")
-    if (!type %in% fun_list$type)
-      stop("type '", type, "' is unknown")
-    # Get the corresponding function
-    fun <- fun_list$read_fun[(fun_list$type == type)]
-    # In case we have ns::fun
-    fun <- strsplit(fun, "::", fixed = TRUE)[[1]]
-    if (length(fun) == 2) {
-      fun <- getExportedValue(fun[1], fun[2])
-    } else {
-      fun <- get0(fun[1], envir = parent.frame(), mode = "function",
-        inherits = TRUE)
-      if (is.null(fun))
-        stop("function '", fun[1], "' not found")
-    }
-  }
+  if (is.null(fun))
+    fun <- .get_function(fun_item$read_fun)
+
   # Read the data
   skip_all <- skip + n_header
   if (skip_all > 0L) {
@@ -238,9 +228,31 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
   }
 }, class = c("subsettable_type", "function"))
 
+.get_function <- function(fun) {
+  # In case we have ns::fun
+  fun <- strsplit(fun, "::", fixed = TRUE)[[1L]]
+  if (length(fun) == 2L) {
+    res <- try(getExportedValue(fun[1L], fun[2L]), silent = TRUE)
+    if (inherits(res, "try-error"))
+      stop("You need function '", fun[2L], "' from package '", fun[1L],
+        "' to read these data. Please, install the package first",
+        " and make sure the function is available there.")
+  } else {
+    if (is.na(fun[1L]))
+      return(NA)
+    res <- get0(fun[1L], envir = parent.frame(), mode = "function",
+      inherits = TRUE)
+    if (is.null(res))
+      stop("function '", fun[1], "' not found")
+  }
+  res
+}
+
 #' @export
 #' @rdname read
 type_from_extension <- function(file) {
+  # TODO: special case for URLs with more arguments!
+
   # For a (compressed) .tar archive
   if (grepl("\\.([A-Za-z0-9]+)\\.tar(\\.gz|\\.xz|\\.bz2|\\.zip)?$", file))
     return(sub("^.+\\.([A-Za-z0-9]+)\\.tar(\\.gz|\\.xz|\\.bz2|\\.zip)?$", "\\1", file))
@@ -259,6 +271,30 @@ type_from_extension <- function(file) {
 
 #' @export
 #' @rdname read
+hread_text <- function(file, header.max, skip = 0L, locale = default_locale(),
+...)
+  read_lines(file, n_max = header.max, skip = skip, locale = locale, ...)
+
+#' @export
+#' @rdname read
+hread_xls <- function(file, header.max, skip = 0L, locale = default_locale(),
+...) {
+  res <- readxl::read_xls(file, range = paste0("A1:A", header.max),
+    col_types = "text", col_names = FALSE, ...)
+  if (!ncol(res)) character(0) else res[[1L]]
+}
+
+#' @export
+#' @rdname read
+hread_xlsx <- function(file, header.max, skip = 0L, locale = default_locale(),
+...) {
+  res <- readxl::read_xlsx(file, range = paste0("A1:A", header.max),
+    col_types = "text", col_names = FALSE, ...)
+  if (!ncol(res)) character(0) else res[[1L]]
+}
+
+#' @export
+#' @rdname read
 #' @param x A `subsettable_type` function.
 #' @param name The value to use for the `type=` argument.
 #' @method $ subsettable_type
@@ -270,40 +306,75 @@ type_from_extension <- function(file) {
 
 .install_read_write_options <- function() {
   options(read_write = tibble::tribble(
-    ~type,     ~read_fun,              ~write_fun,
-    "csv",     "readr::read_csv",      "readr::write_csv",
-    "csv2",    "readr::read_csv2",     NA,
-    "xlcsv",   "readr::read_csv",      "readr::write_excel_csv",
-    "tsv",     "readr::read_tsv",      "readr::write_tsv",
-    "fwf",     "readr::read_fwf",      NA, # TODO: a writer here!
-    "log",     "readr::read_log",      NA, # TODO: a writer here!
-    "rds",     "readr::read_rds",      "readr::write_rds",
-    "txt",     "readr::read_file",     "readr::write_file",
-    "raw",     "readr::read_file_raw",  NA, # TODO: a writer here!
-    "ssv",     "readr::read_table",    NA, # Space separated values
-    "ssv2",    "readr::read_table2",   NA,
-    "csv.gz",  "readr::read_csv",      "readr::write_csv",
-    "csv2.gz", "readr::read_csv2",     NA,
-    "tsv.gz",  "readr::read_tsv",      "readr::write_tsv",
-    "txt.gz",  "readr::read_file",     "readr::write_file",
-    "csv.bz2", "readr::read_csv",      "readr::write_csv",
-    "csv2.bz2","readr::read_csv2",     NA,
-    "tsv.bz2", "readr::read_tsv",      "readr::write_tsv",
-    "txt.bz2", "readr::read_file",     "readr::write_file",
-    "csv.xz",  "readr::read_csv",      "readr::write_csv",
-    "csv2.xz", "readr::read_csv2",     NA,
-    "tsv.xz",  "readr::read_tsv",      "readr::write_tsv",
-    "txt.xz",  "readr::read_file",     "readr::write_file",
-    # This is buggy right now!! "csvy",    "csvy::read_csvy",    "csvy::write_csvy",
-    "xls",     "readxl::read_excel",   "WriteXLS::WriteXLS",
-    "xlsx",    "readxl::read_excel",   "openxlsx::write.xlsx",
-    "dta",     "haven::read_dta",      "haven::write_dta", # = read_stata()
-    "sas",     "haven::read_sas",      "haven::write_sas",
-    "sas7bdat","haven::read_sas",      "haven::write_sas",
-    "sav",     "haven::read_sav",      "haven::write_sav", # = read_spss()
-    "por",     "haven::read_por",      NA, # = read_spss()
-    "xpt",     "haven::read_xpt",      "haven::write_xpt",
-    "feather", "feather::read_feather", "feather::write_feather"
+    ~type,     ~read_fun,              ~read_header,
+    ~write_fun,
+    "csv",     "readr::read_csv",      "data::hread_text",
+    "readr::write_csv",
+    "csv2",    "readr::read_csv2",     "data::hread_text",
+    NA,
+    "xlcsv",   "readr::read_csv",      "data::hread_text",
+    "readr::write_excel_csv",
+    "tsv",     "readr::read_tsv",      "data::hread_text",
+    "readr::write_tsv",
+    "fwf",     "readr::read_fwf",      "data::hread_text",
+    NA, # TODO: a writer here!
+    "log",     "readr::read_log",      NA,
+    NA, # TODO: a writer here!
+    "rds",     "readr::read_rds",      NA,
+    "readr::write_rds",
+    "txt",     "readr::read_file",     NA,
+    "readr::write_file",
+    "raw",     "readr::read_file_raw", NA,
+    NA, # TODO: a writer here!
+    "ssv",     "readr::read_table",    "data::hread_text",
+    NA,#Space separated values
+    "ssv2",    "readr::read_table2",   "data::hread_text",
+    NA,
+    "csv.gz",  "readr::read_csv",      "data::hread_text",
+    "readr::write_csv",
+    "csv2.gz", "readr::read_csv2",     "data::hread_text",
+    NA,
+    "tsv.gz",  "readr::read_tsv",      "data::hread_text",
+    "readr::write_tsv",
+    "txt.gz",  "readr::read_file",     NA,
+    "readr::write_file",
+    "csv.bz2", "readr::read_csv",      "data::hread_text",
+    "readr::write_csv",
+    "csv2.bz2","readr::read_csv2",     "data::hread_text",
+    NA,
+    "tsv.bz2", "readr::read_tsv",      "data::hread_text",
+    "readr::write_tsv",
+    "txt.bz2", "readr::read_file",     "data::hread_text",
+    "readr::write_file",
+    "csv.xz",  "readr::read_csv",      "data::hread_text",
+    "readr::write_csv",
+    "csv2.xz", "readr::read_csv2",     "data::hread_text",
+    NA,
+    "tsv.xz",  "readr::read_tsv",      "data::hread_text",
+    "readr::write_tsv",
+    "txt.xz",  "readr::read_file",     NA,
+    "readr::write_file",
+    # Buggy right now!! "csvy",    "csvy::read_csvy",    NA, "csvy::write_csvy",
+    "xls",     "readxl::read_excel",   "data::hread_xls",
+    "WriteXLS::WriteXLS",
+    "xlsx",    "readxl::read_excel",   "data::hread_xlsx",
+    "openxlsx::write.xlsx",
+    "dta",     "haven::read_dta",      NA,
+    "haven::write_dta",
+    # read_dta() = read_stata()
+    "sas",     "haven::read_sas",      NA,
+    "haven::write_sas",
+    "sas7bdat","haven::read_sas",      NA,
+    "haven::write_sas",
+    "sav",     "haven::read_sav",      NA,
+    "haven::write_sav",
+    "por",     "haven::read_por",      NA,
+    NA,
+    # read_por()/read_sav() = read_spss()
+    "xpt",     "haven::read_xpt",      NA,
+    "haven::write_xpt",
+    "feather", "feather::read_feather",NA,
+    "feather::write_feather"
   ))
 }
 

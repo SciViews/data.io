@@ -3,7 +3,7 @@
 \docType{data}
 \name{urchin_growth}
 \alias{urchin_growth}
-\title{Sea urchins growth.}
+\title{Sea urchins growth}
 \format{A data frame with 3 variables: \code{date}, \code{age} (in years), \code{diameter} (in mm).
 
 The same cohort of farmed sea urchins being measured at various time

@@ -1,4 +1,4 @@
-#' Sea urchins biometry.
+#' Sea urchins biometry
 #'
 #' Various measurement on *Paracentrotus lividus* sea urchins providing from
 #' fishery (Brittany, France), or from a sea urchins farm in Normandy.
@@ -53,7 +53,7 @@
 #'
 "urchin_bio"
 
-#' Sea urchins growth.
+#' Sea urchins growth
 #'
 #' Size at age for a cohort of farmed sea urchins, *Paracentrotus lividus*.
 #'
