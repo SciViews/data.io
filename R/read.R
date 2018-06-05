@@ -69,7 +69,7 @@
 #' #(iris <- read(data_example("iris.csvy.zip"))) ##
 #'
 #' # Require the feather package
-#' (iris <- read(data_example("iris.feather")))
+#' #(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
 #'
 #' # Challenging datasets from the readr package
 #' library(readr)
