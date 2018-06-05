@@ -51,6 +51,9 @@
 #' data_example <- function(path)
 #'   system.file("extdata", path, package = "data", mustWork = TRUE)
 #'
+#' # Read from a Github Gist (need to specify the type here!)
+#' (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
+#'
 #' # Various versions of the famous iris dataset
 #' (iris <- read(data_example("iris.csv")))
 #' (iris <- read(data_example("iris.csv.zip")))

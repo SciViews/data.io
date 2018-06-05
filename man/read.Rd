@@ -91,6 +91,9 @@ read(package = "data")
 data_example <- function(path)
   system.file("extdata", path, package = "data", mustWork = TRUE)
 
+# Read from a Github Gist (need to specify the type here!)
+(ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
+
 # Various versions of the famous iris dataset
 (iris <- read(data_example("iris.csv")))
 (iris <- read(data_example("iris.csv.zip")))
@@ -109,7 +112,7 @@ data_example <- function(path)
 #(iris <- read(data_example("iris.csvy.zip"))) ##
 
 # Require the feather package
-(iris <- read(data_example("iris.feather")))
+#(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
 
 # Challenging datasets from the readr package
 library(readr)
