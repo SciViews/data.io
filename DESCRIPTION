@@ -3,13 +3,13 @@ Type: Package
 Version: 1.0.0
 Title: Read Data from Files or Datasets in R Packages in Different Formats
 Description: Read data from many different formats (tabular datasets, images,
-  ...) into R objects.
+  ...) into R objects. Add labels and units in different languages.
 Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
   email = "phgrosjean@sciviews.org"))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends: R (>= 3.3.0)
 Imports: tibble, Hmisc, utils, readr
-Suggests: SciViews, readxl, haven, WriteXLS, openxlsx, ggplot2, covr, knitr, testthat
+Suggests: SciViews, readxl, haven, WriteXLS, openxlsx, datasets, ggplot2, covr, knitr, testthat
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

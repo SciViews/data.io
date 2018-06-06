@@ -12,7 +12,7 @@ objects.
 
 \itemize{
 \item \code{\link[=read]{read()}} is the main function to read data from R packages or files,
-\item \code{\link[=set_label]{set_label()}} adds a \code{label}, and possibly a \code{units} attributes to an
+\item \code{\link[=labelise]{labelise()}} adds a \code{label}, and possibly a \code{units} attributes to an
 object, to be used while pretty printing a table or plot.
 }
 }

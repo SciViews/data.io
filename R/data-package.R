@@ -7,7 +7,7 @@
 #'
 #' - [read()] is the main function to read data from R packages or files,
 #'
-#' - [set_label()] adds a `label`, and possibly a `units` attributes to an
+#' - [labelise()] adds a `label`, and possibly a `units` attributes to an
 #'   object, to be used while pretty printing a table or plot.
 #'
 #' @docType package

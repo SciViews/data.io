@@ -1,4 +1,13 @@
-= data To Do list
+# data To Do list
+
+* Special print for labelled objects
+
+* Rework data_raw script + translations by using labelise(self = FALSE)
+
+* Do not label or change class (use data.frame) for initial dataset, but do it
+  within read() with lang = argument + data_class = .
+
+* Test for sidecar files.
 
 * csvy
 
@@ -7,17 +16,21 @@
 * data_example() function
 
 * make iris_short_header.csv, iris.csv.7z, iris.csvy, iris.csvy.zip,
-  iris.sas7bdat and iris.syd working.
-
-* The labelVector also defines a set_label() function, but differently and it
-  does not handle units. Try to homogenize, and otherwise, change the name, to
-  say, labellize().
+  iris.sas7bdat and iris.syd working: add foreign function.
 
 * Look at fst package for ultra-fast csv read/write (+ data.table).
 
-* write()
+* write() + keep it compatible with base::write()!
+
+* Functions to write headers too: write -> read should restore same object!
 
 * Use a Github repository that provides scripts to translated datasets in
   different languages, and use it in read(...., lang = "xx").
 
 * Integrate units with the convertr, prettyunits and units packages.
+
+* Add more datasets (plankton, ...).
+
+* A smaller example for read(), and detail all the cases in a vignette instead.
+
+* revdep, see for instance, https://github.com/hadley/nycflights13

@@ -152,10 +152,8 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
   if (is.null(fun_list))
     fun_list <- getOption("read_write")
   # If not installed yet, do it now!
-  if (is.null(fun_list)) {
-    .install_read_write_options()
-    fun_list <- getOption("read_write")
-  }
+  if (is.null(fun_list))
+    fun_list <- read_write_option()
   # If package is provided, get data from a package
   if (!is.null(package)) {
     if (missing(file)) {# List of datasets available in the package
@@ -179,11 +177,31 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
     } else fun_item <- fun_list[fun_list$type == type, ]
   }
 
+  get_function <- function(fun) {
+    # In case we have ns::fun
+    fun <- strsplit(fun, "::", fixed = TRUE)[[1L]]
+    if (length(fun) == 2L) {
+      res <- try(getExportedValue(fun[1L], fun[2L]), silent = TRUE)
+      if (inherits(res, "try-error"))
+        stop("You need function '", fun[2L], "' from package '", fun[1L],
+          "' to read these data. Please, install the package first",
+          " and make sure the function is available there.")
+    } else {
+      if (is.na(fun[1L]))
+        return(NA)
+      res <- get0(fun[1L], envir = parent.frame(), mode = "function",
+        inherits = TRUE)
+      if (is.null(res))
+        stop("function '", fun[1], "' not found")
+    }
+    res
+  }
+
   # If header is not NULL and a hread_xxx() function is available,
   # read as many lines as there are starting with this string
   # and decrypt header data/metadata
   if (is.null(hfun))
-      hfun <- .get_function(fun_item$read_header)
+      hfun <- get_function(fun_item$read_header)
   if (is.function(hfun) && !is.null(header) && header != "") {
     dat <- hfun(file = file, header.max = header.max, skip = skip,
       locale = locale)
@@ -220,7 +238,7 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 
   # Do we have a function to read these data?
   if (is.null(fun))
-    fun <- .get_function(fun_item$read_fun)
+    fun <- get_function(fun_item$read_fun)
 
   # Read the data
   skip_all <- skip + n_header
@@ -230,26 +248,6 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
     structure(fun(file, ...), comment = comments)
   }
 }, class = c("subsettable_type", "function"))
-
-.get_function <- function(fun) {
-  # In case we have ns::fun
-  fun <- strsplit(fun, "::", fixed = TRUE)[[1L]]
-  if (length(fun) == 2L) {
-    res <- try(getExportedValue(fun[1L], fun[2L]), silent = TRUE)
-    if (inherits(res, "try-error"))
-      stop("You need function '", fun[2L], "' from package '", fun[1L],
-        "' to read these data. Please, install the package first",
-        " and make sure the function is available there.")
-  } else {
-    if (is.na(fun[1L]))
-      return(NA)
-    res <- get0(fun[1L], envir = parent.frame(), mode = "function",
-      inherits = TRUE)
-    if (is.null(res))
-      stop("function '", fun[1], "' not found")
-  }
-  res
-}
 
 #' @export
 #' @rdname read
@@ -303,94 +301,3 @@ hread_xlsx <- function(file, header.max, skip = 0L, locale = default_locale(),
 #' @method $ subsettable_type
 `$.subsettable_type` <- function(x, name)
   function(...) x(type = name, ...)
-
-
-# Private functions -------------------------------------------------------
-
-.install_read_write_options <- function() {
-  options(read_write = tibble::tribble(
-    ~type,     ~read_fun,              ~read_header,
-    ~write_fun,
-    "csv",     "readr::read_csv",      "data::hread_text",
-    "readr::write_csv",
-    "csv2",    "readr::read_csv2",     "data::hread_text",
-    NA,
-    "xlcsv",   "readr::read_csv",      "data::hread_text",
-    "readr::write_excel_csv",
-    "tsv",     "readr::read_tsv",      "data::hread_text",
-    "readr::write_tsv",
-    "fwf",     "readr::read_fwf",      "data::hread_text",
-    NA, # TODO: a writer here!
-    "log",     "readr::read_log",      NA,
-    NA, # TODO: a writer here!
-    "rds",     "readr::read_rds",      NA,
-    "readr::write_rds",
-    "txt",     "readr::read_file",     NA,
-    "readr::write_file",
-    "raw",     "readr::read_file_raw", NA,
-    NA, # TODO: a writer here!
-    "ssv",     "readr::read_table",    "data::hread_text",
-    NA,#Space separated values
-    "ssv2",    "readr::read_table2",   "data::hread_text",
-    NA,
-    "csv.gz",  "readr::read_csv",      "data::hread_text",
-    "readr::write_csv",
-    "csv2.gz", "readr::read_csv2",     "data::hread_text",
-    NA,
-    "tsv.gz",  "readr::read_tsv",      "data::hread_text",
-    "readr::write_tsv",
-    "txt.gz",  "readr::read_file",     NA,
-    "readr::write_file",
-    "csv.bz2", "readr::read_csv",      "data::hread_text",
-    "readr::write_csv",
-    "csv2.bz2","readr::read_csv2",     "data::hread_text",
-    NA,
-    "tsv.bz2", "readr::read_tsv",      "data::hread_text",
-    "readr::write_tsv",
-    "txt.bz2", "readr::read_file",     "data::hread_text",
-    "readr::write_file",
-    "csv.xz",  "readr::read_csv",      "data::hread_text",
-    "readr::write_csv",
-    "csv2.xz", "readr::read_csv2",     "data::hread_text",
-    NA,
-    "tsv.xz",  "readr::read_tsv",      "data::hread_text",
-    "readr::write_tsv",
-    "txt.xz",  "readr::read_file",     NA,
-    "readr::write_file",
-    # Buggy right now!! "csvy",    "csvy::read_csvy",    NA, "csvy::write_csvy",
-    "xls",     "readxl::read_excel",   "data::hread_xls",
-    "WriteXLS::WriteXLS",
-    "xlsx",    "readxl::read_excel",   "data::hread_xlsx",
-    "openxlsx::write.xlsx",
-    "dta",     "haven::read_dta",      NA,
-    "haven::write_dta",
-    # read_dta() = read_stata()
-    "sas",     "haven::read_sas",      NA,
-    "haven::write_sas",
-    "sas7bdat","haven::read_sas",      NA,
-    "haven::write_sas",
-    "sav",     "haven::read_sav",      NA,
-    "haven::write_sav",
-    "por",     "haven::read_por",      NA,
-    NA,
-    # read_por()/read_sav() = read_spss()
-    "xpt",     "haven::read_xpt",      NA,
-    "haven::write_xpt",
-    "feather", "feather::read_feather",NA,
-    "feather::write_feather"
-  ))
-}
-
-# TODO: check import and rio
-# TODO: there is a xlsx writer in writexl, but does not support sheets!
-# Note: csvy is csv with YAML header. It offers more configuration (read_csvy, write_csvy)
-#library(tibble)
-#library(readr)
-#library(WriteXLS)
-#library(write.xlsx)
-#library(haven)
-#library(feather)
-#library(csvy)
-#.import.rio_png <- function(file, native = FALSE, info = FALSE, ...) {
-#  readPNG(file, native = native, info = info)
-#}
