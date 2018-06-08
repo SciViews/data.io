@@ -17,7 +17,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The **data** package provides several example datasets in a standardized way. There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
+The **data** package provides several example datasets in a standardized way, as well as, a `read()` function to retreive them, or to import external datasets in different formats in an unified way.
+
+There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
 
 - U.K. English,
 
@@ -25,6 +27,10 @@ The **data** package provides several example datasets in a standardized way. Th
 
 - Uppercase for factor levels,
 
-- data frames are `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, their are also **tibble**s, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
+- data frames are converted, by default, into `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, they are also **tibble**s, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
 
 - variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
+
+- the origin of the data is recorded as an `src` attribute to the comment.
+
+

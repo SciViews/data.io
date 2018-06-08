@@ -1,6 +1,6 @@
 # data To Do list
 
-* Special print for labelled objects
+* Should we keep 'srcfile' for attribute of comment (not printed!)
 
 * Rework data_raw script + translations by using labelise(self = FALSE)
 
@@ -9,14 +9,19 @@
 
 * Test for sidecar files.
 
-* csvy
-
 * header in .csv or .xls to define comment, labels, classes, etc.
 
 * data_example() function
 
+* Add more datasets (plankton, ...).
+
+
+
+
 * make iris_short_header.csv, iris.csv.7z, iris.csvy, iris.csvy.zip,
   iris.sas7bdat and iris.syd working: add foreign function.
+
+* csvy
 
 * Look at fst package for ultra-fast csv read/write (+ data.table).
 
@@ -29,8 +34,8 @@
 
 * Integrate units with the convertr, prettyunits and units packages.
 
-* Add more datasets (plankton, ...).
-
 * A smaller example for read(), and detail all the cases in a vignette instead.
 
 * revdep, see for instance, https://github.com/hadley/nycflights13
+
+* about(), .? and the dataframe methods to be placed somewhere.

@@ -128,11 +128,14 @@
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
   skip = 0L, locale = default_locale(), comments = NULL, package = NULL,
-  sidecar_file = TRUE, hfun = NULL, fun = NULL, fun_list = NULL, ...) {
+  sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
+  srcfile <- NULL
+  src <- NULL
   # Is there a sidecar file?
   if (missing(file)) {
-    if (missing(package)) # No file or package provided: list all datasets
+    if (missing(package)) {# No file or package provided: list all datasets
       return(data())
+    }
     file2 <- ""
   } else {
     file2 <- paste0(file, ".R")
@@ -145,108 +148,129 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
       stop("The script '", basename(file2),
         "' did not produce a valid 'dataset' object.",
         " Is it really a sidecar file?")
-    return(dataset)
-  }
+    res <- dataset
+    srcfile <- file2
 
-  # Get fun_list from options() (and possibly install it)
-  if (is.null(fun_list))
-    fun_list <- getOption("read_write")
-  # If not installed yet, do it now!
-  if (is.null(fun_list))
-    fun_list <- read_write_option()
-  # If package is provided, get data from a package
-  if (!is.null(package)) {
-    if (missing(file)) {# List of datasets available in the package
-      return(data(package = package))
-    }
-    suppressWarnings(data(list = file, package = package, ...,
-      envir = environment()))
-    if (!exists(file, envir = environment(), inherits = FALSE))
-      stop("dataset '", file, "' not found in package '", package, "'")
-    return(get(file, envir = environment(), inherits = FALSE))
-  }
-
-  if (is.null(type))
-    type <- type_from_extension(file)
-  # Do we need type to get fun or hfun, and is it a known type?
-  if (is.null(fun) || is.null(hfun)) {
-    if (is.null(type))
-      stop("no type provided, and impossible to guess")
-    if (!type %in% fun_list$type) {
-      stop("type '", type, "' is unknown")
-    } else fun_item <- fun_list[fun_list$type == type, ]
-  }
-
-  get_function <- function(fun) {
-    # In case we have ns::fun
-    fun <- strsplit(fun, "::", fixed = TRUE)[[1L]]
-    if (length(fun) == 2L) {
-      res <- try(getExportedValue(fun[1L], fun[2L]), silent = TRUE)
-      if (inherits(res, "try-error"))
-        stop("You need function '", fun[2L], "' from package '", fun[1L],
-          "' to read these data. Please, install the package first",
-          " and make sure the function is available there.")
-    } else {
-      if (is.na(fun[1L]))
-        return(NA)
-      res <- get0(fun[1L], envir = parent.frame(), mode = "function",
-        inherits = TRUE)
-      if (is.null(res))
-        stop("function '", fun[1], "' not found")
-    }
-    res
-  }
-
-  # If header is not NULL and a hread_xxx() function is available,
-  # read as many lines as there are starting with this string
-  # and decrypt header data/metadata
-  if (is.null(hfun))
-      hfun <- get_function(fun_item$read_header)
-  if (is.function(hfun) && !is.null(header) && header != "") {
-    dat <- hfun(file = file, header.max = header.max, skip = skip,
-      locale = locale)
-    dat[is.na(dat)] <- FALSE
-    is_header <- !cumsum(!substring(dat, 1L, nchar(header)) == header)
-    n_header <- sum(is_header)
-    if (n_header) {
-      dat <- trimws(substring(dat[1:n_header], nchar(header) + 1))
-      # Eliminate empty lines
-      dat <- dat[dat != ""]
-      # If first line contains '---', it is probably a YAML header
-      if (dat[1L] == "--") {
-        # TODO: how do we deal with yaml header?
-      } else {# A short form of header
-        # If first line starts with a ., it is the type
-        if (substring(dat[1L], 1L, 1L) == ".") {
-          type <- substring(dat[1L], 2L)
-          dat <- dat[-1L]
-        }
-        # There may be one line without key. It is comment: by default
-        if (!grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat[1]))
-          dat[1L] <- paste("comment:", dat[1])
-        # Eliminate all lines not conforming withe the key: value syntax
-        dat <- dat[grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat)]
-        # Now, split the strings into key - values
-        keys <- sub("^ *([A-Za-z][A-Za-z0-9_-]*) *:.+$", "\\1", dat)
-        values <- sub("^ *[A-Za-z][A-Za-z0-9_-]* *: *(.+) *$", "\\1", dat)
-        names(values) <- keys
-        # Try to separate items for values, but first "protect" the splitting character prefixed with \
-
+  } else {# No sidecar_file, read the data directly
+    # Get fun_list from options() (and possibly install it)
+    if (is.null(fun_list))
+      fun_list <- getOption("read_write")
+    # If not installed yet, do it now!
+    if (is.null(fun_list))
+      fun_list <- read_write_option()
+    # If package is provided, get data from a package
+    if (!is.null(package)) {
+      if (missing(file)) {# List of datasets available in the package
+        return(data(package = package))
       }
+      suppressWarnings(data(list = file, package = package, ...,
+        envir = environment()))
+      if (!exists(file, envir = environment(), inherits = FALSE))
+        stop("dataset '", file, "' not found in package '", package, "'")
+      res <- get(file, envir = environment(), inherits = FALSE)
+      src <- paste(package, file, sep = "::")
+    } else {# No package provided, read an external file
+
+      if (is.null(type))
+        type <- type_from_extension(file)
+      # Do we need type to get fun or hfun, and is it a known type?
+      if (is.null(fun) || is.null(hfun)) {
+        if (is.null(type))
+          stop("no type provided, and impossible to guess")
+        if (!type %in% fun_list$type) {
+          stop("type '", type, "' is unknown")
+        } else fun_item <- fun_list[fun_list$type == type, ]
+      }
+
+      get_function <- function(fun) {
+        # In case we have ns::fun
+        fun <- strsplit(fun, "::", fixed = TRUE)[[1L]]
+        if (length(fun) == 2L) {
+          res <- try(getExportedValue(fun[1L], fun[2L]), silent = TRUE)
+          if (inherits(res, "try-error"))
+            stop("You need function '", fun[2L], "' from package '", fun[1L],
+              "' to read these data. Please, install the package first",
+              " and make sure the function is available there.")
+        } else {
+          if (is.na(fun[1L]))
+            return(NA)
+          res <- get0(fun[1L], envir = parent.frame(), mode = "function",
+            inherits = TRUE)
+          if (is.null(res))
+            stop("function '", fun[1], "' not found")
+        }
+        res
+      }
+
+      # If header is not NULL and a hread_xxx() function is available,
+      # read as many lines as there are starting with this string
+      # and decrypt header data/metadata
+      if (is.null(hfun))
+          hfun <- get_function(fun_item$read_header)
+      if (is.function(hfun) && !is.null(header) && header != "") {
+        dat <- hfun(file = file, header.max = header.max, skip = skip,
+          locale = locale)
+        dat[is.na(dat)] <- FALSE
+        is_header <- !cumsum(!substring(dat, 1L, nchar(header)) == header)
+        n_header <- sum(is_header)
+        if (n_header) {
+          dat <- trimws(substring(dat[1:n_header], nchar(header) + 1))
+          # Eliminate empty lines
+          dat <- dat[dat != ""]
+          # If first line contains '---', it is probably a YAML header
+          if (dat[1L] == "--") {
+            # TODO: how do we deal with yaml header?
+          } else {# A short form of header
+            # If first line starts with a ., it is the type
+            if (substring(dat[1L], 1L, 1L) == ".") {
+              type <- substring(dat[1L], 2L)
+              dat <- dat[-1L]
+            }
+            # There may be one line without key. It is comment: by default
+            if (!grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat[1]))
+              dat[1L] <- paste("comment:", dat[1])
+            # Eliminate all lines not conforming with the key: value syntax
+            dat <- dat[grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat)]
+            # Now, split the strings into key - values
+            keys <- sub("^ *([A-Za-z][A-Za-z0-9_-]*) *:.+$", "\\1", dat)
+            values <- sub("^ *[A-Za-z][A-Za-z0-9_-]* *: *(.+) *$", "\\1", dat)
+            names(values) <- keys
+            # Try to separate items for values, but first "protect" the
+            # splitting character prefixed with \
+
+          }
+        }
+      } else n_header <- 0L
+
+      # Do we have a function to read these data?
+      if (is.null(fun))
+        fun <- get_function(fun_item$read_fun)
+
+      # Read the data
+      skip_all <- skip + n_header
+      if (skip_all > 0L) {
+        res <- fun(file, skip = skip + n_header, ...)
+      } else {
+        res <- fun(file, ...)
+      }
+      srcfile <- file
     }
-  } else n_header <- 0L
-
-  # Do we have a function to read these data?
-  if (is.null(fun))
-    fun <- get_function(fun_item$read_fun)
-
-  # Read the data
-  skip_all <- skip + n_header
-  if (skip_all > 0L) {
-    structure(fun(file, skip = skip + n_header, ...), comment = comments)
-  } else {
-    structure(fun(file, ...), comment = comments)
   }
+
+  # Record the comments and origin of the data
+  comments <- paste0(comments, collapse = "\n")
+  if (!is.null(srcfile)) {
+    attr(comments, "srcfile") <- srcfile
+    comment(res) <- comments
+  } else if (!is.null(src)) {
+    attr(comments, "src") <- src
+    comment(res) <- comments
+  } else if (comments != "") {
+    comment(res) <- comments
+  }
+
+  # TODO: possible translate and change the class of the resulting object
+  res
 }, class = c("subsettable_type", "function"))
 
 #' @export

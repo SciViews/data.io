@@ -11,7 +11,7 @@
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), comments = NULL, package = NULL,
-  sidecar_file = TRUE, hfun = NULL, fun = NULL, fun_list = NULL, ...)
+  sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -49,6 +49,9 @@ and it is sourced with \code{local = TRUE}, \code{chdir = TRUE} and
 \code{verbose = FALSE}. That script \strong{must} create an object named \code{dataset},
 which is the result that is returned by the function.}
 
+\item{fun_list}{The table with correspondance of the types, read, and write
+functions.}
+
 \item{hfun}{The function to read the header (lines starting with a special
 mark, usually '#' at the beginning of the file). This function must have
 the same arguments as \code{hread_text()} and should return a character string
@@ -56,9 +59,6 @@ with the first \code{header.max} lines.}
 
 \item{fun}{The function to delegate reading of the data. If \code{NULL} (default),
 The function is chosen from \code{fun_list}.}
-
-\item{fun_list}{The table with correspondance of the types, read, and write
-functions.}
 
 \item{...}{Further arguments passed to the function \code{fun=}.}
 
