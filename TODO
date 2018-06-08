@@ -15,7 +15,9 @@
 
 * about(), .? and the dataframe methods to be placed somewhere.
 
+* unlabelise() + more meaningful classes for labelled, and always label
 
+* rio::characterize() or factorize() for SPSS or SAS datasets.
 
 
 * Add more recognized classes (Date, time, etc.) for headers (+ abbrev?)

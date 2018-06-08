@@ -13,7 +13,8 @@
 #' @param label The character string to set as `label` attribute to `x`.
 #' @param units The units (optional) as a character string to set for `x`.
 #' @param as.labelled Should the object be converted as a `labelled` S3 object
-#' (no by default)?
+#' (by default)? If you don't make labelled objects, subsetting the data will
+#' lead to a lost of `label` and `units` attributes for all variables.
 #' @param ... Further arguments: itesm to be concatenated in a vector using
 #' `c(...)` for `cl()`.
 #'
@@ -68,7 +69,7 @@ labelize <- labelise
 #' @export
 #' @rdname labelise
 #' @method labelise default
-`labelise.default` <- function(x, label, units = NULL, as.labelled = FALSE,
+`labelise.default` <- function(x, label, units = NULL, as.labelled = TRUE,
 ...) {
   if (!is.null(label) && !is.na(label)) {
     if (is.list(label))
@@ -92,7 +93,7 @@ labelize <- labelise
 #'   `label=` and `units=` must be either lists or character vectors of the same
 #'   length as `x`, or be named with the names of several or all `x` variables.
 #' @method labelise data.frame
-`labelise.data.frame` <- function(x, label, units = NULL, as.labelled = FALSE,
+`labelise.data.frame` <- function(x, label, units = NULL, as.labelled = TRUE,
 self = TRUE, ...) {
   if (!is.data.frame(x))
     stop("x must be a data.frame")
@@ -103,7 +104,8 @@ self = TRUE, ...) {
   if (isTRUE(self)) {
     xc <- class(x)
     xx <- unclass(x)
-    xx <- labelise(xx, label = label, units = units, self = TRUE, ...)
+    xx <- labelise(xx, label = label, units = units, as.labelled = FALSE,
+      self = TRUE, ...)
     if (isTRUE(as.labelled) && !"labelled" %in% xc) {
       class(xx) <- c("labelled", xc)
     } else {
@@ -164,7 +166,7 @@ self = TRUE, ...) {
 
 #' @export
 #' @rdname labelise
-cl <- function(..., label = NULL, units = NULL, as.labelled = FALSE)
+cl <- function(..., label = NULL, units = NULL, as.labelled = TRUE)
   labelise(c(...), label = label, units = units, as.labelled = as.labelled)
 
 #' @importFrom Hmisc label
