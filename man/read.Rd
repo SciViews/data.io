@@ -10,8 +10,9 @@
 \title{Read data in \R in different formats}
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
-  locale = default_locale(), comments = NULL, package = NULL,
-  sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...)
+  locale = default_locale(), lang = "en", comments = NULL,
+  package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL,
+  fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -37,6 +38,10 @@ argument).}
 \item{skip}{The number of lines to skip at the beginning of the file.}
 
 \item{locale}{The encoding of the file.}
+
+\item{lang}{The language to use (mainly for comment, label and units), but
+also for factor levels or other chanracter strings if a translation if the
+language is provided in uppercase characters.}
 
 \item{comments}{Comments to add in the created object.}
 
@@ -101,15 +106,17 @@ data_example <- function(path)
 (iris <- read(data_example("iris.csv.tar.gz"))) ##
 (iris <- read(data_example("iris.csv.gz")))
 (iris <- read(data_example("iris.csv.bz2")))
-#(iris <- read(data_example("iris.csv.7z"))) ##
 (iris <- read(data_example("iris.tsv")))
 (iris <- read(data_example("iris.xls")))
 (iris <- read(data_example("iris.xlsx")))
 (iris <- read(data_example("iris.rds"))) # Does not tranform into tibble!
 #(iris <- read(data_example("iris.syd"))) ##
-(iris <- read(data_example("iris_short_header.csv"))) ##
 #(iris <- read(data_example("iris.csvy"))) ##
 #(iris <- read(data_example("iris.csvy.zip"))) ##
+
+# A file with an header both in English (default) and in French
+(iris <- read(data_example("iris_short_header.csv")))
+(iris_fr <- read(data_example("iris_short_header.csv"), lang = "fr"))
 
 # Require the feather package
 #(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win

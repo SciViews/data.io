@@ -8,6 +8,9 @@
 #' @param header.max The maximum of lines to consider for the header.
 #' @param skip The number of lines to skip at the beginning of the file.
 #' @param locale The encoding of the file.
+#' @param lang The language to use (mainly for comment, label and units), but
+#'   also for factor levels or other chanracter strings if a translation if the
+#'   language is provided in uppercase characters.
 #' @param comments Comments to add in the created object.
 #' @param package The package where to look for the dataset. If `file=` is not
 #'   provided, a list of available datasets in the package is displayed.
@@ -61,15 +64,17 @@
 #' (iris <- read(data_example("iris.csv.tar.gz"))) ##
 #' (iris <- read(data_example("iris.csv.gz")))
 #' (iris <- read(data_example("iris.csv.bz2")))
-#' #(iris <- read(data_example("iris.csv.7z"))) ##
 #' (iris <- read(data_example("iris.tsv")))
 #' (iris <- read(data_example("iris.xls")))
 #' (iris <- read(data_example("iris.xlsx")))
 #' (iris <- read(data_example("iris.rds"))) # Does not tranform into tibble!
 #' #(iris <- read(data_example("iris.syd"))) ##
-#' (iris <- read(data_example("iris_short_header.csv"))) ##
 #' #(iris <- read(data_example("iris.csvy"))) ##
 #' #(iris <- read(data_example("iris.csvy.zip"))) ##
+#'
+#' # A file with an header both in English (default) and in French
+#' (iris <- read(data_example("iris_short_header.csv")))
+#' (iris_fr <- read(data_example("iris_short_header.csv"), lang = "fr"))
 #'
 #' # Require the feather package
 #' #(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
@@ -127,8 +132,18 @@
 #' (iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
-  skip = 0L, locale = default_locale(), comments = NULL, package = NULL,
-  sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
+skip = 0L, locale = default_locale(), lang = "en", comments = NULL,
+package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL,
+...) {
+  # If lang is provided in uppercase character, labels.only = FALSE
+  if (length(lang) != 1 || !is.character(lang))
+    stop("lang must be a single character string")
+  labels.only <- (toupper(lang) != lang)
+  lang <- tolower(lang) # Could be like 'en' or 'en_us'
+  if (nchar(lang) < 2)
+    stop("lang must be a single character vector like 'en', or 'en_US'")
+  main_lang <- strsplit(lang, "_", fixed = TRUE)[[1]][1]
+  type_provided <- !missing(type)
   srcfile <- NULL
   src <- NULL
   # Is there a sidecar file?
@@ -205,6 +220,7 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
       # If header is not NULL and a hread_xxx() function is available,
       # read as many lines as there are starting with this string
       # and decrypt header data/metadata
+      attribs <- NULL
       if (is.null(hfun))
           hfun <- get_function(fun_item$read_header)
       if (is.function(hfun) && !is.null(header) && header != "") {
@@ -218,11 +234,12 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
           # Eliminate empty lines
           dat <- dat[dat != ""]
           # If first line contains '---', it is probably a YAML header
-          if (dat[1L] == "--") {
+          if (dat[1L] == "---") {
             # TODO: how do we deal with yaml header?
+            warning("YAML header not supported yet")
           } else {# A short form of header
             # If first line starts with a ., it is the type
-            if (substring(dat[1L], 1L, 1L) == ".") {
+            if (substring(dat[1L], 1L, 1L) == "." && !type_provided) {
               type <- substring(dat[1L], 2L)
               dat <- dat[-1L]
             }
@@ -233,11 +250,40 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
             dat <- dat[grepl("^[A-Za-z][A-Za-z0-9_-]*:.+$", dat)]
             # Now, split the strings into key - values
             keys <- sub("^ *([A-Za-z][A-Za-z0-9_-]*) *:.+$", "\\1", dat)
+            # Cannot have duplicate items
+            if (any(duplicated(keys)))
+              stop("the header contains duplicated items")
             values <- sub("^ *[A-Za-z][A-Za-z0-9_-]* *: *(.+) *$", "\\1", dat)
             names(values) <- keys
-            # Try to separate items for values, but first "protect" the
-            # splitting character prefixed with \
-
+            # Keep first default values for comment, labels, units & classes
+            keep_keys <- c("comment", "labels", "units", "classes")
+            attribs <- values[keep_keys]
+            names(attribs) <- keep_keys
+            # Substitute strings for main language
+            keep_keys_main_lang <- paste(keep_keys, main_lang, sep = "_")
+            attribs_main_lang <- values[keep_keys_main_lang]
+            # Substitute non-NA values into attribs
+            ok <- !is.na(attribs_main_lang)
+            attribs[ok] <- attribs_main_lang[ok]
+            if (lang != main_lang) {# Also substitute for full lang (en_us)
+              keep_keys_lang <- paste(keep_keys, lang, sep = "_")
+              attribs_lang <- values[keep_keys_lang]
+              # Substitute non-NA values into attribs
+              ok <- !is.na(attribs_lang)
+              attribs[ok] <- attribs_lang[ok]
+            }
+            # comment is prepended to the comments variable
+            com <- attribs["comment"]
+            if (!is.na(com)) comments <- c(com, comments)
+            # classes, labels and units will be used later on...
+            attribs <- strsplit(attribs[2:4], ",", fixed = TRUE)
+            attribs <- lapply(attribs, trimws)
+            attribs <- lapply(attribs, function(x) {x[x == "NA"] <- NA; x})
+            attribs <- try(data.frame(attribs, stringsAsFactors = FALSE),
+              silent = TRUE)
+            if (inherits(attribs, "try-error"))
+              stop("labels, units, and classes do not have the same number",
+                " of items in the header")
           }
         }
       } else n_header <- 0L
@@ -249,11 +295,56 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
       # Read the data
       skip_all <- skip + n_header
       if (skip_all > 0L) {
-        res <- fun(file, skip = skip + n_header, ...)
+        res <- fun(file, skip = skip_all, ...)
       } else {
         res <- fun(file, ...)
       }
       srcfile <- file
+
+      # Possibly process data in attribs
+      if (!is.null(attribs)) {
+        if (nrow(attribs) != ncol(res)) {
+          warning("Not the right number of entries in labels, units & classes",
+            " in the header (", nrow(attribs), ") but ", ncol(res), " needed.",
+            " These attributes are ignored")
+        } else {# Add label, units and class attributes
+          for (i in 1:nrow(attribs)) {
+            # Possibly change the class
+            new_class <- attribs[i, "classes"]
+            if (!is.na(new_class)) {
+              # Are there arguments to the class? between ()
+              if (grepl("^.+\\(.+\\)$", new_class)) {
+                class_args <- sub("^.+\\((.+)\\)$", "\\1", new_class)
+                class_args <- strsplit(class_args, "+", fixed = TRUE)[[1]]
+                class_args <- trimws(class_args)
+                class_args[class_args == "NA"] <- NA
+                new_class <- sub("\\(.+$", "", new_class)
+              } else class_args <- NULL
+              res[[i]] <- switch(new_class,
+                logical = as.logical(res[[i]]),
+                integer = as.integer(res[[i]]),
+                numeric = as.numeric(res[[i]]),
+                character = as.character(res[[i]]),
+                factor = if (is.null(class_args)) as.factor(res[[i]]) else
+                  factor(res[[i]], levels = class_args),
+                ordered = if (is.null(class_args)) as.ordered(res[[i]]) else
+                  ordered(res[[i]], levels = class_args),
+                warning("unknown class for variable ", i, ": ", new_class)
+              )
+            }
+
+            # Possibly add a label
+            new_label <- attribs[i, "labels"]
+            if (!is.na(new_label))
+              label(res[[i]]) <- new_label
+
+            # Possibly add units
+            new_units <- attribs[i, "units"]
+            if (!is.na(new_units))
+              units(res[[i]]) <- new_units
+          }
+        }
+      }
     }
   }
 

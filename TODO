@@ -1,27 +1,27 @@
 # data To Do list
 
-* Should we keep 'srcfile' for attribute of comment (not printed!)
-
 * Rework data_raw script + translations by using labelise(self = FALSE)
 
 * Do not label or change class (use data.frame) for initial dataset, but do it
   within read() with lang = argument + data_class = .
 
-* Test for sidecar files.
+* Make use of translation files or functions.
 
-* header in .csv or .xls to define comment, labels, classes, etc.
+* Test for sidecar files.
 
 * data_example() function
 
 * Add more datasets (plankton, ...).
 
+* about(), .? and the dataframe methods to be placed somewhere.
 
 
 
-* make iris_short_header.csv, iris.csv.7z, iris.csvy, iris.csvy.zip,
-  iris.sas7bdat and iris.syd working: add foreign function.
 
-* csvy
+* Add more recognized classes (Date, time, etc.) for headers (+ abbrev?)
+
+* make iris.csvy, iris.csvy.zip, iris.sas7bdat and iris.syd working: add foreign
+  function & csvy.
 
 * Look at fst package for ultra-fast csv read/write (+ data.table).
 
@@ -37,5 +37,3 @@
 * A smaller example for read(), and detail all the cases in a vignette instead.
 
 * revdep, see for instance, https://github.com/hadley/nycflights13
-
-* about(), .? and the dataframe methods to be placed somewhere.

@@ -1,10 +1,10 @@
 # .csv
 # The famous Anderson's iris dataset
-# -fr: Les fameuses iris d'Anderson
-# f_label: Sepal length,Sepal width,Petal length,Petal width,Species
-# -fr: Longueur de sépales,Largeur de sépales,Longueur de pétales,Largeur de pétales,Espèce
-# f_units: mm,mm,mm,mm,
-# f_class: numeric,numeric,numeric,numeric,factor(setosa+versicolor+virginica)
+# comment_fr: Les fameuses iris d'Anderson
+# labels: Sepal length,Sepal width,Petal length,Petal width,Species
+# labels_fr: Longueur de sépales,Largeur de sépales,Longueur de pétales,Largeur de pétales,Espèce
+# units: mm,mm,mm,mm,NA
+# classes: numeric,numeric,numeric,numeric,factor(setosa+versicolor+virginica)
 Sepal.Length,Sepal.Width,Petal.Length,Petal.Width,Species
 5.1,3.5,1.4,0.2,setosa
 4.9,3,1.4,0.2,setosa
