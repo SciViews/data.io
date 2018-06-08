@@ -1,7 +1,14 @@
 .urchin_growth_fr <- function(urchin_growth, labels.only = FALSE) {
-  urchin_growth$date <- labelise(urchin_growth$date, "Date")
-  urchin_growth$age <- labelise(urchin_growth$age, "Âge", "années")
-  urchin_growth$diameter <- labelise(urchin_growth$diameter, "Diamètre du test", "mm")
+  urchin_growth <- labelise(urchin_growth, self = FALSE,
+    label = list(
+      date = "Date",
+      age = "Âge",
+      diameter = "Diamètre du test"),
+    units = list(
+      date = NA,
+      age = "années",
+      diameter = "mm")
+  )
 
   #if (!isTRUE(labels.only)) {
   #

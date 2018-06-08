@@ -1,7 +1,5 @@
 # data To Do list
 
-* Rework data_raw script + translations by using labelise(self = FALSE)
-
 * Do not label or change class (use data.frame) for initial dataset, but do it
   within read() with lang = argument + data_class = .
 

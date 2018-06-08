@@ -57,7 +57,8 @@
 #'
 #' Size at age for a cohort of farmed sea urchins, *Paracentrotus lividus*.
 #'
-#' @format A data frame with 3 variables: \code{date}, \code{age} (in years), \code{diameter} (in mm).
+#' @format A data frame with 3 variables: \code{date}, \code{age} (in years),
+#' \code{diameter} (in mm).
 #'
 #' The same cohort of farmed sea urchins being measured at various time
 #' intervals, the observations are not completelly independent from each other:
