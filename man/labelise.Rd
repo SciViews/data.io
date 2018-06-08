@@ -8,9 +8,9 @@
 \alias{cl}
 \title{Set label (and units)}
 \usage{
-labelise(x, label, units = NULL, as.labelled = FALSE, ...)
+labelise(x, label, units = NULL, as.labelled = TRUE, ...)
 
-labelize(x, label, units = NULL, as.labelled = FALSE, ...)
+labelize(x, label, units = NULL, as.labelled = TRUE, ...)
 
 \method{labelise}{default}(x, label, units = NULL, as.labelled = TRUE, ...)
 

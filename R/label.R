@@ -59,7 +59,7 @@
 #'   Sepal.Length = "Length of the sepals",
 #'   Petal.Length = "Length of the petals"
 #'   ), units = c(rep("cm", 4), NA))
-labelise <- function(x, label, units = NULL, as.labelled = FALSE, ...)
+labelise <- function(x, label, units = NULL, as.labelled = TRUE, ...)
   UseMethod("labelise")
 
 #' @export
