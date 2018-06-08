@@ -117,6 +117,8 @@ data_example <- function(path)
 # A file with an header both in English (default) and in French
 (iris <- read(data_example("iris_short_header.csv")))
 (iris_fr <- read(data_example("iris_short_header.csv"), lang = "fr"))
+# Headers are also recognized in xls/xlsx files
+(iris_fr <- read(data_example("iris_short_header.xls"), lang = "fr"))
 
 # Require the feather package
 #(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
