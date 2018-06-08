@@ -12,12 +12,12 @@ labelise(x, label, units = NULL, as.labelled = FALSE, ...)
 
 labelize(x, label, units = NULL, as.labelled = FALSE, ...)
 
-\method{labelise}{default}(x, label, units = NULL, as.labelled = FALSE, ...)
+\method{labelise}{default}(x, label, units = NULL, as.labelled = TRUE, ...)
 
-\method{labelise}{data.frame}(x, label, units = NULL, as.labelled = FALSE,
+\method{labelise}{data.frame}(x, label, units = NULL, as.labelled = TRUE,
   self = TRUE, ...)
 
-cl(..., label = NULL, units = NULL, as.labelled = FALSE)
+cl(..., label = NULL, units = NULL, as.labelled = TRUE)
 }
 \arguments{
 \item{x}{An object.}
@@ -27,7 +27,8 @@ cl(..., label = NULL, units = NULL, as.labelled = FALSE)
 \item{units}{The units (optional) as a character string to set for \code{x}.}
 
 \item{as.labelled}{Should the object be converted as a \code{labelled} S3 object
-(no by default)?}
+(by default)? If you don't make labelled objects, subsetting the data will
+lead to a lost of \code{label} and \code{units} attributes for all variables.}
 
 \item{...}{Further arguments: itesm to be concatenated in a vector using
 \code{c(...)} for \code{cl()}.}
