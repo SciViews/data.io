@@ -50,8 +50,43 @@
 #' read() # List all available datasets in your installed version of R
 #' # List datasets in one particular package
 #' read(package = "data")
-#' # Read one dataset from an R package, possibly changing its name
+#'
+#' # Read one dataset from this package, possibly changing its name
 #' (urchin <- read("urchin_bio", package = "data"))
+#' # Same, but using labels in French
+#' (urchin <- read("urchin_bio", package = "data", lang = "fr"))
+#' # ... and also the levels of factors in French (note: uppercase FR)
+#' (urchin <- read("urchin_bio", package = "data", lang = "FR"))
+#'
+#' # Read one dataset from another package, but with labels and comments
+#' data(iris) # The R way: you got the initial datasets
+#' # Same result, using read()
+#' ir2 <- read("iris", package = "datasets", lang = NULL, as_dataframe = FALSE)
+#' # ir2 records that it comes from datasets::iris
+#' attr(comment(ir2), "src")
+#' # appart from that, it is identical to iris
+#' comment(ir2) <- NULL
+#' identical(iris, ir2)
+#' # More interesting: you can get an enhanced version of iris with read():
+#' # (note that variable names ar in snake-case now!)
+#' (ir3 <- read("iris", package = "datasets"))
+#' class(ir3)
+#' comment(ir3)
+#' ir3$sepal_length
+#' # ... and you can get it in French too!
+#' (ir_fr <- read("iris", package = "datasets", lang = "fr"))
+#' class(ir_fr)
+#' comment(ir_fr)
+#' ir_fr$sepal_length
+#'
+#' # Sometimes, datasets are more deeply reworked. For instance, trees has
+#' # variables in imperial units (in, ft, and cubic ft), but it is automatically
+#' # reworked by read() into metric variables (m or m^3):
+#' data(trees)
+#' head(trees)
+#' (trees2 <- read("trees", package = "datasets"))
+#' comment(trees2)
+#' trees2$volume
 #'
 #' # Read from a Github Gist (need to specify the type here!)
 #' (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
@@ -407,15 +442,17 @@ hfun = NULL, fun = NULL, ...) {
   }
 
   # Record the comments and origin of the data
-  comments <- paste0(comments, collapse = "\n")
+  cmt <- comment(res)
+  cmt[] <- c(cmt, comments)
+  if (is.null(cmt)) cmt2 <- "" else cmt2 <- cmt
   if (!is.null(srcfile)) {
-    attr(comments, "srcfile") <- srcfile
-    comment(res) <- comments
+    attr(cmt2, "srcfile") <- srcfile
+    comment(res) <- cmt2
   } else if (!is.null(src)) {
-    attr(comments, "src") <- src
-    comment(res) <- comments
-  } else if (comments != "") {
-    comment(res) <- comments
+    attr(cmt2, "src") <- src
+    comment(res) <- cmt2
+  } else if (!is.null(cmt)) {
+    comment(res) <- cmt
   }
 
   if (isTRUE(as_dataframe)) {# Try to convert the object into a dataframe

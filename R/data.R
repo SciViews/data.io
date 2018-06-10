@@ -77,3 +77,18 @@
 #'   ylab(label(urchin_growth$diameter, units = TRUE)) +
 #'   ggtitle("Growth of a cohort of sea urchins")
 "urchin_growth"
+
+
+
+# Datasets available from other packages ---------------------------------------
+
+#' Labelised versions of various datasets provided by other packages
+#'
+#' From `datasets`: use `read(<item>, package = "datasets")`
+#' \describe{
+#'   \item{\code{\link{iris}}}{Edgar Anderson's iris data.}
+#'   \item{\code{\link{trees}}}{Black cherry trees measurements.}
+#' }
+#'
+#' @name datasets
+NULL
