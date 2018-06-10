@@ -120,6 +120,14 @@ read(package = "data")
 # Headers are also recognized in xls/xlsx files
 (iris_fr <- read(data_example("iris_short_header.xls"), lang = "fr"))
 
+# Read a file with a sidecar file (same name + '.R')
+(iris <- read(data_example("iris_sidecar.csv"))) # lang = "en" by default
+(iris <- read(data_example("iris_sidecar.csv"), lang = "EN")) # Full lang
+(iris <- read(data_example("iris_sidecar.csv"), lang = "en_us")) # US (in)
+(iris <- read(data_example("iris_sidecar.csv"), lang = "fr")) # French
+(iris <- read(data_example("iris_sidecar.csv"), lang = "FR_BE")) # Belgian
+(iris <- read(data_example("iris_sidecar.csv"), lang = NULL)) # No labels
+
 # Require the feather package
 #(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
 

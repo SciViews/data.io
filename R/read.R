@@ -77,6 +77,14 @@
 #' # Headers are also recognized in xls/xlsx files
 #' (iris_fr <- read(data_example("iris_short_header.xls"), lang = "fr"))
 #'
+#' # Read a file with a sidecar file (same name + '.R')
+#' (iris <- read(data_example("iris_sidecar.csv"))) # lang = "en" by default
+#' (iris <- read(data_example("iris_sidecar.csv"), lang = "EN")) # Full lang
+#' (iris <- read(data_example("iris_sidecar.csv"), lang = "en_us")) # US (in)
+#' (iris <- read(data_example("iris_sidecar.csv"), lang = "fr")) # French
+#' (iris <- read(data_example("iris_sidecar.csv"), lang = "FR_BE")) # Belgian
+#' (iris <- read(data_example("iris_sidecar.csv"), lang = NULL)) # No labels
+#'
 #' # Require the feather package
 #' #(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
 #'
@@ -141,10 +149,14 @@ hfun = NULL, fun = NULL, ...) {
       stop("lang must be a single character string or NULL")
     # If lang is provided in uppercase character, labels_only = FALSE
     labels_only <- (toupper(lang) != lang)
-    lang <- tolower(lang) # Could be like 'en' or 'en_us'
+    full_lang <- tolower(lang) # Could be like 'en' or 'en_us'
     if (nchar(lang) < 2)
       stop("lang must be a single character vector like 'en', or 'en_US'")
     main_lang <- strsplit(lang, "_", fixed = TRUE)[[1]][1]
+  } else {
+    full_lang <- NULL
+    main_lang <- NULL
+    labels_only <- TRUE
   }
   type_provided <- !missing(type)
   srcfile <- NULL
@@ -161,7 +173,8 @@ hfun = NULL, fun = NULL, ...) {
   if (isTRUE(sidecar_file) && file.exists(file2)) {
     # Use a fake dataset content: it is supposed to be modified by the script
     dataset <- NULL
-    source(file2, local = TRUE, chdir = TRUE, verbose = FALSE)
+    source(file2, local = TRUE, chdir = TRUE, verbose = FALSE,
+      encoding = "UTF-8")
     if (is.null(dataset))
       stop("The script '", basename(file2),
         "' did not produce a valid 'dataset' object.",
@@ -192,9 +205,9 @@ hfun = NULL, fun = NULL, ...) {
       # Note thant, if language is not found, we also look for the default
       # 'en' version as a fallback
       if (!is.null(lang)) {
-        trans_fun <- function(data, lang, main_lang) {
+        trans_fun <- function(data, full_lang, main_lang) {
           envir <- parent.frame()
-          fun <- get0(paste0(".", data, "_", lang), envir = envir)
+          fun <- get0(paste0(".", data, "_", full_lang), envir = envir)
           if (is.null(fun))
             fun <- get0(paste0(".", data, "_", main_lang), envir = envir)
           if (is.null(fun))
@@ -202,12 +215,12 @@ hfun = NULL, fun = NULL, ...) {
           fun
         }
         # Look for a function first (either using lang or main_lang)
-        if (!is.null(fun <- trans_fun(file, lang, main_lang))) {
+        if (!is.null(fun <- trans_fun(file, full_lang, main_lang))) {
           res <- fun(res, labels_only = labels_only)
         } else {# Look for a script either in original package or in data
-          trans_script <- function(data, lang, main_lang, package) {
+          trans_script <- function(data, full_lang, main_lang, package) {
             script <- system.file("translation",
-              paste0(data, "_", lang, ".R"), package = package)
+              paste0(data, "_", full_lang, ".R"), package = package)
             if (script == "")
               script <- system.file("translation",
                 paste0(data, "_", main_lang, ".R"), package = package)
@@ -216,12 +229,12 @@ hfun = NULL, fun = NULL, ...) {
                 paste0(data, "_en.R"), package = package)
             script
           }
-          script <- trans_script(file, lang, main_lang, package)
+          script <- trans_script(file, full_lang, main_lang, package)
           if (script == "")
-            script <- trans_script(file, lang, main_lang, "data")
+            script <- trans_script(file, full_lang, main_lang, "data")
           if (script != "") {# Source it, then run the corresponding function
             source(script, local = TRUE, chdir = TRUE, verbose = FALSE)
-            if (!is.null(fun <- trans_fun(file, lang, main_lang)))
+            if (!is.null(fun <- trans_fun(file, full_lang, main_lang)))
               res <- fun(res, labels_only = labels_only)
           }
         }
@@ -309,8 +322,8 @@ hfun = NULL, fun = NULL, ...) {
               # Substitute non-NA values into attribs
               ok <- !is.na(attribs_main_lang)
               attribs[ok] <- attribs_main_lang[ok]
-              if (lang != main_lang) {# Also substitute for full lang (en_us)
-                keep_keys_lang <- paste(keep_keys, lang, sep = "_")
+              if (full_lang != main_lang) {# Also substitute full lang (en_us)
+                keep_keys_lang <- paste(keep_keys, full_lang, sep = "_")
                 attribs_lang <- values[keep_keys_lang]
                 # Substitute non-NA values into attribs
                 ok <- !is.na(attribs_lang)
