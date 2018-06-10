@@ -1,22 +1,20 @@
 # data To Do list
 
-* Do not label or change class (use data.frame) for initial dataset, but do it
-  within read() with lang = argument + data_class = .
-
-* Make use of translation files or functions.
-
 * Test for sidecar files.
 
 * data_example() function
 
 * Add more datasets (plankton, ...).
 
-* about(), .? and the dataframe methods to be placed somewhere.
+* about(), .?
 
 * unlabelise() + more meaningful classes for labelled, and always label
 
-* rio::characterize() or factorize() for SPSS or SAS datasets.
 
+
+* Rework the read() function.
+
+* rio::characterize() or factorize() for SPSS or SAS datasets + more rio.
 
 * Add more recognized classes (Date, time, etc.) for headers (+ abbrev?)
 
@@ -35,5 +33,7 @@
 * Integrate units with the convertr, prettyunits and units packages.
 
 * A smaller example for read(), and detail all the cases in a vignette instead.
+
+* More tests.
 
 * revdep, see for instance, https://github.com/hadley/nycflights13

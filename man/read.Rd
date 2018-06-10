@@ -10,9 +10,9 @@
 \title{Read data in \R in different formats}
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
-  locale = default_locale(), lang = "en", comments = NULL,
-  package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL,
-  fun = NULL, ...)
+  locale = default_locale(), lang = "en", as_dataframe = TRUE,
+  comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
+  hfun = NULL, fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -40,8 +40,12 @@ argument).}
 \item{locale}{The encoding of the file.}
 
 \item{lang}{The language to use (mainly for comment, label and units), but
-also for factor levels or other chanracter strings if a translation if the
-language is provided in uppercase characters.}
+also for factor levels or other chanracter strings if a translation exists
+and if the language is spelled with uppercase characters (e.g., \code{"FR"}).}
+
+\item{as_dataframe}{Do we try to convert the resulting object into a
+\code{dataframe} (inheriting from \code{data.frame}, \code{tbl} and \code{tbl_db} alias
+\code{tibble})? If \code{FALSE}, no conversion is attempted.}
 
 \item{comments}{Comments to add in the created object.}
 

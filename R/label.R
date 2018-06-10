@@ -177,7 +177,8 @@ Hmisc::label
 #' @export
 Hmisc::`label<-`
 
-#' @importFrom Hmisc units
-#' @export
-Hmisc::units
+# Don't do that! units is already defined in base and is fine from there!
+##' @importFrom Hmisc units
+##' @export
+#Hmisc::units
 

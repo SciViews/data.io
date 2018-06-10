@@ -9,8 +9,11 @@
 #' @param skip The number of lines to skip at the beginning of the file.
 #' @param locale The encoding of the file.
 #' @param lang The language to use (mainly for comment, label and units), but
-#'   also for factor levels or other chanracter strings if a translation if the
-#'   language is provided in uppercase characters.
+#'   also for factor levels or other chanracter strings if a translation exists
+#'   and if the language is spelled with uppercase characters (e.g., `"FR"`).
+#' @param as_dataframe Do we try to convert the resulting object into a
+#'   `dataframe` (inheriting from `data.frame`, `tbl` and `tbl_db` alias
+#'   `tibble`)? If `FALSE`, no conversion is attempted.
 #' @param comments Comments to add in the created object.
 #' @param package The package where to look for the dataset. If `file=` is not
 #'   provided, a list of available datasets in the package is displayed.
@@ -134,17 +137,19 @@
 #' (iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
-skip = 0L, locale = default_locale(), lang = "en", comments = NULL,
-package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL,
-...) {
-  # If lang is provided in uppercase character, labels.only = FALSE
-  if (length(lang) != 1 || !is.character(lang))
-    stop("lang must be a single character string")
-  labels.only <- (toupper(lang) != lang)
-  lang <- tolower(lang) # Could be like 'en' or 'en_us'
-  if (nchar(lang) < 2)
-    stop("lang must be a single character vector like 'en', or 'en_US'")
-  main_lang <- strsplit(lang, "_", fixed = TRUE)[[1]][1]
+skip = 0L, locale = default_locale(), lang = "en", as_dataframe = TRUE,
+comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
+hfun = NULL, fun = NULL, ...) {
+  if (!is.null(lang)) {
+    if (length(lang) != 1 || !is.character(lang))
+      stop("lang must be a single character string or NULL")
+    # If lang is provided in uppercase character, labels_only = FALSE
+    labels_only <- (toupper(lang) != lang)
+    lang <- tolower(lang) # Could be like 'en' or 'en_us'
+    if (nchar(lang) < 2)
+      stop("lang must be a single character vector like 'en', or 'en_US'")
+    main_lang <- strsplit(lang, "_", fixed = TRUE)[[1]][1]
+  }
   type_provided <- !missing(type)
   srcfile <- NULL
   src <- NULL
@@ -186,6 +191,46 @@ package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL,
         stop("dataset '", file, "' not found in package '", package, "'")
       res <- get(file, envir = environment(), inherits = FALSE)
       src <- paste(package, file, sep = "::")
+
+      # Look for a translation function or script for this dataset
+      # Note thant, if language is not found, we also look for the default
+      # 'en' version as a fallback
+      if (!is.null(lang)) {
+        trans_fun <- function(data, lang, main_lang) {
+          envir <- parent.frame()
+          fun <- get0(paste0(".", data, "_", lang), envir = envir)
+          if (is.null(fun))
+            fun <- get0(paste0(".", data, "_", main_lang), envir = envir)
+          if (is.null(fun))
+            fun <- get0(paste0(".", data, "_en"), envir = envir)
+          fun
+        }
+        # Look for a function first (either using lang or main_lang)
+        if (!is.null(fun <- trans_fun(file, lang, main_lang))) {
+          res <- fun(res, labels_only = labels_only)
+        } else {# Look for a script either in original package or in data
+          trans_script <- function(data, lang, main_lang, package) {
+            script <- system.file("translation",
+              paste0(data, "_", lang, ".R"), package = package)
+            if (script == "")
+              script <- system.file("translation",
+                paste0(data, "_", main_lang, ".R"), package = package)
+            if (script == "")
+              script <- system.file("translation",
+                paste0(data, "_en.R"), package = package)
+            script
+          }
+          script <- trans_script(file, lang, main_lang, package)
+          if (script == "")
+            script <- trans_script(file, lang, main_lang, "data")
+          if (script != "") {# Source it, then run the corresponding function
+            source(script, local = TRUE, chdir = TRUE, verbose = FALSE)
+            if (!is.null(fun <- trans_fun(file, lang, main_lang)))
+              res <- fun(res, labels_only = labels_only)
+          }
+        }
+      }
+
     } else {# No package provided, read an external file
 
       if (is.null(type))
@@ -261,18 +306,20 @@ package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL,
             keep_keys <- c("comment", "labels", "units", "classes")
             attribs <- values[keep_keys]
             names(attribs) <- keep_keys
-            # Substitute strings for main language
-            keep_keys_main_lang <- paste(keep_keys, main_lang, sep = "_")
-            attribs_main_lang <- values[keep_keys_main_lang]
-            # Substitute non-NA values into attribs
-            ok <- !is.na(attribs_main_lang)
-            attribs[ok] <- attribs_main_lang[ok]
-            if (lang != main_lang) {# Also substitute for full lang (en_us)
-              keep_keys_lang <- paste(keep_keys, lang, sep = "_")
-              attribs_lang <- values[keep_keys_lang]
+            if (!is.null(lang)) {
+              # Substitute strings for main language
+              keep_keys_main_lang <- paste(keep_keys, main_lang, sep = "_")
+              attribs_main_lang <- values[keep_keys_main_lang]
               # Substitute non-NA values into attribs
-              ok <- !is.na(attribs_lang)
-              attribs[ok] <- attribs_lang[ok]
+              ok <- !is.na(attribs_main_lang)
+              attribs[ok] <- attribs_main_lang[ok]
+              if (lang != main_lang) {# Also substitute for full lang (en_us)
+                keep_keys_lang <- paste(keep_keys, lang, sep = "_")
+                attribs_lang <- values[keep_keys_lang]
+                # Substitute non-NA values into attribs
+                ok <- !is.na(attribs_lang)
+                attribs[ok] <- attribs_lang[ok]
+              }
             }
             # comment is prepended to the comments variable
             com <- attribs["comment"]
@@ -362,9 +409,13 @@ package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL,
     comment(res) <- comments
   }
 
-  # TODO: possible translate and change the class of the resulting object
+  if (isTRUE(as_dataframe)) {# Try to convert the object into a dataframe
+    conv <- try(as_dataframe(res), silent = TRUE)
+    if (!inherits(conv, "try_error"))
+      res <- conv
+  }
   res
-}, class = c("subsettable_type", "function"))
+}, class = c("function", "subsettable_type"))
 
 #' @export
 #' @rdname read

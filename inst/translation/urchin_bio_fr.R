@@ -1,4 +1,4 @@
-.urchin_bio_fr <- function(urchin_bio, labels.only = FALSE) {
+.urchin_bio_fr <- function(urchin_bio, labels_only = FALSE) {
   urchin_bio <- labelise(urchin_bio, self = FALSE,
     label = list(
       origin = "Origine",
@@ -42,7 +42,7 @@
       sex = NA)
   )
 
-  if (!isTRUE(labels.only)) {
+  if (!isTRUE(labels_only)) {
     levels(urchin_bio$origin) <- c("Culture", "Pêcherie")
     levels(urchin_bio$sex) <- c("F", "M")
   }

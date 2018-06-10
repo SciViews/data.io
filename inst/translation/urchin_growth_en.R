@@ -1,4 +1,4 @@
-.urchin_growth_en <- function(urchin_growth, labels.only = FALSE) {
+.urchin_growth_en <- function(urchin_growth, labels_only = FALSE) {
   urchin_growth <- labelise(urchin_growth, self = FALSE,
     label = list(
       date = "Date",
@@ -10,7 +10,7 @@
       diameter = "mm")
   )
 
-  #if (!isTRUE(labels.only)) {
+  #if (!isTRUE(labels_only)) {
   #
   #}
 
