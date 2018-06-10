@@ -25,12 +25,12 @@ There are several datasets spread between various R packages, but there is no cl
 
 - snake_case names, both for the datasets and their variables,
 
-- Uppercase for factor levels,
+- Uppercase for factor levels (but less strict),
 
 - data frames are converted, by default, into `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, they are also **tibble**s, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
 
 - variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
 
-- the origin of the data is recorded as an `src` attribute to the comment.
+- the origin of the data is recorded as an `src` attribute to the comment if this is a R package dataset, or as a `srcfile` attribute to comment if it read from a file.
 
 

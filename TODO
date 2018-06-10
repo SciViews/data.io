@@ -1,10 +1,6 @@
 # data To Do list
 
-* unlabelise() + more meaningful classes for labelled, and always label
-
-* Add more datasets (plankton, ...).
-
-
+* label versus comment for a dataframe?
 
 * Rework the read() function.
 
@@ -20,9 +16,6 @@
 * write() + keep it compatible with base::write()!
 
 * Functions to write headers too: write -> read should restore same object!
-
-* Use a Github repository that provides scripts to translated datasets in
-  different languages, and use it in read(...., lang = "xx").
 
 * Integrate units with the convertr, prettyunits and units packages.
 

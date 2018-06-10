@@ -6,18 +6,30 @@
 \alias{labelise.default}
 \alias{labelise.data.frame}
 \alias{cl}
+\alias{unlabelise}
+\alias{unlabelize}
+\alias{unlabelise.default}
+\alias{unlabelise.data.frame}
 \title{Set label (and units)}
 \usage{
-labelise(x, label, units = NULL, as.labelled = TRUE, ...)
+labelise(x, label, units = NULL, as_labelled = TRUE, ...)
 
-labelize(x, label, units = NULL, as.labelled = TRUE, ...)
+labelize(x, label, units = NULL, as_labelled = TRUE, ...)
 
-\method{labelise}{default}(x, label, units = NULL, as.labelled = TRUE, ...)
+\method{labelise}{default}(x, label, units = NULL, as_labelled = TRUE, ...)
 
-\method{labelise}{data.frame}(x, label, units = NULL, as.labelled = TRUE,
+\method{labelise}{data.frame}(x, label, units = NULL, as_labelled = TRUE,
   self = TRUE, ...)
 
-cl(..., label = NULL, units = NULL, as.labelled = TRUE)
+cl(..., label = NULL, units = NULL, as_labelled = TRUE)
+
+unlabelise(x, ...)
+
+unlabelize(x, ...)
+
+\method{unlabelise}{default}(x, ...)
+
+\method{unlabelise}{data.frame}(x, self = TRUE, ...)
 }
 \arguments{
 \item{x}{An object.}
@@ -26,7 +38,7 @@ cl(..., label = NULL, units = NULL, as.labelled = TRUE)
 
 \item{units}{The units (optional) as a character string to set for \code{x}.}
 
-\item{as.labelled}{Should the object be converted as a \code{labelled} S3 object
+\item{as_labelled}{Should the object be converted as a \code{labelled} S3 object
 (by default)? If you don't make labelled objects, subsetting the data will
 lead to a lost of \code{label} and \code{units} attributes for all variables.}
 
@@ -55,7 +67,7 @@ here. However, \strong{Hmisc} always add the \strong{labelled} class to an objec
 while here, this is optional. Setting this class make the object more nicely
 printed, and subsettable without loosing these attributes. But it conflicts
 with a class of the same name in package \strong{haven}, used for other purposes.
-So, here, the class is \strong{not} set by default.
+So, here, one can also opt not to set it, using \code{as_labelled = FALSE}.
 }
 \examples{
 # Labelise a vector:
@@ -65,13 +77,15 @@ x
 # or, in a single operation:
 x <- cl(1:10, label = "A suite of integers", units = "cm")
 x
-# Adding the labelled class:
-x <- cl(1:10, label = "Integers", units = "cm", as.labelled = TRUE)
+# Not adding the labelled class:
+x <- cl(1:10, label = "Integers", units = "cm", as_labelled = FALSE)
 x
+# Unlabelising a labelised object
+unlabelise(x)
 
 # Labelise a data.frame
-data(iris)
-iris <- labelise(iris, "The famous iris dataset")
+iris <- labelise(datasets::iris, "The famous iris dataset")
+unlabelise(iris)
 # but if you indicate self = FALSE, you can labelise variables within the
 # data.frame (use a list or character vector of same length as x, or a
 # named list or character vector):
@@ -79,6 +93,7 @@ iris <- labelise(iris, self = FALSE, label = list(
   Sepal.Length = "Length of the sepals",
   Petal.Length = "Length of the petals"
   ), units = c(rep("cm", 4), NA))
+iris <- unlabelise(iris, self = FALSE)
 }
 \seealso{
 \code{\link[=label]{label()}}, \code{\link[=units]{units()}}

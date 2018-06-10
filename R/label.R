@@ -12,7 +12,7 @@
 #' @param x An object.
 #' @param label The character string to set as `label` attribute to `x`.
 #' @param units The units (optional) as a character string to set for `x`.
-#' @param as.labelled Should the object be converted as a `labelled` S3 object
+#' @param as_labelled Should the object be converted as a `labelled` S3 object
 #' (by default)? If you don't make labelled objects, subsetting the data will
 #' lead to a lost of `label` and `units` attributes for all variables.
 #' @param ... Further arguments: itesm to be concatenated in a vector using
@@ -31,7 +31,7 @@
 #' while here, this is optional. Setting this class make the object more nicely
 #' printed, and subsettable without loosing these attributes. But it conflicts
 #' with a class of the same name in package **haven**, used for other purposes.
-#' So, here, the class is **not** set by default.
+#' So, here, one can also opt not to set it, using `as_labelled = FALSE`.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
 #' @seealso [label()], [units()]
@@ -45,13 +45,15 @@
 #' # or, in a single operation:
 #' x <- cl(1:10, label = "A suite of integers", units = "cm")
 #' x
-#' # Adding the labelled class:
-#' x <- cl(1:10, label = "Integers", units = "cm", as.labelled = TRUE)
+#' # Not adding the labelled class:
+#' x <- cl(1:10, label = "Integers", units = "cm", as_labelled = FALSE)
 #' x
+#' # Unlabelising a labelised object
+#' unlabelise(x)
 #'
 #' # Labelise a data.frame
-#' data(iris)
-#' iris <- labelise(iris, "The famous iris dataset")
+#' iris <- labelise(datasets::iris, "The famous iris dataset")
+#' unlabelise(iris)
 #' # but if you indicate self = FALSE, you can labelise variables within the
 #' # data.frame (use a list or character vector of same length as x, or a
 #' # named list or character vector):
@@ -59,7 +61,8 @@
 #'   Sepal.Length = "Length of the sepals",
 #'   Petal.Length = "Length of the petals"
 #'   ), units = c(rep("cm", 4), NA))
-labelise <- function(x, label, units = NULL, as.labelled = TRUE, ...)
+#' iris <- unlabelise(iris, self = FALSE)
+labelise <- function(x, label, units = NULL, as_labelled = TRUE, ...)
   UseMethod("labelise")
 
 #' @export
@@ -69,7 +72,7 @@ labelize <- labelise
 #' @export
 #' @rdname labelise
 #' @method labelise default
-`labelise.default` <- function(x, label, units = NULL, as.labelled = TRUE,
+`labelise.default` <- function(x, label, units = NULL, as_labelled = TRUE,
 ...) {
   if (!is.null(label) && !is.na(label)) {
     if (is.list(label))
@@ -77,7 +80,7 @@ labelize <- labelise
     if (length(label) != 1L)
       stop("label must be character vector of length 1")
     attr(x, "label") <- label
-    if (isTRUE(as.labelled) && !"labelled" %in% class(x))
+    if (isTRUE(as_labelled) && !"labelled" %in% class(x))
       class(x) <- c("labelled", class(x))
   }
 
@@ -93,7 +96,7 @@ labelize <- labelise
 #'   `label=` and `units=` must be either lists or character vectors of the same
 #'   length as `x`, or be named with the names of several or all `x` variables.
 #' @method labelise data.frame
-`labelise.data.frame` <- function(x, label, units = NULL, as.labelled = TRUE,
+`labelise.data.frame` <- function(x, label, units = NULL, as_labelled = TRUE,
 self = TRUE, ...) {
   if (!is.data.frame(x))
     stop("x must be a data.frame")
@@ -106,7 +109,7 @@ self = TRUE, ...) {
     xx <- unclass(x)
     xx <- labelise(xx, label = label, units = units, as.labelled = FALSE,
       self = TRUE, ...)
-    if (isTRUE(as.labelled) && !"labelled" %in% xc) {
+    if (isTRUE(as_labelled) && !"labelled" %in% xc) {
       class(xx) <- c("labelled", xc)
     } else {
       class(xx) <- xc
@@ -158,7 +161,7 @@ self = TRUE, ...) {
     }
     for (i in seq(along.with = x)) {
       x[[i]] <- labelise(x[[i]], label = label[[i]], units = units[[i]],
-        as.labelled = as.labelled, self = TRUE, ...)
+        as.labelled = as_labelled, self = TRUE, ...)
     }
   }
   x
@@ -166,8 +169,46 @@ self = TRUE, ...) {
 
 #' @export
 #' @rdname labelise
-cl <- function(..., label = NULL, units = NULL, as.labelled = TRUE)
-  labelise(c(...), label = label, units = units, as.labelled = as.labelled)
+cl <- function(..., label = NULL, units = NULL, as_labelled = TRUE)
+  labelise(c(...), label = label, units = units, as_labelled = as_labelled)
+
+#' @export
+#' @rdname labelise
+unlabelise <- function(x, ...)
+  UseMethod("unlabelise")
+
+#' @export
+#' @rdname labelise
+unlabelize <- unlabelise
+
+#' @export
+#' @rdname labelise
+#' @method unlabelise default
+`unlabelise.default` <- function(x, ...) {
+  attr(x, "label") <- NULL
+  units(x) <- NULL
+  cl <- class(x)
+  class(x) <- cl[cl != "labelled"]
+  x
+}
+
+#' @export
+#' @rdname labelise
+#' @method unlabelise data.frame
+`unlabelise.data.frame` <- function(x, self = TRUE, ...) {
+  if (!is.data.frame(x))
+    stop("x must be a data.frame")
+
+  if (isTRUE(self)) {
+    attr(x, "label") <- NULL
+    units(x) <- NULL
+    cl <- class(x)
+    class(x) <- cl[cl != "labelled"]
+  } else {# self = FALSE, unlabelise variables within the data.frame
+    x <- lapply(x, unlabelise)
+  }
+  x
+}
 
 #' @importFrom Hmisc label
 #' @export
@@ -176,6 +217,7 @@ Hmisc::label
 #' @importFrom Hmisc label<-
 #' @export
 Hmisc::`label<-`
+# TODO: allow to assign NULL too, to eliminate the label!
 
 # Don't do that! units is already defined in base and is fine from there!
 ##' @importFrom Hmisc units
