@@ -53,10 +53,6 @@
 #' # Read one dataset from an R package, possibly changing its name
 #' (urchin <- read("urchin_bio", package = "data"))
 #'
-#' # Many example data files in the /extdata subdirectory of the package
-#' data_example <- function(path)
-#'   system.file("extdata", path, package = "data", mustWork = TRUE)
-#'
 #' # Read from a Github Gist (need to specify the type here!)
 #' (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 #'

@@ -2,11 +2,7 @@
 
 * Test for sidecar files.
 
-* data_example() function
-
 * Add more datasets (plankton, ...).
-
-* about(), .?
 
 * unlabelise() + more meaningful classes for labelled, and always label
 
