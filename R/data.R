@@ -142,6 +142,8 @@
 # datasets::attitude -> survey with 1 var/7 linearly correlated with response
 # datasets::ChickWeight (4 diets, but indicated 1 -> 4) vs datasets::chickwts
 # (six diets, correctly identified, but only last weight given).
+# datasets::CO2 is an example of adjusting SSasymp()
+
 
 
 
@@ -168,6 +170,8 @@
 #' \describe{
 #'   \item{\code{\link{anscombe}}}{Anscombe's quartet of ‘identical’ simple
 #'   linear Regressions. 8 vars x 11 obs. Artificial data. }
+#'   \item{\code{\link{co2}}}{Mauna Loa atmospheric CO2 concentration. 2 vars x
+#'   468 obs. Time series of CO2 atmospheric increase as recorded in Hawaii. }
 #'   \item{\code{\link{iris}}}{Edgar Anderson's iris data. 5 vars x 150 obs.
 #'   Morphometry of the flowers of three iris species (50 for each species). }
 #'   \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31
