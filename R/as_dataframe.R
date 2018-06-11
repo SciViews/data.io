@@ -54,7 +54,12 @@ as.dataframe <- as_dataframe
 
 #' @export
 #' @rdname as_dataframe
-as_dataframe.default <- function(x, ...) {
+#' @param tz The time zone. Useful for converting `ts` objects with observations
+#' more frequent than daily.
+as_dataframe.default <- function(x, tz = "UTC", ...) {
+  # If we have time series objects, transform first into tsibble
+  if (inherits(x, c("ts", "mts", "hts", "msts", "grouped_ts")))
+    x <- as_tsibble(x, tz = tz, gather = FALSE, ...)
   x <- as_tibble(x, ...)
   if (is_tibble(x)) {
     class(x) <- unique(c("dataframe", class(x)))

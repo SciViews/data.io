@@ -14,6 +14,7 @@
 #' @name data-package
 #'
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
+#' @importFrom tsibble as_tsibble
 #' @importFrom utils data
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos

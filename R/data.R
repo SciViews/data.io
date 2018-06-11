@@ -138,6 +138,13 @@
 #'   geom_point()
 "zooplankton"
 
+# datasets::airquality -> air_quality (Month + Day -> Date)
+# datasets::attitude -> survey with 1 var/7 linearly correlated with response
+# datasets::ChickWeight (4 diets, but indicated 1 -> 4) vs datasets::chickwts
+# (six diets, correctly identified, but only last weight given).
+
+
+
 # Summary of datasets available  -----------------------------------------------
 
 #' Labelised versions of various datasets provided by 'data' or other packages
@@ -159,6 +166,8 @@
 #'
 #' From `datasets`:
 #' \describe{
+#'   \item{\code{\link{anscombe}}}{Anscombe's quartet of ‘identical’ simple
+#'   linear Regressions. 8 vars x 11 obs. Artificial data. }
 #'   \item{\code{\link{iris}}}{Edgar Anderson's iris data. 5 vars x 150 obs.
 #'   Morphometry of the flowers of three iris species (50 for each species). }
 #'   \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31

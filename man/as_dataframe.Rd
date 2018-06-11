@@ -17,7 +17,7 @@ as_dataframe(x, ...)
 
 as.dataframe(x, ...)
 
-\method{as_dataframe}{default}(x, ...)
+\method{as_dataframe}{default}(x, tz = "UTC", ...)
 
 \method{as_dataframe}{data.frame}(x, ..., rownames = "rownames")
 
@@ -38,6 +38,9 @@ is.dataframe(x)
 \item{x}{An object to convert to a \code{dataframe}.}
 
 \item{...}{Additional parameters.}
+
+\item{tz}{The time zone. Useful for converting \code{ts} objects with observations
+more frequent than daily.}
 
 \item{rownames}{Name of the column that is prepended to the
 \code{dataframe} with the original row names (\code{dataframe}s and \code{tibble}s do not
