@@ -6,7 +6,8 @@
 \title{Sea urchins biometry}
 \format{A data frame with 19 variables:
 \describe{
-\item{\code{origin}}{A \strong{factor} with two levels: \code{"Culture"}, and \code{"Fishery"}.}
+\item{\code{origin}}{A \strong{factor} with two levels: \code{"Culture"}, and
+\code{"Fishery"}.}
 \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
 (its widest part).}
 \item{\code{diameter2}}{A second diameter (in mm) measured at the ambitus,
@@ -35,9 +36,11 @@ lantern + test + spines.}
 the sea urchin).}
 \item{\code{test}}{Dry weight (in g) of the calcareous part of the test.}
 \item{\code{spines}}{Dry weight (in g) of calcareous parts of the spines.}
-\item{\code{maturity}}{Gonads maturity index (integer), measured on a scale of 3
-states: state 0 means the gonad is absent or spent, state 1 means it is
-growing but not mature, and state 2 means the gonad is mature.}
+\item{\code{maturity}}{Gonads maturity index (integer), measured on a scale
+of 3 states: state 0 means the gonad is absent or spent, state 1 means it is
+growing but not mature, and state 2 means the gonad is mature. This should
+be treated as a circular variable, since the freproductive cycle is 0 -> 1
+-> 2 -> 0 (spawning).}
 \item{\code{sex}}{When it is possible, the sex of the animal is determined by
 visual inspection of the gonads (\strong{factor} with levels \code{"F"} and \code{"M"}).}
 }

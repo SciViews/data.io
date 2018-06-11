@@ -5,7 +5,8 @@
 #'
 #' @format A data frame with 19 variables:
 #' \describe{
-#' \item{\code{origin}}{A **factor** with two levels: `"Culture"`, and `"Fishery"`.}
+#' \item{\code{origin}}{A **factor** with two levels: `"Culture"`, and
+#'    `"Fishery"`.}
 #' \item{\code{diameter1}}{Diameter (in mm) of the test measured at the ambitus
 #'   (its widest part).}
 #' \item{\code{diameter2}}{A second diameter (in mm) measured at the ambitus,
@@ -34,9 +35,11 @@
 #'   the sea urchin).}
 #' \item{\code{test}}{Dry weight (in g) of the calcareous part of the test.}
 #' \item{\code{spines}}{Dry weight (in g) of calcareous parts of the spines.}
-#' \item{\code{maturity}}{Gonads maturity index (integer), measured on a scale of 3
-#' states: state 0 means the gonad is absent or spent, state 1 means it is
-#' growing but not mature, and state 2 means the gonad is mature.}
+#' \item{\code{maturity}}{Gonads maturity index (integer), measured on a scale
+#'  of 3 states: state 0 means the gonad is absent or spent, state 1 means it is
+#'  growing but not mature, and state 2 means the gonad is mature. This should
+#'  be treated as a circular variable, since the freproductive cycle is 0 -> 1
+#'  -> 2 -> 0 (spawning).}
 #' \item{\code{sex}}{When it is possible, the sex of the animal is determined by
 #'   visual inspection of the gonads (**factor** with levels `"F"` and `"M"`).}
 #' }
@@ -57,9 +60,6 @@
 #'
 #' Size at age for a cohort of farmed sea urchins, *Paracentrotus lividus*.
 #'
-#' @format A data frame with 3 variables: \code{date}, \code{age} (in years),
-#' \code{diameter} (in mm).
-#'
 #' The same cohort of farmed sea urchins being measured at various time
 #' intervals, the observations are not completelly independent from each other:
 #' the same individuals aree repeatedly measured here. As the sea urchins are
@@ -78,17 +78,92 @@
 #'   ggtitle("Growth of a cohort of sea urchins")
 "urchin_growth"
 
-
-
-# Datasets available from other packages ---------------------------------------
-
-#' Labelised versions of various datasets provided by other packages
+#' Zooplankton image analysis
 #'
-#' From `datasets`: use `read(<item>, package = "datasets")`
+#' Various features measured by image analysis with the package `zooimage` and
+#' `ImageJ` on samples of zooplankton originating from Tulear, Madagascar. The
+#' taxonomic classification is also provided in the `class` variable.
+#'
+#' @source Grosjean, Ph & K. Denis (2004). Supervised classification of images,
+#' applied to plankton samples using R and ZooImage. Chap.12 of Data Mining
+#' Applications with R. Zhao, Y. & Y. Cen (eds). Elevier. Pp 331-365.
+#' https://doi.org/10.1016/C2012-0-00333-X.
+#'
+#' @format A data frame with 19 variables:
 #' \describe{
-#'   \item{\code{\link{iris}}}{Edgar Anderson's iris data.}
-#'   \item{\code{\link{trees}}}{Black cherry trees measurements.}
+#' \item{\code{ecd}}{The "equivalent circular diameter", the diameter of a
+#'   circle with the same area as the particle (in mm).}
+#' \item{\code{area}}{The area of the particle on the image (in mm^2).}
+#' \item{\code{perimeter}}{The perimeter of the particle (in mm).}
+#' \item{\code{feret}}{The Feret diameter, that is, the largest measured
+#'   diameter of the particle on the image (mm).}
+#' \item{\code{major}}{The major axis of the ellipsoid matching the particle
+#'   (mm).}
+#' \item{\code{minor}}{The minor axis of the same ellipsoid (mm).}
+#' \item{\code{mean}}{The mean value of the gray levels calibrated in optical
+#'   density (OD), thus, unitless.}
+#' \item{\code{mode}}{The most frequent gray level in that particle in OD.}
+#' \item{\code{min}}{The most transparent part in OD.}
+#' \item{\code{max}}{The most opaque part in OD.}
+#' \item{\code{std_dev}}{The stadard deviation of the OD distribution inside
+#'   the particle.}
+#' \item{\code{range}}{Transparency range as `max` - `min`.}
+#' \item{\code{size}}{The mean diameter of the particle, as the average of
+#'   `minor` and `major` (mm).}
+#'  \item{\code{aspect}}{Aspect ratio of the particle as `minor`/`major`.}
+#' \item{\code{elongation}}{The `area` divided by the area of a circle of the
+#'   same `perimeter` of the particle.}
+#' \item{\code{compactness}}{sqrt((4/pi) * `area`) / `major`.}
+#' \item{\code{transparency}}{1 - (`ecd` - `size`).}
+#' \item{\code{circularity}}{4pi(`area` / `perimeter`^2).}
+#' \item{\code{density}}{Density integrate by the surface coevered by each gray
+#'   level, i.e. O.D., inside the particle.}
+#' \item{\code{class}}{The classification of this particle. 17 classes are made.
+#'   Note that `Copepods` are `Calanoid` + `Cyclopoid` + `Harpactivoid` +
+#'   `Poecilostomatoid` and they represent the most abundant zooplankton at sea.
+#'   }
 #' }
 #'
-#' @name datasets
+#' This is a typical training set used to train a plankton classifier with
+#' machine learning algorithms. Organisms originate from various samples
+#' (different seasons, depth, etc. to take the variability into account).
+#' However, the abundance of the different classes do **not** match abundance
+#' found in each sample, i.e., rare classes are over-represented in this
+#' training set. Take care that several variables are correlated!
+#'
+#' @examples
+#' table(zooplankton$class)
+#' library(ggplot2)
+#' ggplot(zooplankton, aes(circularity, transparency, color = class)) +
+#'   geom_point()
+"zooplankton"
+
+# Summary of datasets available  -----------------------------------------------
+
+#' Labelised versions of various datasets provided by 'data' or other packages
+#'
+#' Use `name <- read("data", package = "pkg", lang = "xx")` to read these
+#' datasets together with the metadata (labels, units, comments, ...).
+#'
+#' From `data`:
+#' \describe{
+#'   \item{\code{\link{urchin_bio}}}{Sea urchins biometry. 19 vars x 421 obs.
+#'   Morphometric variables measured on two populations of sea urchins, incl.
+#'   one circular variable (`maturity`). }
+#'   \item{\code{\link{urchin_growth}}}{Sea urchins growth. 3 vars x 7024 obs.
+#'   Size at age for a cohort of sea urchins followed over more than 10 years. }
+#'   \item{\code{\link{zooplankton}}}{Zooplankton image analysis. 20 vars x
+#'   1262 obs. A training set with 19 measurements made on images of zooplankton
+#'   and their respective class as attributed by taxonomists. }
+#' }
+#'
+#' From `datasets`:
+#' \describe{
+#'   \item{\code{\link{iris}}}{Edgar Anderson's iris data. 5 vars x 150 obs.
+#'   Morphometry of the flowers of three iris species (50 for each species). }
+#'   \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31
+#'   obs. Measurement of tree timber of various sizes. }
+#' }
+#'
+#' @name Datasets
 NULL

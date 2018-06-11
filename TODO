@@ -17,7 +17,7 @@
 
 * Functions to write headers too: write -> read should restore same object!
 
-* Integrate units with the convertr, prettyunits and units packages.
+* Integrate units with the quantities, convertr, prettyunits and units packages.
 
 * A smaller example for read(), and detail all the cases in a vignette instead.
 
