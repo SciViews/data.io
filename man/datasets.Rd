@@ -10,6 +10,9 @@ datasets together with the metadata (labels, units, comments, ...).
 \details{
 From \code{data}:
 \describe{
+\item{\code{\link{mauna_loa}}}{Temperature and atmospheric CO2 at Mauna
+Loa, Hawai. 5 vars x 768 obs. Time series of monthly averages from 1955 to
+2018. }
 \item{\code{\link{urchin_bio}}}{Sea urchins biometry. 19 vars x 421 obs.
 Morphometric variables measured on two populations of sea urchins, incl.
 one circular variable (\code{maturity}). }
@@ -24,12 +27,10 @@ From \code{datasets}:
 \describe{
 \item{\code{\link{anscombe}}}{Anscombe's quartet of ‘identical’ simple
 linear Regressions. 8 vars x 11 obs. Artificial data. }
-\item{\code{\link{co2}}}{Mauna Loa atmospheric CO2 concentration. 2 vars x
-468 obs. Time series of CO2 atmospheric increase as recorded in Hawaii. }
 \item{\code{\link{iris}}}{Edgar Anderson's iris data. 5 vars x 150 obs.
 Morphometry of the flowers of three iris species (50 for each species). }
 \item{\code{\link{lynx}}}{Annual canadian lynx trappings 1821–1934. 2 vars
-x 31 obs. Long (> 1 century) time series. }
+x 114 obs. Long (> 1 century) time series. }
 \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31
 obs. Measurement of tree timber of various sizes. }
 }

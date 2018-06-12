@@ -44,7 +44,9 @@ machine learning algorithms. Organisms originate from various samples
 (different seasons, depth, etc. to take the variability into account).
 However, the abundance of the different classes do \strong{not} match abundance
 found in each sample, i.e., rare classes are over-represented in this
-training set. Take care that several variables are correlated!}
+training set. Only zooplankton classes are present in the dataset. Full data
+also contains classes for phytoplankton, marine sno, etc. Take care that
+several variables are correlated!}
 \source{
 Grosjean, Ph & K. Denis (2004). Supervised classification of images,
 applied to plankton samples using R and ZooImage. Chap.12 of Data Mining

@@ -1,3 +1,16 @@
+#' Temperature and atmospheric CO2 at Mauna Loa, Hawai
+#'
+#' Monthly averages of temperatures and CO2 concentrations, maximal and minimal
+#' monthly temperatures at Mauna Loa slope observatory from 1955 to 2018.
+#'
+#' Atmospheric CO2 concentration is mole fraction in dry air, micromol/mol,
+#' abbreviated as ppm. Temperatures are in degree celcius.
+#'
+#' @examples
+#' plot(mauna_loa)
+"mauna_loa"
+
+
 #' Sea urchins biometry
 #'
 #' Various measurement on *Paracentrotus lividus* sea urchins providing from
@@ -129,7 +142,9 @@
 #' (different seasons, depth, etc. to take the variability into account).
 #' However, the abundance of the different classes do **not** match abundance
 #' found in each sample, i.e., rare classes are over-represented in this
-#' training set. Take care that several variables are correlated!
+#' training set. Only zooplankton classes are present in the dataset. Full data
+#' also contains classes for phytoplankton, marine sno, etc. Take care that
+#' several variables are correlated!
 #'
 #' @examples
 #' table(zooplankton$class)
@@ -150,8 +165,9 @@
 # datasets:InsectSprays -> insect_sprays
 # datasets:Loblolly -> growth of 14 seeds of pine. Adjust with SSasymp(), but
 # only 6 measurements per seed
+# datasets:Nile is a nice time series
 
-
+# Add datasets:mtcars, but need to convert variables heavily! But see mpg
 
 
 # Summary of datasets available  -----------------------------------------------
@@ -163,6 +179,9 @@
 #'
 #' From `data`:
 #' \describe{
+#'   \item{\code{\link{mauna_loa}}}{Temperature and atmospheric CO2 at Mauna
+#'   Loa, Hawai. 5 vars x 768 obs. Time series of monthly averages from 1955 to
+#'   2018. }
 #'   \item{\code{\link{urchin_bio}}}{Sea urchins biometry. 19 vars x 421 obs.
 #'   Morphometric variables measured on two populations of sea urchins, incl.
 #'   one circular variable (`maturity`). }
@@ -177,12 +196,10 @@
 #' \describe{
 #'   \item{\code{\link{anscombe}}}{Anscombe's quartet of ‘identical’ simple
 #'   linear Regressions. 8 vars x 11 obs. Artificial data. }
-#'   \item{\code{\link{co2}}}{Mauna Loa atmospheric CO2 concentration. 2 vars x
-#'   468 obs. Time series of CO2 atmospheric increase as recorded in Hawaii. }
 #'   \item{\code{\link{iris}}}{Edgar Anderson's iris data. 5 vars x 150 obs.
 #'   Morphometry of the flowers of three iris species (50 for each species). }
 #'   \item{\code{\link{lynx}}}{Annual canadian lynx trappings 1821–1934. 2 vars
-#'   x 31 obs. Long (> 1 century) time series. }
+#'   x 114 obs. Long (> 1 century) time series. }
 #'   \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31
 #'   obs. Measurement of tree timber of various sizes. }
 #' }
