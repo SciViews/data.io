@@ -169,7 +169,8 @@
 #'   geom_point()
 "zooplankton"
 
-# datasets::airquality -> air_quality (Month + Day -> Date)
+# datasets::airquality -> air_quality (Month + Day -> Date), ... or more actual
+# data?
 # datasets::attitude -> survey with 1 var/7 linearly correlated with response
 # datasets::ChickWeight (4 diets, but indicated 1 -> 4) vs datasets::chickwts
 # (six diets, correctly identified, but only last weight given).
@@ -183,7 +184,7 @@
 # only 6 measurements per seed
 # datasets:Nile is a nice time series
 # MASS::wtloss, MASS:waders, MASS:snails, MASS:Pima.xx, MASS:Sitka(89), MASS:OME
-#
+# MASS:biopsy
 
 # anscombe is OK, but also need artificial data for dynamite plot
 # Add datasets:mtcars, but need to convert variables heavily! But see mpg
@@ -221,6 +222,12 @@
 #'   x 114 obs. Long (> 1 century) time series. }
 #'   \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31
 #'   obs. Measurement of tree timber of various sizes. }
+#' }
+#'
+#' From `ggplot2`:
+#' \describe{
+#'   \item{\code{\link{mpg}}}Fuel economy data from 1999 and 2008 for popular
+#'   cars. 11 vars x 234 obs. Data are for most popular U.S. market cars only. }
 #' }
 #'
 #' From `MASS`:
