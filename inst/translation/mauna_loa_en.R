@@ -28,19 +28,17 @@
 
 .mauna_loa_en_us <- function(mauna_loa, labels_only = FALSE) {
   mauna_loa <- .mauna_loa_en(mauna_loa, labels_only = labels_only)
-  # Temperature converted into °F
-  mauna_loa$avg_temp <- round(mauna_loa$avg_temp * 1.8 + 32, 1)
-  units(mauna_loa$avg_temp) <- "°F"
-  mauna_loa$min_temp <- round(mauna_loa$min_temp * 1.8 + 32, 1)
-  units(mauna_loa$min_temp) <- "°F"
-  mauna_loa$max_temp <- round(mauna_loa$max_temp * 1.8 + 32, 1)
-  units(mauna_loa$max_temp) <- "°F"
 
-  comment(mauna_loa) <- "Temperatures in degrees Farenheit"
-
-  #if (!isTRUE(labels_only)) {
-  # Nothing to do!
-  #}
+  if (!isTRUE(labels_only)) {
+    # Temperature converted into °F
+    mauna_loa$avg_temp <- round(mauna_loa$avg_temp * 1.8 + 32, 1)
+    units(mauna_loa$avg_temp) <- "°F"
+    mauna_loa$min_temp <- round(mauna_loa$min_temp * 1.8 + 32, 1)
+    units(mauna_loa$min_temp) <- "°F"
+    mauna_loa$max_temp <- round(mauna_loa$max_temp * 1.8 + 32, 1)
+    units(mauna_loa$max_temp) <- "°F"
+    comment(mauna_loa) <- "Temperatures in degrees Farenheit"
+  }
 
   mauna_loa
 }

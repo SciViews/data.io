@@ -7,7 +7,23 @@
 #' abbreviated as ppm. Temperatures are in degree celcius.
 #'
 #' @examples
+#' class(mauna_loa)
+#' head(mauna_loa)
 #' plot(mauna_loa)
+#'
+#' # Using read(), the dataset becomes an annotated dataframe
+#' (ml_en <- read("mauna_loa", package = "data"))
+#' class(ml_en)
+#'
+#' # Indicating lang = "EN_US" (all uppercase!) also converts temperatures
+#' # into degrees Farenheit
+#' (ml_en_us <- read("mauna_loa", package = "data", lang = "EN_US"))
+#' # Each vairable is also labelled:
+#' ml_en$avg_co2
+#'
+#' # The same in French:
+#'  (ml_fr <- read("mauna_loa", package = "data", lang = "fr"))
+#'   ml_fr$avg_co2
 "mauna_loa"
 
 
