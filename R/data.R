@@ -182,7 +182,10 @@
 # datasets:Loblolly -> growth of 14 seeds of pine. Adjust with SSasymp(), but
 # only 6 measurements per seed
 # datasets:Nile is a nice time series
+# MASS::wtloss, MASS:waders, MASS:snails, MASS:Pima.xx, MASS:Sitka(89), MASS:OME
+#
 
+# anscombe is OK, but also need artificial data for dynamite plot
 # Add datasets:mtcars, but need to convert variables heavily! But see mpg
 
 
@@ -222,6 +225,9 @@
 #'
 #' From `MASS`:
 #' \describe{
+#'   \item{\code{\link{crabs}}}{Morphological measurements on Leptograpsus
+#'   crabs. 8 vars x 200 obs. Morphological measurements of *Leptograpsus
+#'   variegatus* crabs, either blue or orange, males and females. }
 #'   \item{\code{\link{geyser}}}{Old Faithful geyser data. 2 vars x 299 obs.
 #'   Duration and waiting time for eruptions from August 1 to August 15, 1985. }
 #' }

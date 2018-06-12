@@ -16,3 +16,5 @@
 
   urchin_growth
 }
+
+# TODO: EN_US -> size in inches.
