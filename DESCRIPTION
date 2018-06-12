@@ -8,8 +8,8 @@ Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
   email = "phgrosjean@sciviews.org"))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends: R (>= 3.3.0)
-Imports: tibble, tsibble, Hmisc, utils, readr, rlang, datasets
-Suggests: SciViews, readxl, haven, WriteXLS, openxlsx, ggplot2, covr, knitr, testthat
+Imports: tibble, tsibble, Hmisc, utils, readr, rlang, datasets, ggplot2
+Suggests: SciViews, readxl, haven, WriteXLS, openxlsx, covr, knitr, testthat
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

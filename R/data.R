@@ -185,6 +185,8 @@
 # datasets:Nile is a nice time series
 # MASS::wtloss, MASS:waders, MASS:snails, MASS:Pima.xx, MASS:Sitka(89), MASS:OME
 # MASS:biopsy
+# babynames
+# nycfligths13 -> flights + ???
 
 # anscombe is OK, but also need artificial data for dynamite plot
 # Add datasets:mtcars, but need to convert variables heavily! But see mpg
@@ -226,7 +228,9 @@
 #'
 #' From `ggplot2`:
 #' \describe{
-#'   \item{\code{\link{mpg}}}Fuel economy data from 1999 and 2008 for popular
+#'   \item{\code{\link{diamonds}}}{Prices of 50,000 round cut diamonds. 10 vars
+#'   x 53940 obs. Price and other attributes of 10,000's of diamonds. }
+#'   \item{\code{\link{mpg}}}{Fuel economy data from 1999 and 2008 for popular
 #'   cars. 11 vars x 234 obs. Data are for most popular U.S. market cars only. }
 #' }
 #'
