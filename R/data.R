@@ -176,7 +176,6 @@
 # (six diets, correctly identified, but only last weight given).
 # datasets::CO2 is an example of adjusting SSasymp()
 # datasets:esoph for a glm()
-# datasets:faithful -> MASS:geyser is said to be better
 # datasets:HairEyeColor or MASS:caith (but it is a table -> how to convert?)
 # datasets:Indometh for fitting SSbiexp()
 # datasets:InsectSprays -> insect_sprays
@@ -186,8 +185,6 @@
 # MASS::wtloss, MASS:waders, MASS:snails, MASS:Pima.xx, MASS:Sitka(89), MASS:OME
 # MASS:biopsy
 # babynames
-# nycfligths13 -> flights + ???
-
 # anscombe is OK, but also need artificial data for dynamite plot
 # Add datasets:mtcars, but need to convert variables heavily! But see mpg
 
@@ -241,6 +238,19 @@
 #'   variegatus* crabs, either blue or orange, males and females. }
 #'   \item{\code{\link{geyser}}}{Old Faithful geyser data. 2 vars x 299 obs.
 #'   Duration and waiting time for eruptions from August 1 to August 15, 1985. }
+#' }
+#'
+#' From `nycflights13`:
+#' \describe{
+#'   \item{\code{\link{airlines}}}{Airlines by their carrier codes. 2 vars x 16
+#'   obs. }
+#'   \item{\code{\link{airports}}}{Various metadata about New York city
+#'   airports. 8 vars x 1458 obs. }
+#'   \item{\code{\link{flights}}}{On-time data for all flights that departed NYC
+#'   (i.e., JFK, LGA or EWR) in 2013. 19 vars x 336776 obs. }
+#'   \item{\code{\link{planes}}}{Planes metadata. 9 vars x 3322 obs. }
+#'   \item{\code{\link{weather}}}{Hourly meteorological data for JFK, LGA and
+#'   EWR. 15 vars x 26130 obs. }
 #' }
 #' @name Datasets
 NULL
