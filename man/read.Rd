@@ -130,7 +130,7 @@ head(trees)
 (trees2 <- read("trees", package = "datasets"))
 comment(trees2)
 trees2$volume
-
+\dontrun{
 # Read from a Github Gist (need to specify the type here!)
 (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 
@@ -218,6 +218,7 @@ haven_example <- function(path)
 (pbc <- read(data_example("pbc.por"))) # SPSS, POR format
 (iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
 (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
+}
 }
 \seealso{
 \code{\link[=read_csv]{read_csv()}}

@@ -87,7 +87,7 @@
 #' (trees2 <- read("trees", package = "datasets"))
 #' comment(trees2)
 #' trees2$volume
-#'
+#' \dontrun{
 #' # Read from a Github Gist (need to specify the type here!)
 #' (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 #'
@@ -175,6 +175,7 @@
 #' (pbc <- read(data_example("pbc.por"))) # SPSS, POR format
 #' (iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
+#' }
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 skip = 0L, locale = default_locale(), lang = "en", as_dataframe = TRUE,
 comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
