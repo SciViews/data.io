@@ -23,10 +23,12 @@
 #' relative_path("/Users/file.txt", "/Users/me/project")
 #' relative_path("/Users/subdir1/subdir2/file.txt", "/Users/me/project")
 #' relative_path("/Unrelated/file.txt", "/Users/me/project")
+#' \donttest{
 #' relative_path("file.txt", "/Users/me/project")
 #' relative_path("~/file.txt", "/Users/me/project")
 #' relative_path("./file.txt", "/Users/me/project")
 #' relative_path(file.path(getwd(), "data", "file.txt"))
+#' }
 relative_path <- function(file, dir = getwd()) {
   file2 <- normalizePath(file, winslash = "/", mustWork = FALSE)
   dir <- normalizePath(dir, winslash = "/", mustWork = FALSE)
