@@ -10,9 +10,9 @@
 \title{Read data in \R in different formats}
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
-  locale = default_locale(), lang = "en", as_dataframe = TRUE,
-  comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
-  hfun = NULL, fun = NULL, ...)
+  locale = default_locale(), lang = "en", lang_encoding = "UTF-8",
+  as_dataframe = TRUE, comments = NULL, package = NULL,
+  sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -37,11 +37,18 @@ argument).}
 
 \item{skip}{The number of lines to skip at the beginning of the file.}
 
-\item{locale}{The encoding of the file.}
+\item{locale}{A readr locale object with all the data regarding required to
+correctly interpret country-related items. The default value matches R
+defaults as US English + UTF-8 encoding, and it is advised to be used as
+much as possible.}
 
 \item{lang}{The language to use (mainly for comment, label and units), but
 also for factor levels or other chanracter strings if a translation exists
 and if the language is spelled with uppercase characters (e.g., \code{"FR"}).}
+
+\item{lang_encoding}{Encoding used by R scripts for translation. They should
+all be encoded as \code{UTF-8}, which is the default. However, this argument
+allows to specify a different encoding if needed.}
 
 \item{as_dataframe}{Do we try to convert the resulting object into a
 \code{dataframe} (inheriting from \code{data.frame}, \code{tbl} and \code{tbl_db} alias
@@ -56,7 +63,10 @@ provided, a list of available datasets in the package is displayed.}
 found in the same directory, it is considered as code to import these data
 and it is sourced with \code{local = TRUE}, \code{chdir = TRUE} and
 \code{verbose = FALSE}. That script \strong{must} create an object named \code{dataset},
-which is the result that is returned by the function.}
+which is the result that is returned by the function. It is advised to
+encode this script in \code{UTF-8}, which is the default value, but it is
+possible to specify a different encoding through the \code{lang_encoding=}
+parameter.}
 
 \item{fun_list}{The table with correspondance of the types, read, and write
 functions.}
@@ -130,7 +140,7 @@ head(trees)
 (trees2 <- read("trees", package = "datasets"))
 comment(trees2)
 trees2$volume
-\dontrun{
+\donttest{
 # Read from a Github Gist (need to specify the type here!)
 (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 

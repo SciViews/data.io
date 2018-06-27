@@ -20,6 +20,7 @@
 #' @examples
 #' class(as.dataframe(mtcars))
 #' class(as.dataframe(tibble::tribble(~x, ~y, 1, 2, 3, 4)))
+#' \donttest{
 #' # Any object, like a vector
 #' v1 <- 1:10
 #' is_dataframe(v1)
@@ -45,6 +46,7 @@
 #' as_dataframe(t1)
 #' # compare with the base R function:
 #' as.data.frame(t1)
+#' }
 as_dataframe <- function(x, ...)
   UseMethod("as_dataframe")
 

@@ -7,10 +7,16 @@
 #' @param header The character to use for the header and other comments.
 #' @param header.max The maximum of lines to consider for the header.
 #' @param skip The number of lines to skip at the beginning of the file.
-#' @param locale The encoding of the file.
+#' @param locale A readr locale object with all the data regarding required to
+#' correctly interpret country-related items. The default value matches R
+#' defaults as US English + UTF-8 encoding, and it is advised to be used as
+#' much as possible.
 #' @param lang The language to use (mainly for comment, label and units), but
 #'   also for factor levels or other chanracter strings if a translation exists
 #'   and if the language is spelled with uppercase characters (e.g., `"FR"`).
+#' @param lang_encoding Encoding used by R scripts for translation. They should
+#' all be encoded as `UTF-8`, which is the default. However, this argument
+#' allows to specify a different encoding if needed.
 #' @param as_dataframe Do we try to convert the resulting object into a
 #'   `dataframe` (inheriting from `data.frame`, `tbl` and `tbl_db` alias
 #'   `tibble`)? If `FALSE`, no conversion is attempted.
@@ -21,7 +27,10 @@
 #'   found in the same directory, it is considered as code to import these data
 #'   and it is sourced with `local = TRUE`, `chdir = TRUE` and
 #'   `verbose = FALSE`. That script **must** create an object named `dataset`,
-#'   which is the result that is returned by the function.
+#'   which is the result that is returned by the function. It is advised to
+#'   encode this script in `UTF-8`, which is the default value, but it is
+#'   possible to specify a different encoding through the `lang_encoding=`
+#'   parameter.
 #' @param hfun The function to read the header (lines starting with a special
 #'   mark, usually '#' at the beginning of the file). This function must have
 #'   the same arguments as `hread_text()` and should return a character string
@@ -87,7 +96,7 @@
 #' (trees2 <- read("trees", package = "datasets"))
 #' comment(trees2)
 #' trees2$volume
-#' \dontrun{
+#' \donttest{
 #' # Read from a Github Gist (need to specify the type here!)
 #' (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 #'
@@ -177,9 +186,9 @@
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 #' }
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
-skip = 0L, locale = default_locale(), lang = "en", as_dataframe = TRUE,
-comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
-hfun = NULL, fun = NULL, ...) {
+skip = 0L, locale = default_locale(), lang = "en", lang_encoding = "UTF-8",
+as_dataframe = TRUE, comments = NULL, package = NULL, sidecar_file = TRUE,
+fun_list = NULL, hfun = NULL, fun = NULL, ...) {
   if (!is.null(lang)) {
     if (length(lang) != 1 || !is.character(lang))
       stop("lang must be a single character string or NULL")
@@ -210,7 +219,7 @@ hfun = NULL, fun = NULL, ...) {
     # Use a fake dataset content: it is supposed to be modified by the script
     dataset <- NULL
     source(file2, local = TRUE, chdir = TRUE, verbose = FALSE,
-      encoding = "UTF-8")
+      encoding = lang_encoding)
     if (is.null(dataset))
       stop("The script '", basename(file2),
         "' did not produce a valid 'dataset' object.",
@@ -269,7 +278,8 @@ hfun = NULL, fun = NULL, ...) {
           if (script == "")
             script <- trans_script(file, full_lang, main_lang, "data")
           if (script != "") {# Source it, then run the corresponding function
-            source(script, local = TRUE, chdir = TRUE, verbose = FALSE)
+            source(script, local = TRUE, chdir = TRUE, verbose = FALSE,
+              encoding = lang_encoding)
             if (!is.null(fun <- trans_fun(file, full_lang, main_lang)))
               res <- fun(res, labels_only = labels_only)
           }

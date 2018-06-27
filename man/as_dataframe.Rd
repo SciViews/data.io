@@ -71,6 +71,7 @@ TODO: explain difference beteen \code{dataframe}s and \code{tibble}s here...
 \examples{
 class(as.dataframe(mtcars))
 class(as.dataframe(tibble::tribble(~x, ~y, 1, 2, 3, 4)))
+\donttest{
 # Any object, like a vector
 v1 <- 1:10
 is_dataframe(v1)
@@ -96,6 +97,7 @@ set.seed(756)
 as_dataframe(t1)
 # compare with the base R function:
 as.data.frame(t1)
+}
 }
 \seealso{
 \code{\link[=as_tibble]{as_tibble()}}, \code{\link[=as.data.frame]{as.data.frame()}}
