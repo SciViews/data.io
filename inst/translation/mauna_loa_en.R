@@ -1,4 +1,4 @@
-.mauna_loa_en <- function(mauna_loa, labels_only = FALSE) {
+.mauna_loa_en <- function(mauna_loa, labels_only = FALSE, as_labelled = FALSE) {
   mauna_loa <- as_tsibble(mauna_loa, gather = FALSE)
   names(mauna_loa) <- c("time", "avg_temp", "min_temp", "max_temp", "avg_co2")
 
@@ -14,8 +14,8 @@
       avg_temp = "°C",
       min_temp = "°C",
       max_temp = "°C",
-      avg_co2 = "ppm")
-  )
+      avg_co2 = "ppm"),
+    as_labelled = as_labelled)
 
   comment(mauna_loa) <- NULL
 
@@ -26,7 +26,8 @@
   mauna_loa
 }
 
-.mauna_loa_en_us <- function(mauna_loa, labels_only = FALSE) {
+.mauna_loa_en_us <- function(mauna_loa, labels_only = FALSE,
+as_labelled = FALSE) {
   mauna_loa <- .mauna_loa_en(mauna_loa, labels_only = labels_only)
 
   if (!isTRUE(labels_only)) {

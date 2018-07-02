@@ -11,8 +11,9 @@
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), lang = "en", lang_encoding = "UTF-8",
-  as_dataframe = TRUE, comments = NULL, package = NULL,
-  sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...)
+  as_dataframe = TRUE, as_labelled = FALSE, comments = NULL,
+  package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL,
+  fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -53,6 +54,10 @@ allows to specify a different encoding if needed.}
 \item{as_dataframe}{Do we try to convert the resulting object into a
 \code{dataframe} (inheriting from \code{data.frame}, \code{tbl} and \code{tbl_db} alias
 \code{tibble})? If \code{FALSE}, no conversion is attempted.}
+
+\item{as_labelled}{Are variable converted into labelled objects. This allows
+to keep labels and units when the vector is manipulated, but it can lead to
+incompatibilities with some R code (hence, it is \code{FALSE} by default).}
 
 \item{comments}{Comments to add in the created object.}
 

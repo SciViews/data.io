@@ -1,4 +1,4 @@
-.diamonds_en <- function(diamonds, labels_only = FALSE) {
+.diamonds_en <- function(diamonds, labels_only = FALSE, as_labelled = FALSE) {
   comment(diamonds) <- NULL
 
   diamonds <- labelise(diamonds, self = FALSE,
@@ -23,8 +23,8 @@
       price = "$US",
       x = "mm",
       y = "mm",
-      z = "mm")
-  )
+      z = "mm"),
+    as_labelled = as_labelled)
 
   if (!isTRUE(labels_only)) {
     levels(diamonds$cut) <-

@@ -1,4 +1,4 @@
-.flights_en <- function(flights, labels_only = FALSE) {
+.flights_en <- function(flights, labels_only = FALSE, as_labelled = FALSE) {
   # flights comes from nycflights13
   # We don't change the names of the variables, but some time variables are
   # really strangely encoded (hhmm)
@@ -49,8 +49,8 @@
       distance = "km",
       hour = NA,
       minute = NA,
-      time_hour = NA)
-  )
+      time_hour = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do!
@@ -59,7 +59,7 @@
   flights
 }
 
-.flights_en_us <- function(flights, labels_only = FALSE) {
+.flights_en_us <- function(flights, labels_only = FALSE, as_labelled = FALSE) {
   # flights comes from nycflights13
   # We don't change the names of the variables, but some time variables are
   # really strangely encoded (hhmm)
@@ -108,8 +108,8 @@
       distance = "miles",
       hour = NA,
       minute = NA,
-      time_hour = NA)
-  )
+      time_hour = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do!

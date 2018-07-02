@@ -1,4 +1,4 @@
-.airports_fr <- function(airports, labels_only = FALSE) {
+.airports_fr <- function(airports, labels_only = FALSE, as_labelled = FALSE) {
   # airports comes from nycflights13
 
   airports$alt <- round(airports$alt / 3.2808, 0)
@@ -27,8 +27,8 @@
       alt = "m",
       tz = "h",
       dst = NA,
-      tzone = NA)
-  )
+      tzone = NA),
+    as_labelled = as_labelled)
 
   if (!isTRUE(labels_only)) {
     levels(airports$dst) <- c("US standard", "Aucun", "Inconnu")

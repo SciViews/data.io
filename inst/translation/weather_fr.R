@@ -1,4 +1,4 @@
-.weather_fr <- function(weather, labels_only = FALSE) {
+.weather_fr <- function(weather, labels_only = FALSE, as_labelled = FALSE) {
   # weather de nycflights13
   # Conversion de toutes les unités en valeurs métriques!
   # Fahrenheit en Celsius
@@ -48,8 +48,8 @@
       precip = "mm",
       pressure = "mb",
       visib = "km",
-      time_hour = NA)
-  )
+      time_hour = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do

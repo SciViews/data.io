@@ -12,16 +12,16 @@
 \alias{unlabelise.data.frame}
 \title{Set label (and units)}
 \usage{
-labelise(x, label, units = NULL, as_labelled = TRUE, ...)
+labelise(x, label, units = NULL, as_labelled = FALSE, ...)
 
-labelize(x, label, units = NULL, as_labelled = TRUE, ...)
+labelize(x, label, units = NULL, as_labelled = FALSE, ...)
 
-\method{labelise}{default}(x, label, units = NULL, as_labelled = TRUE, ...)
+\method{labelise}{default}(x, label, units = NULL, as_labelled = FALSE, ...)
 
-\method{labelise}{data.frame}(x, label, units = NULL, as_labelled = TRUE,
+\method{labelise}{data.frame}(x, label, units = NULL, as_labelled = FALSE,
   self = TRUE, ...)
 
-cl(..., label = NULL, units = NULL, as_labelled = TRUE)
+cl(..., label = NULL, units = NULL, as_labelled = FALSE)
 
 unlabelise(x, ...)
 
@@ -39,8 +39,9 @@ unlabelize(x, ...)
 \item{units}{The units (optional) as a character string to set for \code{x}.}
 
 \item{as_labelled}{Should the object be converted as a \code{labelled} S3 object
-(by default)? If you don't make labelled objects, subsetting the data will
-lead to a lost of \code{label} and \code{units} attributes for all variables.}
+(no by default)? If you don't make labelled objects, subsetting the data will
+lead to a lost of \code{label} and \code{units} attributes for all variables. On the
+other hand, labelled objects are not always correctly handled by R code.}
 
 \item{...}{Further arguments: itesm to be concatenated in a vector using
 \code{c(...)} for \code{cl()}.}

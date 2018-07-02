@@ -1,4 +1,4 @@
-.weather_en <- function(weather, labels_only = FALSE) {
+.weather_en <- function(weather, labels_only = FALSE, as_labelled = FALSE) {
   # weather comes from nycflights13
   # All units must be convertes into metric ones!
   # Fahrenheit into Celsius
@@ -48,8 +48,8 @@
       precip = "mm",
       pressure = "mb",
       visib = "km",
-      time_hour = NA)
-  )
+      time_hour = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do
@@ -58,7 +58,7 @@
   weather
 }
 
-.weather_en_us <- function(weather, labels_only = FALSE) {
+.weather_en_us <- function(weather, labels_only = FALSE, as_labelled = FALSE) {
   # No conversion of the units!
   comment(weather) <- c(
     "The 'weather' dataset from 'nycflights13' with labels.")
@@ -95,8 +95,8 @@
       precip = "in",
       pressure = "mb",
       visib = "miles",
-      time_hour = NA)
-  )
+      time_hour = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do

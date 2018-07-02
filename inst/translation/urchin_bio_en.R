@@ -1,4 +1,5 @@
-.urchin_bio_en <- function(urchin_bio, labels_only = FALSE) {
+.urchin_bio_en <- function(urchin_bio, labels_only = FALSE,
+as_labelled = FALSE) {
   urchin_bio <- labelise(urchin_bio, self = FALSE,
     label = list(
       origin = "Origin",
@@ -39,8 +40,8 @@
       test = "g",
       spines = "g",
       maturity = NA,
-      sex = NA)
-  )
+      sex = NA),
+    as_labelled = as_labelled)
 
   if (!isTRUE(labels_only)) {
     levels(urchin_bio$origin) <- c("Farm", "Fishery")

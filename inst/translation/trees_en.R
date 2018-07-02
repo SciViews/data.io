@@ -1,4 +1,4 @@
-.trees_en <- function(trees, labels_only = FALSE) {
+.trees_en <- function(trees, labels_only = FALSE, as_labelled = FALSE) {
   # The trees dataset has a couple of glitches:
   # 1) Girth is indeed the Diameter (and variables not in snake_case), so rename
   names(trees) <- c("diameter", "height", "volume")
@@ -22,8 +22,8 @@
     units = list(
       diameter = "m",
       height = "m",
-      volume = "m^3")
-  )
+      volume = "m^3"),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do!
@@ -32,7 +32,7 @@
   trees
 }
 
-.trees_en_us <- function(trees, labels_only = FALSE) {
+.trees_en_us <- function(trees, labels_only = FALSE, as_labelled = FALSE) {
   # The trees dataset has a couple of glitches:
   # 1) Girth is indeed the Diameter (and variables not in snake_case), so rename
   names(trees) <- c("diameter", "height", "volume")
@@ -63,8 +63,8 @@
     units = list(
       diameter = var_units[1],
       height = var_units[2],
-      volume = var_units[3])
-  )
+      volume = var_units[3]),
+    as_labelled = as_labelled)
 
   trees
 }

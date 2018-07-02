@@ -1,4 +1,4 @@
-.planes_en <- function(planes, labels_only = FALSE) {
+.planes_en <- function(planes, labels_only = FALSE, as_labelled = FALSE) {
   # planes comes from nycflights13
 
   # speed is in (nautical?) miles per hour => convert into km/h
@@ -31,8 +31,8 @@
       engines = NA,
       seats = NA,
       speed = "km/h",
-      engine = NA)
-  )
+      engine = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do
@@ -41,7 +41,7 @@
   planes
 }
 
-.planes_en_us <- function(planes, labels_only = FALSE) {
+.planes_en_us <- function(planes, labels_only = FALSE, as_labelled = FALSE) {
   # planes comes from nycflights13
 
   planes$type <- as.factor(planes$type)
@@ -71,8 +71,8 @@
       engines = NA,
       seats = NA,
       speed = "mph",
-      engine = NA)
-  )
+      engine = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do

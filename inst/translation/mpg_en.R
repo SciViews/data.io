@@ -1,4 +1,4 @@
-.mpg_en <- function(mpg, labels_only = FALSE) {
+.mpg_en <- function(mpg, labels_only = FALSE, as_labelled = FALSE) {
   # Rename variables to stick to snake_case convention
   names(mpg) <- c("manufacturer", "model", "displacement", "year", "cylinders",
     "transmission", "drive", "cons_city", "cons_hwy", "fuel", "class")
@@ -41,8 +41,8 @@
       cons_city = "mpg",
       cons_hwy = "mpg",
       fuel = NA,
-      class = NA)
-  )
+      class = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do!

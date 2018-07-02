@@ -20,6 +20,9 @@
 #' @param as_dataframe Do we try to convert the resulting object into a
 #'   `dataframe` (inheriting from `data.frame`, `tbl` and `tbl_db` alias
 #'   `tibble`)? If `FALSE`, no conversion is attempted.
+#' @param as_labelled Are variable converted into labelled objects. This allows
+#' to keep labels and units when the vector is manipulated, but it can lead to
+#' incompatibilities with some R code (hence, it is `FALSE` by default).
 #' @param comments Comments to add in the created object.
 #' @param package The package where to look for the dataset. If `file=` is not
 #'   provided, a list of available datasets in the package is displayed.
@@ -187,8 +190,8 @@
 #' }
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 skip = 0L, locale = default_locale(), lang = "en", lang_encoding = "UTF-8",
-as_dataframe = TRUE, comments = NULL, package = NULL, sidecar_file = TRUE,
-fun_list = NULL, hfun = NULL, fun = NULL, ...) {
+as_dataframe = TRUE, as_labelled = FALSE, comments = NULL, package = NULL,
+sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
   if (!is.null(lang)) {
     if (length(lang) != 1 || !is.character(lang))
       stop("lang must be a single character string or NULL")
@@ -261,7 +264,7 @@ fun_list = NULL, hfun = NULL, fun = NULL, ...) {
         }
         # Look for a function first (either using lang or main_lang)
         if (!is.null(fun <- trans_fun(file, full_lang, main_lang))) {
-          res <- fun(res, labels_only = labels_only)
+          res <- fun(res, labels_only = labels_only, as_labelled = as_labelled)
         } else {# Look for a script either in original package or in data
           trans_script <- function(data, full_lang, main_lang, package) {
             script <- system.file("translation",
@@ -281,7 +284,8 @@ fun_list = NULL, hfun = NULL, fun = NULL, ...) {
             source(script, local = TRUE, chdir = TRUE, verbose = FALSE,
               encoding = lang_encoding)
             if (!is.null(fun <- trans_fun(file, full_lang, main_lang)))
-              res <- fun(res, labels_only = labels_only)
+              res <- fun(res, labels_only = labels_only,
+                as_labelled = as_labelled)
           }
         }
       }

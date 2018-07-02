@@ -1,4 +1,4 @@
-.airlines_en <- function(airlines, labels_only = FALSE) {
+.airlines_en <- function(airlines, labels_only = FALSE, as_labelled = FALSE) {
   # airlines comes from nycflights13
 
   comment(airlines) <- c(
@@ -10,8 +10,8 @@
       name = "Carrier name"),
     units = list(
       carrier = NA,
-      name = NA)
-  )
+      name = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do!

@@ -1,4 +1,4 @@
-.flights_fr <- function(flights, labels_only = FALSE) {
+.flights_fr <- function(flights, labels_only = FALSE, as_labelled = FALSE) {
   # flights de nycflights13
   # Les noms des variables ne sont pas modifiées. Quelques variables temporelles
   # sont encodées bizarrement (hhmm)
@@ -49,8 +49,8 @@
       distance = "km",
       hour = NA,
       minute = NA,
-      time_hour = NA)
-  )
+      time_hour = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
   # Nothing to do!

@@ -1,4 +1,5 @@
-.zooplankton_en <- function(zooplankton, labels_only = FALSE) {
+.zooplankton_en <- function(zooplankton, labels_only = FALSE,
+as_labelled = FALSE) {
   zooplankton <- labelise(zooplankton, self = FALSE,
     label = list(
       ecd = "Equivalent circular diameter",
@@ -41,8 +42,8 @@
       transparency = NA,
       circularity = NA,
       density = NA,
-      class = NA)
-  )
+      class = NA),
+    as_labelled = as_labelled)
 
   #if (!isTRUE(labels_only)) {
     # Nothing to do

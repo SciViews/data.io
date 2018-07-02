@@ -13,8 +13,9 @@
 #' @param label The character string to set as `label` attribute to `x`.
 #' @param units The units (optional) as a character string to set for `x`.
 #' @param as_labelled Should the object be converted as a `labelled` S3 object
-#' (by default)? If you don't make labelled objects, subsetting the data will
-#' lead to a lost of `label` and `units` attributes for all variables.
+#' (no by default)? If you don't make labelled objects, subsetting the data will
+#' lead to a lost of `label` and `units` attributes for all variables. On the
+#' other hand, labelled objects are not always correctly handled by R code.
 #' @param ... Further arguments: itesm to be concatenated in a vector using
 #' `c(...)` for `cl()`.
 #'
@@ -62,7 +63,7 @@
 #'   Petal.Length = "Length of the petals"
 #'   ), units = c(rep("cm", 4), NA))
 #' iris <- unlabelise(iris, self = FALSE)
-labelise <- function(x, label, units = NULL, as_labelled = TRUE, ...)
+labelise <- function(x, label, units = NULL, as_labelled = FALSE, ...)
   UseMethod("labelise")
 
 #' @export
@@ -72,7 +73,7 @@ labelize <- labelise
 #' @export
 #' @rdname labelise
 #' @method labelise default
-`labelise.default` <- function(x, label, units = NULL, as_labelled = TRUE,
+`labelise.default` <- function(x, label, units = NULL, as_labelled = FALSE,
 ...) {
   if (!is.null(label) && !is.na(label)) {
     if (is.list(label))
@@ -96,7 +97,7 @@ labelize <- labelise
 #'   `label=` and `units=` must be either lists or character vectors of the same
 #'   length as `x`, or be named with the names of several or all `x` variables.
 #' @method labelise data.frame
-`labelise.data.frame` <- function(x, label, units = NULL, as_labelled = TRUE,
+`labelise.data.frame` <- function(x, label, units = NULL, as_labelled = FALSE,
 self = TRUE, ...) {
   if (!is.data.frame(x))
     stop("x must be a data.frame")
@@ -169,7 +170,7 @@ self = TRUE, ...) {
 
 #' @export
 #' @rdname labelise
-cl <- function(..., label = NULL, units = NULL, as_labelled = TRUE)
+cl <- function(..., label = NULL, units = NULL, as_labelled = FALSE)
   labelise(c(...), label = label, units = units, as_labelled = as_labelled)
 
 #' @export

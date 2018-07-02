@@ -1,4 +1,4 @@
-.crabs_en <- function(crabs, labels_only = FALSE) {
+.crabs_en <- function(crabs, labels_only = FALSE, as_labelled = FALSE) {
   names(crabs) <- c("species", "sex", "index", "front", "rear", "length",
     "width", "depth")
 
@@ -20,8 +20,8 @@
       rear = "mm",
       length = "mm",
       width = "mm",
-      depth = "mm")
-  )
+      depth = "mm"),
+    as_labelled = as_labelled)
 
   comment(trees) <- c(
     "The 'crabs' from 'MASS' but with variables renamed (sp -> Species,",

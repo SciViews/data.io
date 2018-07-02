@@ -1,4 +1,4 @@
-.planes_fr <- function(planes, labels_only = FALSE) {
+.planes_fr <- function(planes, labels_only = FALSE, as_labelled = FALSE) {
   # planes de nycflights13
 
   # vitesse en miles (nautiques?) par heure => conversion en km/h
@@ -31,8 +31,8 @@
       engines = NA,
       seats = NA,
       speed = "km/h",
-      engine = NA)
-  )
+      engine = NA),
+    as_labelled = as_labelled)
 
   if (!isTRUE(labels_only)) {
    # Les niveaux de type et engines sont traduits
