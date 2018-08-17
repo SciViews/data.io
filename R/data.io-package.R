@@ -1,6 +1,6 @@
-#' data - Read Data from Files or Datasets in R Packages in Different Formats
+#' data.io - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
 #'
-#' Read data from many different formats (tabular datasets, images, ...) into R
+#' Read or write data from many different formats (tabular datasets, images, ...) into R
 #' objects.
 #'
 #' @section Important functions:

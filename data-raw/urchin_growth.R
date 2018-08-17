@@ -1,6 +1,6 @@
 SciViews::R
-library(data)
-urchin_growth <- data::read(here::here("data-raw", "urchin_growth.xls"),
+library(data.io)
+urchin_growth <- data.io::read(here::here("data-raw", "urchin_growth.xls"),
   lang = NULL, as_dataframe = FALSE)
 urchin_growth$date <- as.Date(urchin_growth$date)
 comment(urchin_growth) <- NULL

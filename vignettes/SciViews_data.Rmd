@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The **data** package provides several example datasets in a standardized way, as well as, a `read()` function to retreive them, or to import external datasets in different formats in an unified way.
+The **data.io** package provides several example datasets in a standardized way, as well as, a `read()` function to retreive them, or to import external datasets in different formats in an unified way.
 
 There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
 

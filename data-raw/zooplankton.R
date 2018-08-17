@@ -1,5 +1,5 @@
 SciViews::R
-library(data)
+library(data.io)
 zooplankton <- readRDS(here::here("data-raw", "zooplankton.rds"))
 attr(zooplankton, "traindir") <- NULL
 attr(zooplankton, "path") <- NULL

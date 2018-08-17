@@ -1,8 +1,8 @@
-Package: data
+Package: data.io
 Type: Package
 Version: 1.0.0
-Title: Read Data from Files or Datasets in R Packages in Different Formats
-Description: Read data from many different formats (tabular datasets, images,
+Title: Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
+Description: Read or write data from many different formats (tabular datasets, images,
   ...) into R objects. Add labels and units in different languages.
 Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
   email = "phgrosjean@sciviews.org"))
@@ -13,8 +13,8 @@ Suggests: SciViews, readxl, haven, WriteXLS, openxlsx, covr, knitr, testthat
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/SciViews/data, http://www.sciviews.org/SciViews-R
-BugReports: https://github.com/SciViews/data/issues
+URL: https://github.com/SciViews/data.io, http://www.sciviews.org/SciViews-R
+BugReports: https://github.com/SciViews/data.io/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

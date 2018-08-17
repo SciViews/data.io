@@ -1,8 +1,8 @@
 SciViews::R
-library(data)
+library(data.io)
 library(dplyr)
 library(tidyr)
-mauna_loa <- data::read(here::here("data-raw", "mauna_loa.xls"),
+mauna_loa <- data.io::read(here::here("data-raw", "mauna_loa.xls"),
   sheet = "avg_temp",na = "-----", skip = 11L, header = NULL, lang = NULL,
   as_dataframe = FALSE) %>%
   select(c(1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24)) %>%
@@ -10,7 +10,7 @@ mauna_loa <- data::read(here::here("data-raw", "mauna_loa.xls"),
   arrange(year) %>%
   mutate(avg_temp = round((avg_temp - 32) / 1.8, 1))
 
-mauna_loa$min_temp <- data::read(here::here("data-raw", "mauna_loa.xls"),
+mauna_loa$min_temp <- data.io::read(here::here("data-raw", "mauna_loa.xls"),
   sheet = "min_temp",na = "-----", skip = 11L, header = NULL, lang = NULL,
   as_dataframe = FALSE) %>%
   select(c(1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24)) %>%
@@ -19,7 +19,7 @@ mauna_loa$min_temp <- data::read(here::here("data-raw", "mauna_loa.xls"),
   mutate(min_temp = round((min_temp - 32) / 1.8, 1)) %>%
   pull(min_temp)
 
-mauna_loa$max_temp <- data::read(here::here("data-raw", "mauna_loa.xls"),
+mauna_loa$max_temp <- data.io::read(here::here("data-raw", "mauna_loa.xls"),
   sheet = "max_temp",na = "-----", skip = 11L, header = NULL, lang = NULL,
   as_dataframe = FALSE) %>%
   select(c(1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24)) %>%
@@ -28,7 +28,7 @@ mauna_loa$max_temp <- data::read(here::here("data-raw", "mauna_loa.xls"),
   mutate(max_temp = round((max_temp - 32) / 1.8, 1)) %>%
   pull(max_temp)
 
-mauna_loa$avg_co2 <- data::read(here::here("data-raw", "mauna_loa.xls"),
+mauna_loa$avg_co2 <- data.io::read(here::here("data-raw", "mauna_loa.xls"),
   sheet = "CO2",na = "-99.99", skip = 69L, header = NULL, lang = NULL,
   as_dataframe = FALSE) %>%
   mutate(avg_CO2 = round(avg_CO2, 1)) %>%

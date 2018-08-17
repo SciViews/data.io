@@ -15,4 +15,4 @@
 #' @examples
 #' data_example("iris.csv")
 data_example <- function(path)
-  system.file("extdata", path, package = "data", mustWork = TRUE)
+  system.file("extdata", path, package = "data.io", mustWork = TRUE)

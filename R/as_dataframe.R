@@ -191,7 +191,7 @@ is.dataframe <- is_dataframe
 #  NextMethod()
 #}
 # Test
-#library(data)
+#library(data.io)
 #urchin <- read("urchin_bio", package = "data")
 #class(urchin)
 #library(glue)

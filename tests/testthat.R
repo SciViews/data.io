@@ -1,3 +1,3 @@
 library("testthat")
 
-test_check("data")
+test_check("data.io")

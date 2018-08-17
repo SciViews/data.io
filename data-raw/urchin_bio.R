@@ -1,6 +1,6 @@
 SciViews::R
-library(data)
-urchin_bio <- data::read(here::here("data-raw", "urchin_bio.xls"),
+library(data.io)
+urchin_bio <- data.io::read(here::here("data-raw", "urchin_bio.xls"),
   lang = NULL, as_dataframe = FALSE)
 urchin_bio$origin <- factor(urchin_bio$origin)
 urchin_bio$maturity <- as.integer(urchin_bio$maturity)

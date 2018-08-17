@@ -1,10 +1,10 @@
-# data - SciViews datasets and read()/write() functions
+# data.io - SciViews datasets and read()/write() functions
 
-[![Linux & OSX Build Status](https://travis-ci.org/SciViews/data.svg )](https://travis-ci.org/SciViews/data)
-[![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data?branch=master&svg=true)](http://ci.appveyor.com/project/phgrosjean/data)
-[![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data/master.svg)
-](https://codecov.io/github/SciViews/data?branch=master)
-[![CRAN Status](http://www.r-pkg.org/badges/version/data)](http://cran.r-project.org/package=data)
+[![Linux & OSX Build Status](https://travis-ci.org/SciViews/data.io.svg )](https://travis-ci.org/SciViews/data.io)
+[![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&svg=true)](http://ci.appveyor.com/project/phgrosjean/data.io)
+[![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)
+](https://codecov.io/github/SciViews/data.io?branch=master)
+[![CRAN Status](http://www.r-pkg.org/badges/version/data.io)](http://cran.r-project.org/package=data.io)
 [![License](https://img.shields.io/badge/license-GPL-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
 
 
@@ -12,10 +12,10 @@
 
 ### Latest stable version
 
-The latest stable version of **data** can simply be installed from [CRAN](http://cran.r-project.org):
+The latest stable version of **data.io** can simply be installed from [CRAN](http://cran.r-project.org):
 
 ```r
-install.packages("data")
+install.packages("data.io")
 ```
 
 
@@ -27,30 +27,30 @@ Make sure you have the **devtools** R package installed:
 install.packages("devtools")
 ```
 
-Use `install_github()` to install the **data** package from Github (source from **master** branch will be recompiled on your machine):
+Use `install_github()` to install the **data.io** package from Github (source from **master** branch will be recompiled on your machine):
 
 ```r
-devtools::install_github("SciViews/data")
+devtools::install_github("SciViews/data.io")
 ```
 
-R should install all required dependencies automatically, and then it should compile and install **data**.
+R should install all required dependencies automatically, and then it should compile and install **data.io**.
 
-Latest devel version of **data** (source + Windows binaires for the latest stable version of R at the time of compilation) is also available from [appveyor](https://ci.appveyor.com/project/phgrosjean/data/build/artifacts).
+Latest devel version of **data.io** (source + Windows binaires for the latest stable version of R at the time of compilation) is also available from [appveyor](https://ci.appveyor.com/project/phgrosjean/data.io/build/artifacts).
 
 
 ## Usage
 
-Make the **data** package available in your R session:
+Make the **data.io** package available in your R session:
 
 ```r
-library("data")
+library("data.io")
 ```
 
 Get help about this package:
 
 ```r
-library(help = "data")
-help("data-package")
+library(help = "data.io")
+help("data.io-package")
 ```
 
 For further instructions, please, refer to these help pages.
