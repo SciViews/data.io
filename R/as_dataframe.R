@@ -192,7 +192,7 @@ is.dataframe <- is_dataframe
 #}
 # Test
 #library(data.io)
-#urchin <- read("urchin_bio", package = "data")
+#urchin <- read("urchin_bio", package = "data.io")
 #class(urchin)
 #library(glue)
 #myvar <- "test"

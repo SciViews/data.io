@@ -107,14 +107,14 @@ accross several \R packages. See \code{getOption("read_write")}.
 # name and syntax more similar to read R datasets and datasets from files)
 read() # List all available datasets in your installed version of R
 # List datasets in one particular package
-read(package = "data")
+read(package = "data.io")
 
 # Read one dataset from this package, possibly changing its name
-(urchin <- read("urchin_bio", package = "data"))
+(urchin <- read("urchin_bio", package = "data.io"))
 # Same, but using labels in French
-(urchin <- read("urchin_bio", package = "data", lang = "fr"))
+(urchin <- read("urchin_bio", package = "data.io", lang = "fr"))
 # ... and also the levels of factors in French (note: uppercase FR)
-(urchin <- read("urchin_bio", package = "data", lang = "FR"))
+(urchin <- read("urchin_bio", package = "data.io", lang = "FR"))
 
 # Read one dataset from another package, but with labels and comments
 data(iris) # The R way: you got the initial datasets

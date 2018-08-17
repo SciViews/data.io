@@ -27,7 +27,7 @@
 #' relative_path("file.txt", "/Users/me/project")
 #' relative_path("~/file.txt", "/Users/me/project")
 #' relative_path("./file.txt", "/Users/me/project")
-#' relative_path(file.path(getwd(), "data", "file.txt"))
+#' relative_path(file.path(getwd(), "data.io", "file.txt"))
 #' }
 relative_path <- function(file, dir = getwd()) {
   file2 <- normalizePath(file, winslash = "/", mustWork = FALSE)

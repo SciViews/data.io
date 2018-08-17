@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{Datasets}
 \alias{Datasets}
-\title{Labelised versions of various datasets provided by 'data' or other packages}
+\title{Labelised versions of various datasets provided by 'data.io' or other packages}
 \description{
 Use \code{name <- read("data", package = "pkg", lang = "xx")} to read these
 datasets together with the metadata (labels, units, comments, ...).

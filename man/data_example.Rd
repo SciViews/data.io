@@ -8,14 +8,14 @@ data_example(path)
 }
 \arguments{
 \item{path}{The subpath to a file inside the "extdata" subdirectory of the
-"data" package.}
+"data.io" package.}
 }
 \value{
 The path to the file, or "" if it is not found.
 }
 \description{
 Get the full path to so example datasets included in different
-formats in the "data" package.
+formats in the "data.io" package.
 }
 \examples{
 data_example("iris.csv")
