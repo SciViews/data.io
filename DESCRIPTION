@@ -1,6 +1,6 @@
 Package: data.io
 Type: Package
-Version: 1.0.0
+Version: 1.0.1
 Title: Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
 Description: Read or write data from many different formats (tabular datasets, images,
   ...) into R objects. Add labels and units in different languages.
