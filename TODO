@@ -1,5 +1,7 @@
 # data.io To Do list
 
+* Completion in R and RStudio for `read$` and `write$`.
+
 * geyser translation files are missing!
 
 * label versus comment for a dataframe?
@@ -14,8 +16,6 @@
   function & csvy.
 
 * Look at fst package for ultra-fast csv read/write (+ data.table).
-
-* write() + keep it compatible with base::write()!
 
 * Functions to write headers too: write -> read should restore same object!
 

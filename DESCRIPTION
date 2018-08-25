@@ -1,15 +1,16 @@
 Package: data.io
 Type: Package
-Version: 1.0.1
+Version: 1.1.0
 Title: Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
-Description: Read or write data from many different formats (tabular datasets, images,
-  ...) into R objects. Add labels and units in different languages.
+Description: Read or write data from many different formats (tabular datasets,
+  from statistic software, ...) into R objects. Add labels and units in
+  different languages.
 Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
   email = "phgrosjean@sciviews.org"))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends: R (>= 3.3.0)
 Imports: tibble, tsibble, Hmisc, utils, readr, rlang, datasets, ggplot2, nycflights13
-Suggests: SciViews, readxl, haven, WriteXLS, openxlsx, covr, knitr, testthat
+Suggests: SciViews, readxl, haven, WriteXLS, writexl, covr, knitr, testthat
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

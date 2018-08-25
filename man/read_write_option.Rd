@@ -29,7 +29,7 @@ import or export data for the different types (formats).
 (read_write_option())
 # To add a new type:
 tail(read_write_option(data.frame(type = "png", read_fun = "png::readPNG",
-  read_header = NA, write_fun = "png::writePNG")))
+  read_header = NA, write_fun = "png::writePNG", comment = "PNG image")))
 }
 \seealso{
 \code{\link[=read]{read()}}, \code{\link[=getOption]{getOption()}}

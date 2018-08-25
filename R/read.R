@@ -53,7 +53,7 @@
 #' accross several \R packages. See `getOption("read_write")`.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
-#' @seealso [read_csv()]
+#' @seealso [data_types()], [write()], [read_csv()]
 #' @keywords utilities
 #' @concept read and import data
 #' @examples
@@ -303,32 +303,12 @@ sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
         } else fun_item <- fun_list[fun_list$type == type, ]
       }
 
-      get_function <- function(fun) {
-        # In case we have ns::fun
-        fun <- strsplit(fun, "::", fixed = TRUE)[[1L]]
-        if (length(fun) == 2L) {
-          res <- try(getExportedValue(fun[1L], fun[2L]), silent = TRUE)
-          if (inherits(res, "try-error"))
-            stop("You need function '", fun[2L], "' from package '", fun[1L],
-              "' to read these data. Please, install the package first",
-              " and make sure the function is available there.")
-        } else {
-          if (is.na(fun[1L]))
-            return(NA)
-          res <- get0(fun[1L], envir = parent.frame(), mode = "function",
-            inherits = TRUE)
-          if (is.null(res))
-            stop("function '", fun[1], "' not found")
-        }
-        res
-      }
-
       # If header is not NULL and a hread_xxx() function is available,
       # read as many lines as there are starting with this string
       # and decrypt header data/metadata
       attribs <- NULL
       if (is.null(hfun))
-          hfun <- get_function(fun_item$read_header)
+          hfun <- .get_function(fun_item$read_header)
       if (is.function(hfun) && !is.null(header) && header != "") {
         dat <- hfun(file = file, header.max = header.max, skip = skip,
           locale = locale)
@@ -398,7 +378,7 @@ sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
 
       # Do we have a function to read these data?
       if (is.null(fun))
-        fun <- get_function(fun_item$read_fun)
+        fun <- .get_function(fun_item$read_fun)
 
       # Read the data
       skip_all <- skip + n_header
