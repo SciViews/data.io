@@ -1,5 +1,14 @@
 # data.io News
 
+## Changes in data.io 1.2.0
+
+- It is now possible to specify the default language to use for read() with
+  the option `data.io-lang`.
+
+- `lang` and `lang_encoding` are now recoarde as attributes of the comment of
+  the imported object.
+
+
 ## Changes in data.io 1.1.0
 
 - A basic version of write() is now available.

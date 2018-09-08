@@ -10,10 +10,10 @@
 \title{Read data in \R in different formats}
 \usage{
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
-  locale = default_locale(), lang = "en", lang_encoding = "UTF-8",
-  as_dataframe = TRUE, as_labelled = FALSE, comments = NULL,
-  package = NULL, sidecar_file = TRUE, fun_list = NULL, hfun = NULL,
-  fun = NULL, ...)
+  locale = default_locale(), lang = getOption("data.io_lang", "en"),
+  lang_encoding = "UTF-8", as_dataframe = TRUE, as_labelled = FALSE,
+  comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
+  hfun = NULL, fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -44,8 +44,10 @@ defaults as US English + UTF-8 encoding, and it is advised to be used as
 much as possible.}
 
 \item{lang}{The language to use (mainly for comment, label and units), but
-also for factor levels or other chanracter strings if a translation exists
-and if the language is spelled with uppercase characters (e.g., \code{"FR"}).}
+also for factor levels or other character strings if a translation exists
+and if the language is spelled with uppercase characters (e.g., \code{"FR"}).
+The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for
+French.}
 
 \item{lang_encoding}{Encoding used by R scripts for translation. They should
 all be encoded as \code{UTF-8}, which is the default. However, this argument

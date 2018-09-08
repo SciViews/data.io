@@ -12,8 +12,10 @@
 #' defaults as US English + UTF-8 encoding, and it is advised to be used as
 #' much as possible.
 #' @param lang The language to use (mainly for comment, label and units), but
-#'   also for factor levels or other chanracter strings if a translation exists
+#'   also for factor levels or other character strings if a translation exists
 #'   and if the language is spelled with uppercase characters (e.g., `"FR"`).
+#'   The default value can be set with, e.g., `options(data.io_lang = "fr")` for
+#'   French.
 #' @param lang_encoding Encoding used by R scripts for translation. They should
 #' all be encoded as `UTF-8`, which is the default. However, this argument
 #' allows to specify a different encoding if needed.
@@ -189,9 +191,10 @@
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
 #' }
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
-skip = 0L, locale = default_locale(), lang = "en", lang_encoding = "UTF-8",
-as_dataframe = TRUE, as_labelled = FALSE, comments = NULL, package = NULL,
-sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
+skip = 0L, locale = default_locale(), lang = getOption("data.io_lang", "en"),
+lang_encoding = "UTF-8", as_dataframe = TRUE, as_labelled = FALSE,
+comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
+hfun = NULL, fun = NULL, ...) {
   if (!is.null(lang)) {
     if (length(lang) != 1 || !is.character(lang))
       stop("lang must be a single character string or NULL")
@@ -436,18 +439,20 @@ sidecar_file = TRUE, fun_list = NULL, hfun = NULL, fun = NULL, ...) {
     }
   }
 
-  # Record the comments and origin of the data
+  # Record the comments, lang, lang_encoding and origin of the data
   cmt <- comment(res)
   cmt[] <- c(cmt, comments)
   if (is.null(cmt)) cmt2 <- "" else cmt2 <- cmt
+  attr(cmt2, "lang") <- lang
+  attr(cmt2, "lang_encoding") <- lang_encoding
   if (!is.null(srcfile)) {
     attr(cmt2, "srcfile") <- srcfile
     comment(res) <- cmt2
   } else if (!is.null(src)) {
     attr(cmt2, "src") <- src
     comment(res) <- cmt2
-  } else if (!is.null(cmt)) {
-    comment(res) <- cmt
+  } else {
+    comment(res) <- cmt2
   }
 
   if (isTRUE(as_dataframe)) {# Try to convert the object into a dataframe
