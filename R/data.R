@@ -58,7 +58,7 @@
 #'   and its content.}
 #' \item{\code{gonads}}{Weight (in g) of the gonads.}
 #' \item{\code{dry_gonads}}{Dry weight (in g) of the gonads.}
-#'  \item{\code{skeleton}}{Weight of the skeleton (g), calculated as the sum of
+#' \item{\code{skeleton}}{Weight of the skeleton (g), calculated as the sum of
 #'  lantern + test + spines.}
 #' \item{\code{lantern}}{Dry weight (in g) of the lantern (the jaw and teeths of
 #'   the sea urchin).}

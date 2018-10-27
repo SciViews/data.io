@@ -37,7 +37,5 @@ tail(read_write_option(data.frame(type = "png", read_fun = "png::readPNG",
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-labelling objects
-}
+\concept{labelling objects}
 \keyword{utilities}

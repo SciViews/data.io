@@ -12,8 +12,8 @@
 read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
   locale = default_locale(), lang = getOption("data.io_lang", "en"),
   lang_encoding = "UTF-8", as_dataframe = TRUE, as_labelled = FALSE,
-  comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
-  hfun = NULL, fun = NULL, ...)
+  comments = NULL, package = NULL, sidecar_file = TRUE,
+  fun_list = NULL, hfun = NULL, fun = NULL, ...)
 
 type_from_extension(file)
 
@@ -243,7 +243,5 @@ haven_example <- function(path)
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-read and import data
-}
+\concept{read and import data}
 \keyword{utilities}

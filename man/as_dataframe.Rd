@@ -105,7 +105,5 @@ as.data.frame(t1)
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-convert objects
-}
+\concept{convert objects}
 \keyword{utilities}

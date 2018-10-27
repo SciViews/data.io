@@ -42,7 +42,5 @@ relative_path(file.path(getwd(), "data.io", "file.txt"))
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-relative paths
-}
+\concept{relative paths}
 \keyword{utilities}

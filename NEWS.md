@@ -1,5 +1,10 @@
 # data.io News
 
+## Changes in data.io 1.2.1
+
+- the French translation for the trees dataset had no as_labelled argument
+
+
 ## Changes in data.io 1.2.0
 
 - It is now possible to specify the default language to use for read() with

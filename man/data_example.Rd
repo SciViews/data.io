@@ -26,7 +26,5 @@ data_example("iris.csv")
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-get package directory
-}
+\concept{get package directory}
 \keyword{utilities}

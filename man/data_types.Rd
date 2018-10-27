@@ -46,7 +46,5 @@ data_types(TRUE, view = FALSE)
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-list file types that can be read or write
-}
+\concept{list file types that can be read or write}
 \keyword{utilities}

@@ -2,8 +2,6 @@
 
 * Completion in R and RStudio for `read$` and `write$`.
 
-* geyser translation files are missing!
-
 * label versus comment for a dataframe?
 
 * Rework the read() function.

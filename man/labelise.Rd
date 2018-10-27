@@ -16,10 +16,11 @@ labelise(x, label, units = NULL, as_labelled = FALSE, ...)
 
 labelize(x, label, units = NULL, as_labelled = FALSE, ...)
 
-\method{labelise}{default}(x, label, units = NULL, as_labelled = FALSE, ...)
+\method{labelise}{default}(x, label, units = NULL, as_labelled = FALSE,
+  ...)
 
-\method{labelise}{data.frame}(x, label, units = NULL, as_labelled = FALSE,
-  self = TRUE, ...)
+\method{labelise}{data.frame}(x, label, units = NULL,
+  as_labelled = FALSE, self = TRUE, ...)
 
 cl(..., label = NULL, units = NULL, as_labelled = FALSE)
 
@@ -102,7 +103,5 @@ iris <- unlabelise(iris, self = FALSE)
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-labelling objects
-}
+\concept{labelling objects}
 \keyword{utilities}

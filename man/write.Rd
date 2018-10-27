@@ -85,7 +85,5 @@ rm(mat1)
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{
-write and export data
-}
+\concept{write and export data}
 \keyword{utilities}
