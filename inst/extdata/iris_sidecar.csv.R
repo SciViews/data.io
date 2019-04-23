@@ -22,7 +22,7 @@
 # This file must be encided in UTF-8.
 
 # 1) Import data and rework variables
-dataset <- data::read("iris_sidecar.csv", sidecar_file = FALSE, lang = lang)
+dataset <- data.io::read("iris_sidecar.csv", sidecar_file = FALSE, lang = lang)
 dataset$Species <- factor(dataset$Species)
 
 # 2) In case lang is not NULL, document the dataset (comment, label, units)

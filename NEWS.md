@@ -1,8 +1,14 @@
 # data.io News
 
+## Changes in data.io 1.2.2
+
+- The example iris_sidecar.csv.R wrongly referred to data::read() instead of
+  data.io::read().
+
+
 ## Changes in data.io 1.2.1
 
-- the French translation for the trees dataset had no as_labelled argument
+- The French translation for the trees dataset had no as_labelled() argument
 
 
 ## Changes in data.io 1.2.0
