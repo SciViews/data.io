@@ -1,21 +1,31 @@
-#' data.io - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
-#'
-#' Read or write data from many different formats (tabular datasets, images, ...) into R
-#' objects.
+#' @details
+#' The 'data.io' package focuses on reading and writing datasets in different
+#' formats in an unified and convenient format. It can deal with labels and
+#' units metadata for variables, translation in different languages, and even
+#' use a sidecar file for preprocessing the dataset automatically. The same
+#' features are also available for a subset of datasets from R packages.
 #'
 #' @section Important functions:
 #'
 #' - [read()] is the main function to read data from R packages or files,
 #'
+#' - [write()] is the main function to write data to disk. It is compatible
+#'   with [base::write()] but provides many more features if you indicate
+#'   `type=` or use it like `write$type()`.
+#'
 #' - [labelise()] adds a `label`, and possibly a `units` attributes to an
 #'   object, to be used while pretty printing a table or plot.
 #'
-#' @docType package
-#' @name data-package
-#'
+#' @keywords internal
+"_PACKAGE"
+
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble
 #' @importFrom utils data
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos
+# The following block is used by usethis to automatically manage
+# roxygen namespace tags. Modify with care!
+## usethis namespace: start
+## usethis namespace: end
 NULL

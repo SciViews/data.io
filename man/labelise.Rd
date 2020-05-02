@@ -16,11 +16,9 @@ labelise(x, label, units = NULL, as_labelled = FALSE, ...)
 
 labelize(x, label, units = NULL, as_labelled = FALSE, ...)
 
-\method{labelise}{default}(x, label, units = NULL, as_labelled = FALSE,
-  ...)
+\method{labelise}{default}(x, label, units = NULL, as_labelled = FALSE, ...)
 
-\method{labelise}{data.frame}(x, label, units = NULL,
-  as_labelled = FALSE, self = TRUE, ...)
+\method{labelise}{data.frame}(x, label, units = NULL, as_labelled = FALSE, self = TRUE, ...)
 
 cl(..., label = NULL, units = NULL, as_labelled = FALSE)
 
@@ -44,12 +42,12 @@ unlabelize(x, ...)
 lead to a lost of \code{label} and \code{units} attributes for all variables. On the
 other hand, labelled objects are not always correctly handled by R code.}
 
-\item{...}{Further arguments: itesm to be concatenated in a vector using
+\item{...}{Further arguments: items to be concatenated in a vector using
 \code{c(...)} for \code{cl()}.}
 
 \item{self}{Do we label the \code{data.frame} itself (\code{self = TRUE}, by default)
 or variables within that \code{data.frame} (\code{self = FALSE})? In the later case,
-\code{label=} and \code{units=} must be either lists or character vectors of the same
+\verb{label=} and \verb{units=} must be either lists or character vectors of the same
 length as \code{x}, or be named with the names of several or all \code{x} variables.}
 }
 \value{
@@ -103,5 +101,5 @@ iris <- unlabelise(iris, self = FALSE)
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
 }
-\concept{labelling objects}
+\concept{labeling objects}
 \keyword{utilities}

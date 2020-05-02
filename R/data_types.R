@@ -1,12 +1,12 @@
 #' List recognized file formats (types) for read() and write()
 #'
 #' @param types_only If `TRUE`, only a vector of types is returned, otherwise,
-#' a `tibble` with fll specifications is provided.
+#' a `tibble` with full specifications is provided.
 #' @param view If `TRUE`, the result is "viewed" (displayed in a table in a
 #' separate window, if the user interface allows it, e.g., in RStudio) and
 #' returned invisibly. Otherwise, the results are returned normally.
 #'
-#' @description Dispaly information about data types that can read() and write()
+#' @description Display information about data types that can read() and write()
 #' can use, as well as, the original functions that are delegated (see they
 #' respective help pages for more info and to know which additional parameters
 #' can be used in read() and write()).

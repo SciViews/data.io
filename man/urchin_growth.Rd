@@ -4,7 +4,9 @@
 \name{urchin_growth}
 \alias{urchin_growth}
 \title{Sea urchins growth}
-\format{An object of class \code{data.frame} with 7024 rows and 3 columns.}
+\format{
+An object of class \code{data.frame} with 7024 rows and 3 columns.
+}
 \usage{
 urchin_growth
 }
@@ -13,8 +15,8 @@ Size at age for a cohort of farmed sea urchins, \emph{Paracentrotus lividus}.
 }
 \details{
 The same cohort of farmed sea urchins being measured at various time
-intervals, the observations are not completelly independent from each other:
-the same individuals aree repeatedly measured here. As the sea urchins are
+intervals, the observations are not completely independent from each other:
+the same individuals are repeatedly measured here. As the sea urchins are
 not individually tagged, it is not possible to track them from one
 measurement to the other. However, the whole dataset is representative of the
 growth, and spreading of growth in a single cohort. Also, mortality could be

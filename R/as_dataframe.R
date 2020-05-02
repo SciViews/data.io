@@ -11,7 +11,7 @@
 #'
 #' @return A `dataframe`, which is an S3 object with class
 #'   `c("dataframe", "tbl_df", "tbl", "data.frame")`.
-#' @details TODO: explain difference beteen `dataframe`s and `tibble`s here...
+#' @details TODO: explain difference between `dataframe`s and `tibble`s here...
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
 #' @seealso [as_tibble()], [as.data.frame()]
@@ -61,7 +61,7 @@ as.dataframe <- as_dataframe
 as_dataframe.default <- function(x, tz = "UTC", ...) {
   # If we have time series objects, transform first into tsibble
   if (inherits(x, c("ts", "mts", "hts", "msts", "grouped_ts")))
-    x <- as_tsibble(x, tz = tz, gather = FALSE, ...)
+    x <- as_tsibble(x, tz = tz, pivot_longer = FALSE, ...)
   x <- as_tibble(x, ...)
   if (is_tibble(x)) {
     class(x) <- unique(c("dataframe", class(x)))
@@ -76,7 +76,7 @@ as_dataframe.default <- function(x, tz = "UTC", ...) {
 #' @param rownames Name of the column that is prepended to the
 #'   `dataframe` with the original row names (`dataframe`s and `tibble`s do not
 #'   support row names). If `NULL`, row names are dropped. The inclusion of the
-#'   rownames column is **not** done if row names are trivials, i.e., they equal
+#'   rownames column is **not** done if row names are trivial, i.e., they equal
 #'   the number of the rows in the data frame.
 as_dataframe.data.frame <- function(x, ..., rownames = "rownames") {
   # Creating a new "rownames" column in case of non-trivial row names

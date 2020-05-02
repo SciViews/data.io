@@ -1,24 +1,24 @@
 #' Define default read/write options and add items to it
 #'
 #' @param new_type A data.frame with four columns: `type`, `read_fun`,
-#'   `read_header` & `write_fun` containing each a single character string or
+#'   `read_header` and `write_fun` containing each a single character string or
 #'   `NA`. `type` is the usual extension for this type of file, e.g., `png` for
-#'   PNG images, `read_fun`, `read_header` & `write_fun` are character strings
-#'   with "<pkg>::<fun>" format (<pkg> is the package containing the
-#'   function and <fun> is the function name), or just "<fun>" if the function
+#'   PNG images, `read_fun`, `read_header` and `write_fun` are character strings
+#'   with "pkg::fun" format ("pkg" is the package containing the function and
+#'   "fun" is the function name), or just "fun" if the function
 #'   is visible on the search path.
 #'
 #' @description Define the functions that [read()] or write() must call to
 #' import or export data for the different types (formats).
 #'
 #' @return The data.frame with all known formats is returned invisibly. The same
-#' data.frame is also savec in the "read_write" option, and can be retrieved
+#' data.frame is also saved in the `read_write`` option, and can be retrieved
 #' directly with `getOption("read_write")`.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
 #' @seealso [read()], [getOption()]
 #' @keywords utilities
-#' @concept labelling objects
+#' @concept labeling objects
 #' @examples
 #' # The default options
 #' (read_write_option())

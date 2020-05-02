@@ -4,7 +4,8 @@
 \name{urchin_bio}
 \alias{urchin_bio}
 \title{Sea urchins biometry}
-\format{A data frame with 19 variables:
+\format{
+A data frame with 19 variables:
 \describe{
 \item{\code{origin}}{A \strong{factor} with two levels: \code{"Culture"}, and
 \code{"Fishery"}.}
@@ -32,14 +33,14 @@ and its content.}
 \item{\code{dry_gonads}}{Dry weight (in g) of the gonads.}
 \item{\code{skeleton}}{Weight of the skeleton (g), calculated as the sum of
 lantern + test + spines.}
-\item{\code{lantern}}{Dry weight (in g) of the lantern (the jaw and teeths of
+\item{\code{lantern}}{Dry weight (in g) of the lantern (the jaw and teeth of
 the sea urchin).}
 \item{\code{test}}{Dry weight (in g) of the calcareous part of the test.}
 \item{\code{spines}}{Dry weight (in g) of calcareous parts of the spines.}
 \item{\code{maturity}}{Gonads maturity index (integer), measured on a scale
 of 3 states: state 0 means the gonad is absent or spent, state 1 means it is
 growing but not mature, and state 2 means the gonad is mature. This should
-be treated as a circular variable, since the freproductive cycle is 0 -> 1
+be treated as a circular variable, since the reproductive cycle is 0 -> 1
 -> 2 -> 0 (spawning).}
 \item{\code{sex}}{When it is possible, the sex of the animal is determined by
 visual inspection of the gonads (\strong{factor} with levels \code{"F"} and \code{"M"}).}
@@ -53,7 +54,8 @@ more suitable to explore allometric relationships between body measurements
 and/or body parts of the sea urchins over the whole size range.
 
 For further details on the farming of these sea urchins, see
-\href{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}{here}.}
+\href{https://www.researchgate.net/publication/280021206_Land-based_closed-cycle_echiniculture_of_Paracentrotus_lividus_Lamarck_Echinoidea_Echinodermata_A_long-term_experiment_at_a_pilot_scale}{here}.
+}
 \usage{
 urchin_bio
 }

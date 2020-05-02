@@ -1,21 +1,42 @@
 Package: data.io
 Type: Package
-Version: 1.2.2
-Title: Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
+Version: 1.3.0
+Date: 2020-05-02
+Title: 'SciViews' - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
   from statistic software, ...) into R objects. Add labels and units in
   different languages.
 Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
-  email = "phgrosjean@sciviews.org"))
+  email = "phgrosjean@sciviews.org",
+  comment = c(ORCID = "0000-0002-2694-9471")))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends: R (>= 3.3.0)
-Imports: tibble, tsibble, Hmisc, utils, readr, rlang, datasets, ggplot2, nycflights13
-Suggests: SciViews, readxl, haven, WriteXLS, writexl, covr, knitr, testthat
+Imports:
+    tibble,
+    tsibble,
+    Hmisc,
+    utils,
+    readr,
+    rlang,
+    datasets,
+    ggplot2,
+    nycflights13
+Suggests: 
+    SciViews,
+    readxl,
+    haven,
+    WriteXLS,
+    writexl,
+    covr,
+    knitr,
+    testthat,
+    spelling
 License: GPL-2
-Encoding: UTF-8
-LazyData: true
-URL: https://github.com/SciViews/data.io, http://www.sciviews.org/SciViews-R
+URL: https://github.com/SciViews/data.io, http://www.sciviews.org/data.io
 BugReports: https://github.com/SciViews/data.io/issues
+LazyData: yes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
+Encoding: UTF-8
+Language: en-US

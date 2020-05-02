@@ -4,7 +4,9 @@
 \name{mauna_loa}
 \alias{mauna_loa}
 \title{Temperature and atmospheric CO2 at Mauna Loa, Hawai}
-\format{An object of class \code{mts} (inherits from \code{ts}, \code{matrix}) with 768 rows and 4 columns.}
+\format{
+An object of class \code{mts} (inherits from \code{ts}, \code{matrix}) with 768 rows and 4 columns.
+}
 \usage{
 mauna_loa
 }
@@ -14,7 +16,7 @@ monthly temperatures at Mauna Loa slope observatory from 1955 to 2018.
 }
 \details{
 Atmospheric CO2 concentration is mole fraction in dry air, micromol/mol,
-abbreviated as ppm. Temperatures are in degree celcius.
+abbreviated as ppm. Temperatures are in degree Celsius.
 }
 \examples{
 class(mauna_loa)

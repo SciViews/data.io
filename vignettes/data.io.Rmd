@@ -1,10 +1,12 @@
 ---
-title: "SciViews data"
-author: "Philippe Grosjean"
+title: "SciViews datasets and read()/write() functions"
+author: "Philippe Grosjean (phgrosjean@sciviews.org)"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{SciViews data}
+  %\VignetteIndexEntry{SciViews datasets and read()/write() functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
@@ -17,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The **data.io** package provides several example datasets in a standardized way, as well as, a `read()` function to retreive them, or to import external datasets in different formats in an unified way.
+The 'data.io' package provides several example datasets in a standardized way, as well as, a `read()` function to retrieve them, or to import external datasets in different formats in an unified way.
 
 There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
 
@@ -27,10 +29,8 @@ There are several datasets spread between various R packages, but there is no cl
 
 - Uppercase for factor levels (but less strict),
 
-- data frames are converted, by default, into `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, they are also **tibble**s, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
+- data frames are converted, by default, into `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, they are also 'tibble's, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
 
 - variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
 
 - the origin of the data is recorded as an `src` attribute to the comment if this is a R package dataset, or as a `srcfile` attribute to comment if it read from a file.
-
-

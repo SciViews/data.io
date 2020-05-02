@@ -4,27 +4,35 @@
 \alias{write}
 \title{Write data from \R in files in different formats}
 \usage{
-write(x, file = "data", ncolumns = if (is.character(x)) 1 else 5,
-  append = FALSE, sep = " ", type = NULL, fun_list = NULL, ...)
+write(
+  data,
+  file = "data",
+  ncolumns = if (is.character(data)) 1 else 5,
+  append = FALSE,
+  sep = " ",
+  type = NULL,
+  fun_list = NULL,
+  x,
+  ...
+)
 }
 \arguments{
-\item{x}{An object to write in a file. The accepted class depends on what the
-delegated function expects (in many cases, a \code{data.frame} or \code{tibble} is just
-fine). If \code{type} is not provided, a \code{data.frame} is \strong{not} suitable because
-only an atomic vector can be provided. Give a \code{matrix} instead, if you want
-to write tabular data, or provide \code{type = "txt"} for instance.}
+\item{data}{An object to write in a file. The accepted class depends on what
+the delegated function expects (in many cases, a \code{data.frame} or \code{tibble} is
+just fine). If \code{type} is not provided, a \code{data.frame} is \strong{not} suitable
+because only an atomic vector can be provided. Give a \code{matrix} instead, if
+you want to write tabular data, or provide \code{type = "txt"} for instance.}
 
 \item{file}{The path to the file to write to. If \code{type} is not provide, a
-connection, or a character string naming the file to write to. If \code{""``, print to the standard output connection. If it is}"|cmd"`, the output is
-piped to the command given by ‘cmd’.}
+connection, or a character string naming the file to write to. If \verb{""``, print to the standard output connection. If it is }"|cmd"\verb{, the output is piped to the command given by }cmd`.}
 
 \item{ncolumns}{The number of columns to write the data in when \code{type} is
-provoded, this is by-passed.}
+provided, this is by-passed.}
 
-\item{append}{If \code{TRUE} and \code{type} is not provided, the data \code{x} are appended
+\item{append}{If \code{TRUE} and \code{type} is not provided, the \code{data} are appended
 to the connection.}
 
-\item{sep}{A string used to separate columns. Using \code{sep = "\t"} gives tab
+\item{sep}{A string used to separate columns. Using \code{sep = "\\t"} gives tab
 delimited output; default is \code{" "} when \code{type} is not provide, or the default
 provided by the delegated function if this parameter is present there.}
 
@@ -33,12 +41,16 @@ provided by the delegated function if this parameter is present there.}
 \item{fun_list}{The table with correspondance of the types, read, and write
 functions.}
 
+\item{x}{Same as \verb{data=}, for compatibility with \code{base::write()}. Please, do
+not use both \verb{data=} and \verb{x=} as the same time, or an error will be
+generated.}
+
 \item{...}{Further arguments passed to the write function, when \code{type} is
 explicitly provided.}
 }
 \value{
-\code{x} is returned invisibly (on the contrary to \code{\link[base:write]{base::write()}} which
-returns \code{NULL}).
+\code{data} is returned invisibly (on the contrary to \code{\link[base:write]{base::write()}}
+which returns \code{NULL}).
 }
 \description{
 Write \R data into a file, in different formats.
@@ -46,7 +58,7 @@ Write \R data into a file, in different formats.
 \details{
 This function is designed to be fully compatible with
 \code{\link[base:write]{base::write()}}, while allowing to specify \code{type} also, and get a more
-interesting behaviour in this case. Hence, when \code{type} is \strong{not} provided,
+interesting behavior in this case. Hence, when \code{type} is \strong{not} provided,
 either with \code{write(type = ...)}, or \code{write$...()}, the default code is used
 and a plain text file wit fields separated by spaces (be default) is written.
 When type is provided, then the exportation is delegated to specific

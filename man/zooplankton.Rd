@@ -4,7 +4,8 @@
 \name{zooplankton}
 \alias{zooplankton}
 \title{Zooplankton image analysis}
-\format{A data frame with 19 variables:
+\format{
+A data frame with 19 variables:
 \describe{
 \item{\code{ecd}}{The "equivalent circular diameter", the diameter of a
 circle with the same area as the particle (in mm).}
@@ -20,7 +21,7 @@ density (OD), thus, unitless.}
 \item{\code{mode}}{The most frequent gray level in that particle in OD.}
 \item{\code{min}}{The most transparent part in OD.}
 \item{\code{max}}{The most opaque part in OD.}
-\item{\code{std_dev}}{The stadard deviation of the OD distribution inside
+\item{\code{std_dev}}{The standard deviation of the OD distribution inside
 the particle.}
 \item{\code{range}}{Transparency range as \code{max} - \code{min}.}
 \item{\code{size}}{The mean diameter of the particle, as the average of
@@ -31,7 +32,7 @@ same \code{perimeter} of the particle.}
 \item{\code{compactness}}{sqrt((4/pi) * \code{area}) / \code{major}.}
 \item{\code{transparency}}{1 - (\code{ecd} - \code{size}).}
 \item{\code{circularity}}{4pi(\code{area} / \code{perimeter}^2).}
-\item{\code{density}}{Density integrate by the surface coevered by each gray
+\item{\code{density}}{Density integrate by the surface covered by each gray
 level, i.e. O.D., inside the particle.}
 \item{\code{class}}{The classification of this particle. 17 classes are made.
 Note that \code{Copepods} are \code{Calanoid} + \code{Cyclopoid} + \code{Harpactivoid} +
@@ -45,12 +46,13 @@ machine learning algorithms. Organisms originate from various samples
 However, the abundance of the different classes do \strong{not} match abundance
 found in each sample, i.e., rare classes are over-represented in this
 training set. Only zooplankton classes are present in the dataset. Full data
-also contains classes for phytoplankton, marine sno, etc. Take care that
-several variables are correlated!}
+also contains classes for phytoplankton, marine snow, etc. Take care that
+several variables are correlated!
+}
 \source{
 Grosjean, Ph & K. Denis (2004). Supervised classification of images,
 applied to plankton samples using R and ZooImage. Chap.12 of Data Mining
-Applications with R. Zhao, Y. & Y. Cen (eds). Elevier. Pp 331-365.
+Applications with R. Zhao, Y. & Y. Cen (eds). Elsevier. Pp 331-365.
 https://doi.org/10.1016/C2012-0-00333-X.
 }
 \usage{

@@ -8,7 +8,7 @@ data_types(types_only = FALSE, view = TRUE)
 }
 \arguments{
 \item{types_only}{If \code{TRUE}, only a vector of types is returned, otherwise,
-a \code{tibble} with fll specifications is provided.}
+a \code{tibble} with full specifications is provided.}
 
 \item{view}{If \code{TRUE}, the result is "viewed" (displayed in a table in a
 separate window, if the user interface allows it, e.g., in RStudio) and
@@ -18,7 +18,7 @@ returned invisibly. Otherwise, the results are returned normally.}
 An \code{tibble} with \code{types_only = FALSE}, or a character vector.
 }
 \description{
-Dispaly information about data types that can read() and write()
+Display information about data types that can read() and write()
 can use, as well as, the original functions that are delegated (see they
 respective help pages for more info and to know which additional parameters
 can be used in read() and write()).

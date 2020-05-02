@@ -1,40 +1,39 @@
-# data.io News
+# data.io 1.3.0
 
-## Changes in data.io 1.2.2
+- Rework of sources and 'pkgdown' web site added.
 
-- The example iris_sidecar.csv.R wrongly referred to data::read() instead of
-  data.io::read().
+- A new argument `data=` synonym to `file=` is added. It makes more sense for datasets loaded from packages.
 
+- First argument of `write()` is now named `data=` for coherence.
 
-## Changes in data.io 1.2.1
+- For the `mauna_loa` dataset, calls to `tidyr::gather()` (deprecated) are replaced by `tidyr::pivot_longer()`.
 
-- The French translation for the trees dataset had no as_labelled() argument
+# data.io 1.2.2
 
+- The example `iris_sidecar.csv.R` wrongly referred to `data::read()` instead of `data.io::read()`.
 
-## Changes in data.io 1.2.0
+# data.io 1.2.1
 
-- It is now possible to specify the default language to use for read() with
-  the option `data.io-lang`.
+- The French translation for the trees dataset had no `as_labelled()` argument.
 
-- `lang` and `lang_encoding` are now recoarde as attributes of the comment of
-  the imported object.
+# data.io 1.2.0
 
+- It is now possible to specify the default language to use for `read()` with the option `data.io-lang`.
 
-## Changes in data.io 1.1.0
+- `lang` and `lang_encoding` are now recorded as attributes of the comment of the imported object.
 
-- A basic version of write() is now available.
+# data.io 1.1.0
 
-- data_types() function added to easily get information about data types that
-  can be read() or write()
+- A basic version of `write()` is now available.
 
-- Description added into "read_write" options.
+- `data_types()` function added to easily get information about data types that can be used with `read()` or `write()`.
 
+- Description added into `read_write` options.
 
-## Changes in data.io 1.0.1
+# data.io 1.0.1
 
-- Bug corrected: forgot to change 'data' -> 'data.io' in 'read_write' options.
+- Bug corrected: forgot to change `data` -> `data.io` in `read_write` options.
 
-
-## Changes in data.io 1.0.0
+# data.io 1.0.0
 
 First version of the package on Github.

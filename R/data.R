@@ -4,7 +4,7 @@
 #' monthly temperatures at Mauna Loa slope observatory from 1955 to 2018.
 #'
 #' Atmospheric CO2 concentration is mole fraction in dry air, micromol/mol,
-#' abbreviated as ppm. Temperatures are in degree celcius.
+#' abbreviated as ppm. Temperatures are in degree Celsius.
 #'
 #' @examples
 #' class(mauna_loa)
@@ -60,14 +60,14 @@
 #' \item{\code{dry_gonads}}{Dry weight (in g) of the gonads.}
 #' \item{\code{skeleton}}{Weight of the skeleton (g), calculated as the sum of
 #'  lantern + test + spines.}
-#' \item{\code{lantern}}{Dry weight (in g) of the lantern (the jaw and teeths of
+#' \item{\code{lantern}}{Dry weight (in g) of the lantern (the jaw and teeth of
 #'   the sea urchin).}
 #' \item{\code{test}}{Dry weight (in g) of the calcareous part of the test.}
 #' \item{\code{spines}}{Dry weight (in g) of calcareous parts of the spines.}
 #' \item{\code{maturity}}{Gonads maturity index (integer), measured on a scale
 #'  of 3 states: state 0 means the gonad is absent or spent, state 1 means it is
 #'  growing but not mature, and state 2 means the gonad is mature. This should
-#'  be treated as a circular variable, since the freproductive cycle is 0 -> 1
+#'  be treated as a circular variable, since the reproductive cycle is 0 -> 1
 #'  -> 2 -> 0 (spawning).}
 #' \item{\code{sex}}{When it is possible, the sex of the animal is determined by
 #'   visual inspection of the gonads (**factor** with levels `"F"` and `"M"`).}
@@ -90,8 +90,8 @@
 #' Size at age for a cohort of farmed sea urchins, *Paracentrotus lividus*.
 #'
 #' The same cohort of farmed sea urchins being measured at various time
-#' intervals, the observations are not completelly independent from each other:
-#' the same individuals aree repeatedly measured here. As the sea urchins are
+#' intervals, the observations are not completely independent from each other:
+#' the same individuals are repeatedly measured here. As the sea urchins are
 #' not individually tagged, it is not possible to track them from one
 #' measurement to the other. However, the whole dataset is representative of the
 #' growth, and spreading of growth in a single cohort. Also, mortality could be
@@ -115,7 +115,7 @@
 #'
 #' @source Grosjean, Ph & K. Denis (2004). Supervised classification of images,
 #' applied to plankton samples using R and ZooImage. Chap.12 of Data Mining
-#' Applications with R. Zhao, Y. & Y. Cen (eds). Elevier. Pp 331-365.
+#' Applications with R. Zhao, Y. & Y. Cen (eds). Elsevier. Pp 331-365.
 #' https://doi.org/10.1016/C2012-0-00333-X.
 #'
 #' @format A data frame with 19 variables:
@@ -134,7 +134,7 @@
 #' \item{\code{mode}}{The most frequent gray level in that particle in OD.}
 #' \item{\code{min}}{The most transparent part in OD.}
 #' \item{\code{max}}{The most opaque part in OD.}
-#' \item{\code{std_dev}}{The stadard deviation of the OD distribution inside
+#' \item{\code{std_dev}}{The standard deviation of the OD distribution inside
 #'   the particle.}
 #' \item{\code{range}}{Transparency range as `max` - `min`.}
 #' \item{\code{size}}{The mean diameter of the particle, as the average of
@@ -145,7 +145,7 @@
 #' \item{\code{compactness}}{sqrt((4/pi) * `area`) / `major`.}
 #' \item{\code{transparency}}{1 - (`ecd` - `size`).}
 #' \item{\code{circularity}}{4pi(`area` / `perimeter`^2).}
-#' \item{\code{density}}{Density integrate by the surface coevered by each gray
+#' \item{\code{density}}{Density integrate by the surface covered by each gray
 #'   level, i.e. O.D., inside the particle.}
 #' \item{\code{class}}{The classification of this particle. 17 classes are made.
 #'   Note that `Copepods` are `Calanoid` + `Cyclopoid` + `Harpactivoid` +
@@ -159,7 +159,7 @@
 #' However, the abundance of the different classes do **not** match abundance
 #' found in each sample, i.e., rare classes are over-represented in this
 #' training set. Only zooplankton classes are present in the dataset. Full data
-#' also contains classes for phytoplankton, marine sno, etc. Take care that
+#' also contains classes for phytoplankton, marine snow, etc. Take care that
 #' several variables are correlated!
 #'
 #' @examples
@@ -213,11 +213,11 @@
 #'
 #' From `datasets`:
 #' \describe{
-#'   \item{\code{\link{anscombe}}}{Anscombe's quartet of ‘identical’ simple
+#'   \item{\code{\link{anscombe}}}{Anscombe's quartet of 'identical' simple
 #'   linear Regressions. 8 vars x 11 obs. Artificial data. }
 #'   \item{\code{\link{iris}}}{Edgar Anderson's iris data. 5 vars x 150 obs.
 #'   Morphometry of the flowers of three iris species (50 for each species). }
-#'   \item{\code{\link{lynx}}}{Annual canadian lynx trappings 1821–1934. 2 vars
+#'   \item{\code{\link{lynx}}}{Annual Canadian lynx trappings 1821–1934. 2 vars
 #'   x 114 obs. Long (> 1 century) time series. }
 #'   \item{\code{\link{trees}}}{Black cherry trees measurements. 3 vars x 31
 #'   obs. Measurement of tree timber of various sizes. }

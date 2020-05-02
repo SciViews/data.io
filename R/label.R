@@ -16,7 +16,7 @@
 #' (no by default)? If you don't make labelled objects, subsetting the data will
 #' lead to a lost of `label` and `units` attributes for all variables. On the
 #' other hand, labelled objects are not always correctly handled by R code.
-#' @param ... Further arguments: itesm to be concatenated in a vector using
+#' @param ... Further arguments: items to be concatenated in a vector using
 #' `c(...)` for `cl()`.
 #'
 #' @description Set the `label`, as well as the `units` attributes to an object.
@@ -37,7 +37,7 @@
 #' @export
 #' @seealso [label()], [units()]
 #' @keywords utilities
-#' @concept labelling objects
+#' @concept labeling objects
 #' @examples
 #' # Labelise a vector:
 #' x <- 1:10

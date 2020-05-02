@@ -1,17 +1,17 @@
 #' Write data from \R in files in different formats
 #'
-#' @param x An object to write in a file. The accepted class depends on what the
-#' delegated function expects (in many cases, a `data.frame` or `tibble` is just
-#' fine). If `type` is not provided, a `data.frame` is **not** suitable because
-#' only an atomic vector can be provided. Give a `matrix` instead, if you want
-#' to write tabular data, or provide `type = "txt"` for instance.
+#' @param data An object to write in a file. The accepted class depends on what
+#' the delegated function expects (in many cases, a `data.frame` or `tibble` is
+#' just fine). If `type` is not provided, a `data.frame` is **not** suitable
+#' because only an atomic vector can be provided. Give a `matrix` instead, if
+#' you want to write tabular data, or provide `type = "txt"` for instance.
 #' @param file The path to the file to write to. If `type` is not provide, a
 #' connection, or a character string naming the file to write to. If `""``,
 #' print to the standard output connection. If it is `"|cmd"`, the output is
-#' piped to the command given by ‘cmd’.
+#' piped to the command given by `cmd`.
 #' @param ncolumns The number of columns to write the data in when `type` is
-#' provoded, this is by-passed.
-#' @param append If `TRUE` and `type` is not provided, the data `x` are appended
+#' provided, this is by-passed.
+#' @param append If `TRUE` and `type` is not provided, the `data` are appended
 #' to the connection.
 #' @param sep A string used to separate columns. Using `sep = "\t"` gives tab
 #' delimited output; default is `" "` when `type` is not provide, or the default
@@ -19,16 +19,19 @@
 #' @param type The type (format) of data to read.
 #' @param fun_list The table with correspondance of the types, read, and write
 #'   functions.
+#' @param x Same as `data=`, for compatibility with `base::write()`. Please, do
+#'   not use both `data=` and `x=` as the same time, or an error will be
+#'   generated.
 #' @param ... Further arguments passed to the write function, when `type` is
 #' explicitly provided.
 #'
 #' @description Write \R data into a file, in different formats.
 #'
-#' @return `x` is returned invisibly (on the contrary to [base::write()] which
-#' returns `NULL`).
+#' @return `data` is returned invisibly (on the contrary to [base::write()]
+#' which returns `NULL`).
 #' @details This function is designed to be fully compatible with
 #' [base::write()], while allowing to specify `type` also, and get a more
-#' interesting behaviour in this case. Hence, when `type` is **not** provided,
+#' interesting behavior in this case. Hence, when `type` is **not** provided,
 #' either with `write(type = ...)`, or `write$...()`, the default code is used
 #' and a plain text file wit fields separated by spaces (be default) is written.
 #' When type is provided, then the exportation is delegated to specific
@@ -64,13 +67,21 @@
 #' # Tidy up
 #' unlink("my_temporary_data.txt")
 #' rm(mat1)
-write <- structure(function(x, file = "data",
-ncolumns = if (is.character(x)) 1 else 5, append = FALSE, sep = " ",
-type = NULL, fun_list = NULL, ...) {
+write <- structure(function(data, file = "data",
+ncolumns = if (is.character(data)) 1 else 5, append = FALSE, sep = " ",
+type = NULL, fun_list = NULL, x, ...) {
+  if (missing(data)) {
+    if (missing(x)) {
+      stop("you must provide either 'data=' or 'x='")
+    } else {
+      data <- x
+    }
+  }
+
   # If type is missing, base::write() is used!
   if (missing(type)) {
-    base::write(x, file = file, ncolumns = ncolumns, sep = sep)
-    return(invisible(x))
+    base::write(x = data, file = file, ncolumns = ncolumns, sep = sep)
+    return(invisible(data))
   }
 
   # Get fun_list from options() (and possibly install it)
@@ -93,9 +104,9 @@ type = NULL, fun_list = NULL, ...) {
     stop("no write function is provided for this type")
   fun <- .get_function(fun_name)
   if (!missing(sep)) {
-    res <- fun(x, file, sep = sep, ...)
+    res <- fun(data, file, sep = sep, ...)
   } else {
-    res <- fun(x, file, ...)
+    res <- fun(data, file, ...)
   }
-  invisible(x)
+  invisible(data)
 }, class = c("function", "subsettable_type"))

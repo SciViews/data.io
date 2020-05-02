@@ -22,9 +22,9 @@
 #' @param as_dataframe Do we try to convert the resulting object into a
 #'   `dataframe` (inheriting from `data.frame`, `tbl` and `tbl_db` alias
 #'   `tibble`)? If `FALSE`, no conversion is attempted.
-#' @param as_labelled Are variable converted into labelled objects. This allows
-#' to keep labels and units when the vector is manipulated, but it can lead to
-#' incompatibilities with some R code (hence, it is `FALSE` by default).
+#' @param as_labelled Are variable converted into 'labelled' objects. This
+#' allows to keep labels and units when the vector is manipulated, but it can
+#' lead to incompatibilities with some R code (hence, it is `FALSE` by default).
 #' @param comments Comments to add in the created object.
 #' @param package The package where to look for the dataset. If `file=` is not
 #'   provided, a list of available datasets in the package is displayed.
@@ -44,6 +44,9 @@
 #'   The function is chosen from `fun_list`.
 #' @param fun_list The table with correspondance of the types, read, and write
 #'   functions.
+#' @param data A synonym to `file=` (the name makes more sense when the dataset
+#'   is loaded from a package). You cannot use `data=` and `file=` at the same
+#'   time.
 #' @param ... Further arguments passed to the function `fun=`.
 #'
 #' @description Read and return an \R object from data on disk, from URL, or
@@ -52,7 +55,7 @@
 #' @return An \R object with the data (its class depends on the data being read).
 #' @details `read()` allows for a unique entry point to read various kinds of
 #' data, but it delegates the actual work to various other functions dispatched
-#' accross several \R packages. See `getOption("read_write")`.
+#' across several \R packages. See `getOption("read_write")`.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
 #' @seealso [data_types()], [write()], [read_csv()]
@@ -194,7 +197,14 @@ read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 skip = 0L, locale = default_locale(), lang = getOption("data.io_lang", "en"),
 lang_encoding = "UTF-8", as_dataframe = TRUE, as_labelled = FALSE,
 comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
-hfun = NULL, fun = NULL, ...) {
+hfun = NULL, fun = NULL, data, ...) {
+  if (!missing(data)) {
+    if (missing(file)) {
+      file <- data
+    } else {
+      stop("you cannot provide 'data' and 'file' at the same time")
+    }
+  }
   if (!is.null(lang)) {
     if (length(lang) != 1 || !is.character(lang))
       stop("lang must be a single character string or NULL")
@@ -213,9 +223,9 @@ hfun = NULL, fun = NULL, ...) {
   srcfile <- NULL
   src <- NULL
   # Is there a sidecar file?
-  if (missing(file)) {
-    if (missing(package)) {# No file or package provided: list all datasets
-      return(data())
+  if (missing(file) && missing(data)) {
+    if (missing(package)) {# No file/data or package provided: list all datasets
+      return(utils::data())
     }
     file2 <- ""
   } else {
@@ -242,10 +252,11 @@ hfun = NULL, fun = NULL, ...) {
       fun_list <- read_write_option()
     # If package is provided, get data from a package
     if (!is.null(package)) {
-      if (missing(file)) {# List of datasets available in the package
-        return(data(package = package))
+      if (missing(file) && missing(data)) {
+        # List of datasets available in the package
+        return(utils::data(package = package))
       }
-      suppressWarnings(data(list = file, package = package, ...,
+      suppressWarnings(utils::data(list = file, package = package, ...,
         envir = environment()))
       if (!exists(file, envir = environment(), inherits = FALSE))
         stop("dataset '", file, "' not found in package '", package, "'")
@@ -256,28 +267,29 @@ hfun = NULL, fun = NULL, ...) {
       # Note thant, if language is not found, we also look for the default
       # 'en' version as a fallback
       if (!is.null(lang)) {
-        trans_fun <- function(data, full_lang, main_lang) {
+        trans_fun <- function(x, full_lang, main_lang) {
           envir <- parent.frame()
-          fun <- get0(paste0(".", data, "_", full_lang), envir = envir)
+          fun <- get0(paste0(".", x, "_", full_lang), envir = envir)
           if (is.null(fun))
-            fun <- get0(paste0(".", data, "_", main_lang), envir = envir)
+            fun <- get0(paste0(".", x, "_", main_lang), envir = envir)
           if (is.null(fun))
-            fun <- get0(paste0(".", data, "_en"), envir = envir)
+            fun <- get0(paste0(".", x, "_en"), envir = envir)
           fun
         }
         # Look for a function first (either using lang or main_lang)
-        if (!is.null(fun <- trans_fun(file, full_lang, main_lang))) {
+        fun <- trans_fun(file, full_lang, main_lang)
+        if (!is.null(fun)) {
           res <- fun(res, labels_only = labels_only, as_labelled = as_labelled)
         } else {# Look for a script either in original package or in data
-          trans_script <- function(data, full_lang, main_lang, package) {
+          trans_script <- function(x, full_lang, main_lang, package) {
             script <- system.file("translation",
-              paste0(data, "_", full_lang, ".R"), package = package)
+              paste0(x, "_", full_lang, ".R"), package = package)
             if (script == "")
               script <- system.file("translation",
-                paste0(data, "_", main_lang, ".R"), package = package)
+                paste0(x, "_", main_lang, ".R"), package = package)
             if (script == "")
               script <- system.file("translation",
-                paste0(data, "_en.R"), package = package)
+                paste0(x, "_en.R"), package = package)
             script
           }
           script <- trans_script(file, full_lang, main_lang, package)

@@ -9,11 +9,26 @@
 \alias{$.subsettable_type}
 \title{Read data in \R in different formats}
 \usage{
-read(file, type = NULL, header = "#", header.max = 50L, skip = 0L,
-  locale = default_locale(), lang = getOption("data.io_lang", "en"),
-  lang_encoding = "UTF-8", as_dataframe = TRUE, as_labelled = FALSE,
-  comments = NULL, package = NULL, sidecar_file = TRUE,
-  fun_list = NULL, hfun = NULL, fun = NULL, ...)
+read(
+  file,
+  type = NULL,
+  header = "#",
+  header.max = 50L,
+  skip = 0L,
+  locale = default_locale(),
+  lang = getOption("data.io_lang", "en"),
+  lang_encoding = "UTF-8",
+  as_dataframe = TRUE,
+  as_labelled = FALSE,
+  comments = NULL,
+  package = NULL,
+  sidecar_file = TRUE,
+  fun_list = NULL,
+  hfun = NULL,
+  fun = NULL,
+  data,
+  ...
+)
 
 type_from_extension(file)
 
@@ -27,7 +42,7 @@ hread_xlsx(file, header.max, skip = 0L, locale = default_locale(), ...)
 }
 \arguments{
 \item{file}{The path to the file to read, or the name of the dataset to get
-from an \R package (in that case, you \strong{must} provide the \code{package=}
+from an \R package (in that case, you \strong{must} provide the \verb{package=}
 argument).}
 
 \item{type}{The type (format) of data to read.}
@@ -57,22 +72,22 @@ allows to specify a different encoding if needed.}
 \code{dataframe} (inheriting from \code{data.frame}, \code{tbl} and \code{tbl_db} alias
 \code{tibble})? If \code{FALSE}, no conversion is attempted.}
 
-\item{as_labelled}{Are variable converted into labelled objects. This allows
-to keep labels and units when the vector is manipulated, but it can lead to
-incompatibilities with some R code (hence, it is \code{FALSE} by default).}
+\item{as_labelled}{Are variable converted into 'labelled' objects. This
+allows to keep labels and units when the vector is manipulated, but it can
+lead to incompatibilities with some R code (hence, it is \code{FALSE} by default).}
 
 \item{comments}{Comments to add in the created object.}
 
-\item{package}{The package where to look for the dataset. If \code{file=} is not
+\item{package}{The package where to look for the dataset. If \verb{file=} is not
 provided, a list of available datasets in the package is displayed.}
 
-\item{sidecar_file}{If \code{TRUE} and a file with same name as \code{file=} + \code{.R} is
+\item{sidecar_file}{If \code{TRUE} and a file with same name as \verb{file=} + \code{.R} is
 found in the same directory, it is considered as code to import these data
 and it is sourced with \code{local = TRUE}, \code{chdir = TRUE} and
 \code{verbose = FALSE}. That script \strong{must} create an object named \code{dataset},
 which is the result that is returned by the function. It is advised to
 encode this script in \code{UTF-8}, which is the default value, but it is
-possible to specify a different encoding through the \code{lang_encoding=}
+possible to specify a different encoding through the \verb{lang_encoding=}
 parameter.}
 
 \item{fun_list}{The table with correspondance of the types, read, and write
@@ -86,11 +101,15 @@ with the first \code{header.max} lines.}
 \item{fun}{The function to delegate reading of the data. If \code{NULL} (default),
 The function is chosen from \code{fun_list}.}
 
-\item{...}{Further arguments passed to the function \code{fun=}.}
+\item{data}{A synonym to \verb{file=} (the name makes more sense when the dataset
+is loaded from a package). You cannot use \verb{data=} and \verb{file=} at the same
+time.}
+
+\item{...}{Further arguments passed to the function \verb{fun=}.}
 
 \item{x}{A \code{subsettable_type} function.}
 
-\item{name}{The value to use for the \code{type=} argument.}
+\item{name}{The value to use for the \verb{type=} argument.}
 }
 \value{
 An \R object with the data (its class depends on the data being read).
@@ -102,7 +121,7 @@ from packages.
 \details{
 \code{read()} allows for a unique entry point to read various kinds of
 data, but it delegates the actual work to various other functions dispatched
-accross several \R packages. See \code{getOption("read_write")}.
+across several \R packages. See \code{getOption("read_write")}.
 }
 \examples{
 # Use of read() as a more flexible substitute to data() (can change dataset

@@ -1,5 +1,5 @@
 .mauna_loa_fr <- function(mauna_loa, labels_only = FALSE, as_labelled = FALSE) {
-  mauna_loa <- as_tsibble(mauna_loa, gather = FALSE)
+  mauna_loa <- as_tsibble(mauna_loa, pivot_longer = FALSE)
   names(mauna_loa) <- c("time", "avg_temp", "min_temp", "max_temp", "avg_co2")
 
   mauna_loa <- labelise(mauna_loa, self = FALSE,

@@ -21,8 +21,7 @@ as.dataframe(x, ...)
 
 \method{as_dataframe}{data.frame}(x, ..., rownames = "rownames")
 
-\method{as_dataframe}{dataframe}(x, ..., validate = FALSE,
-  rownames = "rownames")
+\method{as_dataframe}{dataframe}(x, ..., validate = FALSE, rownames = "rownames")
 
 \method{as_dataframe}{list}(x, validate = FALSE, ...)
 
@@ -45,7 +44,7 @@ more frequent than daily.}
 \item{rownames}{Name of the column that is prepended to the
 \code{dataframe} with the original row names (\code{dataframe}s and \code{tibble}s do not
 support row names). If \code{NULL}, row names are dropped. The inclusion of the
-rownames column is \strong{not} done if row names are trivials, i.e., they equal
+rownames column is \strong{not} done if row names are trivial, i.e., they equal
 the number of the rows in the data frame.}
 
 \item{validate}{Do we validate the \code{dataframe} (check its structure is
@@ -66,7 +65,7 @@ equivalence. In fact, \code{dataframe}s behave almost completely like a \code{ti
 except for a few details explained in the \strong{details} section.
 }
 \details{
-TODO: explain difference beteen \code{dataframe}s and \code{tibble}s here...
+TODO: explain difference between \code{dataframe}s and \code{tibble}s here...
 }
 \examples{
 class(as.dataframe(mtcars))
