@@ -12,7 +12,7 @@
 cycle stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
-> 'data.io' main functions are `read()` and `write()`. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like 'haven', 'readr', 'readxl', 'writexl', ...). They care about metadata, inparticula, a meaninfug label and units for the variables. Also, a mechanism to preporcess datasets using sidecar files, and to translate datasets into various languages are provided.
+> 'data.io' main functions are `read()` and `write()`. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like 'haven', 'readr', 'readxl', 'writexl', ...). They care about metadata, in particular, meaningful labels and units for the variables. Also, a mechanism to preprocess datasets using sidecar files, and to translate them into various languages are provided for a subset of R packages datasets.
 
 ## Installation
 
@@ -53,7 +53,7 @@ Get help about this package:
 ```r
 library(help = "data.io")
 help("data.io-package")
-vignette("data.io") # None is installed with install_github()
+vignette("data-io") # None is installed with install_github()
 ```
 
 For further instructions, please, refer to these help pages at https://www.sciviews.org/data.io/.
