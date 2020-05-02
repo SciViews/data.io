@@ -1,5 +1,7 @@
 # data.io 1.3.0
 
+- `as.dataframe(table_object)` was broekn with 'tibble' 3.0.0. Now we use a different code to convert `table` objects into `tibble`/`dataframe`. 
+
 - Rework of sources and 'pkgdown' web site added.
 
 - A new argument `data=` synonym to `file=` is added. It makes more sense for datasets loaded from packages.

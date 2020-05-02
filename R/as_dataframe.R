@@ -126,7 +126,13 @@ as_dataframe.matrix <- function(x, ..., rownames = "rownames") {
 #' @param n The name for the column containing the number of items, `"n"` by
 #'   default.
 as_dataframe.table <- function(x, n = "n", ...) {
-  x <- as_tibble(x, n = n, ...)
+  # as_tibble does not work well with one dimension tables
+  x <- as.data.frame(x, stringsAsFactors = FALSE)
+  x_names <- names(x)
+  # Replace last name by n
+  x_names[length(x_names)] <- as.character(n)[1]
+  names(x) <- x_names
+  x <- as_tibble(x, ...)
   class(x) <- unique(c("dataframe", class(x)))
   x
 }
