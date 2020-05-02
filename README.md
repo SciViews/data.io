@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 [![Linux Build Status](https://travis-ci.com/SciViews/data.io.svg )](https://travis-ci.com/SciViews/data.io)
-[![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data-io?branch=master&svg=true)](http://ci.appveyor.com/project/phgrosjean/data-io)
+[![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&svg=true)](http://ci.appveyor.com/project/phgrosjean/data-io)
 [![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)
 ](https://codecov.io/github/SciViews/data.io?branch=master)
 [![CRAN Status](http://www.r-pkg.org/badges/version/data.io)](http://cran.r-project.org/package=data.io)

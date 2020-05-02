@@ -225,9 +225,9 @@
 #'
 #' From `ggplot2`:
 #' \describe{
-#'   \item{\code{\link{diamonds}}}{Prices of 50,000 round cut diamonds. 10 vars
+#'   \item{[ggplot2::diamonds]}{Prices of 50,000 round cut diamonds. 10 vars
 #'   x 53940 obs. Price and other attributes of 10,000's of diamonds. }
-#'   \item{\code{\link{mpg}}}{Fuel economy data from 1999 and 2008 for popular
+#'   \item{[ggplot2::mpg]}{Fuel economy data from 1999 and 2008 for popular
 #'   cars. 11 vars x 234 obs. Data are for most popular U.S. market cars only. }
 #' }
 #'
@@ -242,14 +242,14 @@
 #'
 #' From `nycflights13`:
 #' \describe{
-#'   \item{\code{\link{airlines}}}{Airlines by their carrier codes. 2 vars x 16
+#'   \item{[nycflights13::airlines]}{Airlines by their carrier codes. 2 vars x 16
 #'   obs. }
-#'   \item{\code{\link{airports}}}{Various metadata about New York city
+#'   \item{[nycflights13::airports]}{Various metadata about New York city
 #'   airports. 8 vars x 1458 obs. }
-#'   \item{\code{\link{flights}}}{On-time data for all flights that departed NYC
+#'   \item{[nycflights13::flights]}{On-time data for all flights that departed NYC
 #'   (i.e., JFK, LGA or EWR) in 2013. 19 vars x 336776 obs. }
-#'   \item{\code{\link{planes}}}{Planes metadata. 9 vars x 3322 obs. }
-#'   \item{\code{\link{weather}}}{Hourly meteorological data for JFK, LGA and
+#'   \item{[nycflights13::planes]}{Planes metadata. 9 vars x 3322 obs. }
+#'   \item{[nycflights13::weather]}{Hourly meteorological data for JFK, LGA and
 #'   EWR. 15 vars x 26130 obs. }
 #' }
 #' @name Datasets

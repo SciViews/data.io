@@ -17,16 +17,16 @@ Imports:
     Hmisc,
     utils,
     readr,
-    rlang,
-    datasets,
-    ggplot2,
-    nycflights13
+    rlang
 Suggests: 
     SciViews,
     readxl,
     haven,
     WriteXLS,
     writexl,
+    datasets,
+    ggplot2,
+    nycflights13,
     covr,
     knitr,
     testthat,
