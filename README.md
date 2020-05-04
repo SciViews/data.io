@@ -6,7 +6,7 @@
 [![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&svg=true)](http://ci.appveyor.com/project/phgrosjean/data-io)
 [![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)
 ](https://codecov.io/github/SciViews/data.io?branch=master)
-[![CRAN Status](http://www.r-pkg.org/badges/version/data.io)](http://cran.r-project.org/package=data.io)
+[![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](http://cran.r-project.org/package=data.io)
 [![License](https://img.shields.io/badge/license-GPL-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![Life
 cycle stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
