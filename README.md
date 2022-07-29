@@ -3,11 +3,11 @@
 
 <!-- badges: start -->
 [![Linux Build Status](https://travis-ci.com/SciViews/data.io.svg )](https://travis-ci.com/SciViews/data.io)
-[![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&svg=true)](http://ci.appveyor.com/project/phgrosjean/data-io)
+[![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&svg=true)](https://ci.appveyor.com/project/phgrosjean/data-io)
 [![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)
 ](https://codecov.io/github/SciViews/data.io?branch=master)
-[![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](http://cran.r-project.org/package=data.io)
-[![License](https://img.shields.io/badge/license-GPL-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io)
+[![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Life
 cycle stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
@@ -38,8 +38,6 @@ R should install all required dependencies automatically, and then it should com
 
 Latest devel version of 'data.io' (source + Windows binaires for the latest stable version of R at the time of compilation) is also available from [appveyor](https://ci.appveyor.com/project/phgrosjean/data.io/build/artifacts).
 
-## Usage
-
 ## Further explore 'data.io'
 
 You can get further help about this package this way: Make the 'data.io' package available in your R session:
@@ -60,4 +58,4 @@ For further instructions, please, refer to these help pages at https://www.scivi
 
 ## Code of Conduct
 
-Please note that the svSweave project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the **data.io** project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

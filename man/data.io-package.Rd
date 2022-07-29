@@ -6,9 +6,7 @@
 \alias{data.io-package}
 \title{data.io: 'SciViews' - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats}
 \description{
-Read or write data from many different formats (tabular datasets,
-  from statistic software, ...) into R objects. Add labels and units in
-  different languages.
+Read or write data from many different formats (tabular datasets, from statistic software, ...) into R objects. Add labels and units in different languages.
 }
 \details{
 The 'data.io' package focuses on reading and writing datasets in different
@@ -33,7 +31,7 @@ object, to be used while pretty printing a table or plot.
 Useful links:
 \itemize{
   \item \url{https://github.com/SciViews/data.io}
-  \item \url{http://www.sciviews.org/data.io}
+  \item \url{https://www.sciviews.org/data.io/}
   \item Report bugs at \url{https://github.com/SciViews/data.io/issues}
 }
 

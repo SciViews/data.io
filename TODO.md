@@ -2,6 +2,16 @@
 
 - An easier form to indicate labels and units
 
+- Allow for data transformation and store info in a 'transfo' attribute. For instance, transforming "size [mm]" using `log1p()` with something like `transfo(data = df, logsize = log1p(size))` would produce a `transfo = "log1p"` attribute in `logsize`. And when label is used in plots, we would get "log(size [mm] + 1)". Also a `backtransfo()` function to back transform variables.
+
+- `dictionary()` function that constructs a data dictionnary for a labelled dataset (we probably need more attributes too). Would contain something like: name, label, units, transformation, type, dimensions, missing, examples, comment.
+
+- allow for using dtplyr too.
+
+- Use 'fst' package + 'vroom'.
+
+- Look for a support of 'datapackage.r'.
+
 - reimport `print.subsettable()` from 'svMisc'
 
 - Completion in R and RStudio for `read$` and `write$`.

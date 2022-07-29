@@ -173,8 +173,6 @@ trees2$volume
 # Various versions of the famous iris dataset
 (iris <- read(data_example("iris.csv")))
 (iris <- read(data_example("iris.csv.zip")))
-(iris <- read(data_example("iris.csv.tar"))) ##
-(iris <- read(data_example("iris.csv.tar.gz"))) ##
 (iris <- read(data_example("iris.csv.gz")))
 (iris <- read(data_example("iris.csv.bz2")))
 (iris <- read(data_example("iris.tsv")))
@@ -200,7 +198,7 @@ trees2$volume
 (iris <- read(data_example("iris_sidecar.csv"), lang = NULL)) # No labels
 
 # Require the feather package
-#(iris <- read(data_example("iris.feather"))) # Not avaiable for all Win
+#(iris <- read(data_example("iris.feather"))) # Not available for all Win
 
 # Challenging datasets from the readr package
 library(readr)
