@@ -1,39 +1,41 @@
 # data.io To Do list
 
-- An easier form to indicate labels and units
+-   Implement `.DollarNames()` to get a list of `read()` and `write()` types available, with a mechanism to add more types from additional packages.
 
-- Allow for data transformation and store info in a 'transfo' attribute. For instance, transforming "size [mm]" using `log1p()` with something like `transfo(data = df, logsize = log1p(size))` would produce a `transfo = "log1p"` attribute in `logsize`. And when label is used in plots, we would get "log(size [mm] + 1)". Also a `backtransfo()` function to back transform variables.
+-   An easier form to indicate labels and units
 
-- `dictionary()` function that constructs a data dictionnary for a labelled dataset (we probably need more attributes too). Would contain something like: name, label, units, transformation, type, dimensions, missing, examples, comment.
+-   Allow for data transformation and store info in a 'transfo' attribute. For instance, transforming "size [mm]" using `log1p()` with something like `transfo(data = df, logsize = log1p(size))` would produce a `transfo = "log1p"` attribute in `logsize`. And when label is used in plots, we would get "log(size [mm] + 1)". Also a `backtransfo()` function to back transform variables.
 
-- allow for using dtplyr too.
+-   `dictionary()` function that constructs a data dictionnary for a labelled dataset (we probably need more attributes too). Would contain something like: name, label, units, transformation, type, dimensions, missing, examples, comment.
 
-- Use 'fst' package + 'vroom'.
+-   allow for using dtplyr too.
 
-- Look for a support of 'datapackage.r'.
+-   Use 'fst' package + 'vroom'.
 
-- reimport `print.subsettable()` from 'svMisc'
+-   Look for a support of 'datapackage.r'.
 
-- Completion in R and RStudio for `read$` and `write$`.
+-   reimport `print.subsettable()` from 'svMisc'
 
-- label versus comment for a dataframe?
+-   Completion in R and RStudio for `read$` and `write$`.
 
-- Rework and modularize the `read()` function.
+-   label versus comment for a dataframe?
 
-- `rio::characterize()` or `factorize()` for SPSS or SAS datasets + more 'rio'.
+-   Rework and modularize the `read()` function.
 
-- Add more recognized classes ('Date', 'time', etc.) for headers (+ abbrev?)
+-   `rio::characterize()` or `factorize()` for SPSS or SAS datasets + more 'rio'.
 
-- make `iris.csvy`, `iris.csvy.zip`, `iris.sas7bdat` and `iris.syd` working: add 'foreign' functions & 'csvy'.
+-   Add more recognized classes ('Date', 'time', etc.) for headers (+ abbrev?)
 
-- Look at 'fst' package for ultra-fast csv read/write (+ 'data.table').
+-   make `iris.csvy`, `iris.csvy.zip`, `iris.sas7bdat` and `iris.syd` working: add 'foreign' functions & 'csvy'.
 
-- Functions to write headers too: `write()` -> `read()` should restore same object!
+-   Look at 'fst' package for ultra-fast csv read/write (+ 'data.table').
 
-- Integrate 'units' with the 'quantities', 'convertr', 'prettyunits' and 'units' packages.
+-   Functions to write headers too: `write()` -\> `read()` should restore same object!
 
-- A smaller example for `read()`, and detail all the cases in a vignette instead.
+-   Integrate 'units' with the 'quantities', 'convertr', 'prettyunits' and 'units' packages.
 
-- More tests!
+-   A smaller example for `read()`, and detail all the cases in a vignette instead.
 
-- revdep, see for instance, https://github.com/hadley/nycflights13
+-   More tests!
+
+-   revdep, see for instance, <https://github.com/hadley/nycflights13>
