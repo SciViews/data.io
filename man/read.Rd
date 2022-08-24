@@ -7,6 +7,7 @@
 \alias{hread_xls}
 \alias{hread_xlsx}
 \alias{$.subsettable_type}
+\alias{.DollarNames.read_function_subset}
 \title{Read data in \R in different formats}
 \usage{
 read(
@@ -18,7 +19,7 @@ read(
   locale = default_locale(),
   lang = getOption("data.io_lang", "en"),
   lang_encoding = "UTF-8",
-  as_dataframe = TRUE,
+  as_dataframe = FALSE,
   as_labelled = FALSE,
   comments = NULL,
   package = NULL,
@@ -27,10 +28,13 @@ read(
   hfun = NULL,
   fun = NULL,
   data,
+  cache_file = NULL,
+  method = "auto",
+  quiet = FALSE,
   ...
 )
 
-type_from_extension(file)
+type_from_extension(file, full = FALSE)
 
 hread_text(file, header.max, skip = 0L, locale = default_locale(), ...)
 
@@ -39,6 +43,8 @@ hread_xls(file, header.max, skip = 0L, locale = default_locale(), ...)
 hread_xlsx(file, header.max, skip = 0L, locale = default_locale(), ...)
 
 \method{$}{subsettable_type}(x, name)
+
+\method{.DollarNames}{read_function_subset}(x, pattern = "")
 }
 \arguments{
 \item{file}{The path to the file to read, or the name of the dataset to get
@@ -68,9 +74,13 @@ French.}
 all be encoded as \code{UTF-8}, which is the default. However, this argument
 allows to specify a different encoding if needed.}
 
-\item{as_dataframe}{Do we try to convert the resulting object into a
-\code{dataframe} (inheriting from \code{data.frame}, \code{tbl} and \code{tbl_db} alias
-\code{tibble})? If \code{FALSE}, no conversion is attempted.}
+\item{as_dataframe}{Deprecated: now use \code{options(SciViews.as_dtx = as_XXX)}
+to specify if you want a data.frame (\code{as_dtf}), a data.table (\code{as_dtt}, by
+default), or a tibble (\code{as_dtbl}).  Do we try to convert the resulting
+object into a \code{dataframe} (inheriting from \code{data.frame}, \code{tbl} and \code{tbl_db}
+alias \code{tibble})? If \code{FALSE}, no conversion is attempted. Note that now,
+whatever you indicate, it is always assumed to be \code{FALSE} as part of the
+deprecation!}
 
 \item{as_labelled}{Are variable converted into 'labelled' objects. This
 allows to keep labels and units when the vector is manipulated, but it can
@@ -90,7 +100,7 @@ encode this script in \code{UTF-8}, which is the default value, but it is
 possible to specify a different encoding through the \verb{lang_encoding=}
 parameter.}
 
-\item{fun_list}{The table with correspondance of the types, read, and write
+\item{fun_list}{The table with correspondence of the types, read, and write
 functions.}
 
 \item{hfun}{The function to read the header (lines starting with a special
@@ -105,11 +115,35 @@ The function is chosen from \code{fun_list}.}
 is loaded from a package). You cannot use \verb{data=} and \verb{file=} at the same
 time.}
 
+\item{cache_file}{The path to a local file to use as a cache when file is
+downloaded (http://, https://, ftp://, or file:// protocols). If cache_file
+already exists, data are read from this cache. Otherwise, data are saved in
+it before being used. If \code{cache_file = NULL} (the default), a temporary
+file is used and data are read from the Internet every time. The function
+also check if a sidecar file can be downloaded if \code{sidecar_file = TRUE},
+and the same cache mechanism is used for this second file too (same URL
+than the main file + \code{.R}). This cache mechanism is particularly useful to
+provide data associated with a git repository. Put cache_file in
+\code{.gitignore} and use \verb{cache_file=} in the code. That way, the data are
+downloaded once in a freshly cloned repository, and they are \strong{not}
+included in the versioning system (useful for large datasets).}
+
+\item{method}{The downloading method used (\code{"auto"} by default), see
+\code{\link[utils:download.file]{utils::download.file()}}.}
+
+\item{quiet}{In case we have to download files, do it silently (\code{TRUE}) or
+do we provide feedback and a progression bar (\code{FALSE}, by default)?}
+
 \item{...}{Further arguments passed to the function \verb{fun=}.}
+
+\item{full}{Do we retrun the full extension, like \code{csv.tar.gz} (\code{TRUE}), or
+only the main extension, like \code{csv} (\code{FALSE}, by default).}
 
 \item{x}{A \code{subsettable_type} function.}
 
 \item{name}{The value to use for the \verb{type=} argument.}
+
+\item{pattern}{A regular expression to list matching names.}
 }
 \value{
 An \R object with the data (its class depends on the data being read).
@@ -140,11 +174,14 @@ read(package = "data.io")
 # Read one dataset from another package, but with labels and comments
 data(iris) # The R way: you got the initial datasets
 # Same result, using read()
-ir2 <- read("iris", package = "datasets", lang = NULL, as_dataframe = FALSE)
+ir2 <- read("iris", package = "datasets", lang = NULL)
 # ir2 records that it comes from datasets::iris
 attr(comment(ir2), "src")
-# appart from that, it is identical to iris
+# otherwise, it is identical to iris, except is may be a data.table or a
+# tibble, depending on user preferences
 comment(ir2) <- NULL
+# Force coercion into a data.frame
+ir2 <- svBase::as_dtf(ir2)
 identical(iris, ir2)
 # More interesting: you can get an enhanced version of iris with read():
 # (note that variable names ar in snake-case now!)
@@ -252,6 +289,9 @@ haven_example <- function(path)
 (pbc <- read(data_example("pbc.por"))) # SPSS, POR format
 (iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
 (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
+
+# Note that where completion is available, you have a completion list of file
+# format after typing read$<tab>
 }
 }
 \seealso{

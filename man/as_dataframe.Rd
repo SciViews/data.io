@@ -11,7 +11,7 @@
 \alias{as_dataframe.table}
 \alias{is_dataframe}
 \alias{is.dataframe}
-\title{Convert objects into dataframes (subclassing tibble) and check for it.}
+\title{Deprecated! Convert objects into dataframes (subclassing tibble) and check for it.}
 \usage{
 as_dataframe(x, ...)
 
@@ -58,6 +58,8 @@ A \code{dataframe}, which is an S3 object with class
 \code{c("dataframe", "tbl_df", "tbl", "data.frame")}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 Convert an object into a \code{dataframe} and check for it. A
 \code{dataframe} (without dot) is both a \code{data.frame} (with dot, the default
 rectangular dataset structure in R) and a \code{tibble}, the tidyverse

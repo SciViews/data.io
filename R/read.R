@@ -19,9 +19,13 @@
 #' @param lang_encoding Encoding used by R scripts for translation. They should
 #' all be encoded as `UTF-8`, which is the default. However, this argument
 #' allows to specify a different encoding if needed.
-#' @param as_dataframe Do we try to convert the resulting object into a
-#'   `dataframe` (inheriting from `data.frame`, `tbl` and `tbl_db` alias
-#'   `tibble`)? If `FALSE`, no conversion is attempted.
+#' @param as_dataframe Deprecated: now use `options(SciViews.as_dtx = as_XXX)`
+#'   to specify if you want a data.frame (`as_dtf`), a data.table (`as_dtt`, by
+#'   default), or a tibble (`as_dtbl`).  Do we try to convert the resulting
+#'   object into a `dataframe` (inheriting from `data.frame`, `tbl` and `tbl_db`
+#'   alias `tibble`)? If `FALSE`, no conversion is attempted. Note that now,
+#'   whatever you indicate, it is always assumed to be `FALSE` as part of the
+#'   deprecation!
 #' @param as_labelled Are variable converted into 'labelled' objects. This
 #' allows to keep labels and units when the vector is manipulated, but it can
 #' lead to incompatibilities with some R code (hence, it is `FALSE` by default).
@@ -42,12 +46,32 @@
 #'   with the first `header.max` lines.
 #' @param fun The function to delegate reading of the data. If `NULL` (default),
 #'   The function is chosen from `fun_list`.
-#' @param fun_list The table with correspondance of the types, read, and write
+#' @param fun_list The table with correspondence of the types, read, and write
 #'   functions.
 #' @param data A synonym to `file=` (the name makes more sense when the dataset
 #'   is loaded from a package). You cannot use `data=` and `file=` at the same
 #'   time.
+#' @param cache_file The path to a local file to use as a cache when file is
+#'   downloaded (http://, https://, ftp://, or file:// protocols). If cache_file
+#'   already exists, data are read from this cache. Otherwise, data are saved in
+#'   it before being used. If `cache_file = NULL` (the default), a temporary
+#'   file is used and data are read from the Internet every time. The function
+#'   also check if a sidecar file can be downloaded if `sidecar_file = TRUE`,
+#'   and the same cache mechanism is used for this second file too (same URL
+#'   than the main file + `.R`). This cache mechanism is particularly useful to
+#'   provide data associated with a git repository. Put cache_file in
+#'   `.gitignore` and use `cache_file=` in the code. That way, the data are
+#'   downloaded once in a freshly cloned repository, and they are **not**
+#'   included in the versioning system (useful for large datasets).
+#' @param method The downloading method used (`"auto"` by default), see
+#'   [utils::download.file()].
+#' @param quiet In case we have to download files, do it silently (`TRUE`) or
+#'   do we provide feedback and a progression bar (`FALSE`, by default)?
+#' @param full Do we retrun the full extension, like `csv.tar.gz` (`TRUE`), or
+#'   only the main extension, like `csv` (`FALSE`, by default).
 #' @param ... Further arguments passed to the function `fun=`.
+#' @param x An object.
+#' @param pattern A regular expression to list matching names.
 #'
 #' @description Read and return an \R object from data on disk, from URL, or
 #' from packages.
@@ -78,11 +102,14 @@
 #' # Read one dataset from another package, but with labels and comments
 #' data(iris) # The R way: you got the initial datasets
 #' # Same result, using read()
-#' ir2 <- read("iris", package = "datasets", lang = NULL, as_dataframe = FALSE)
+#' ir2 <- read("iris", package = "datasets", lang = NULL)
 #' # ir2 records that it comes from datasets::iris
 #' attr(comment(ir2), "src")
-#' # appart from that, it is identical to iris
+#' # otherwise, it is identical to iris, except is may be a data.table or a
+#' # tibble, depending on user preferences
 #' comment(ir2) <- NULL
+#' # Force coercion into a data.frame
+#' ir2 <- svBase::as_dtf(ir2)
 #' identical(iris, ir2)
 #' # More interesting: you can get an enhanced version of iris with read():
 #' # (note that variable names ar in snake-case now!)
@@ -190,12 +217,22 @@
 #' (pbc <- read(data_example("pbc.por"))) # SPSS, POR format
 #' (iris2 <- read$sas(haven_example("iris.sas7bdat"))) # SAS file
 #' (afalfa <- read(data_example("afalfa.xpt"))) # SAS transport file
+#'
+#' # Note that where completion is available, you have a completion list of file
+#' # format after typing read$<tab>
 #' }
 read <- structure(function(file, type = NULL, header = "#", header.max = 50L,
 skip = 0L, locale = default_locale(), lang = getOption("data.io_lang", "en"),
-lang_encoding = "UTF-8", as_dataframe = TRUE, as_labelled = FALSE,
+lang_encoding = "UTF-8", as_dataframe = FALSE, as_labelled = FALSE,
 comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
-hfun = NULL, fun = NULL, data, ...) {
+hfun = NULL, fun = NULL, data, cache_file = NULL, method = "auto",
+quiet = FALSE, ...) {
+  # Note: this generates a warning when we use read()... not very nice!
+  # However, I leave this as a comment in the code for developers
+  #deprecate_soft("1.4.0", "read(as_dataframe)",
+  #  details = "Please, do not use as_dataframe= any more. Specify which data frame class you want by using options(SciViews.as_dtx = as_dtf|as_dtt|as_dtbl) for data.frame, data.table or tibble tbl_df, respectively (as_dtt by default).")
+  as_dataframe <- FALSE # Assumed to be FALSE all the time for now!
+
   if (!missing(data)) {
     if (missing(file)) {
       file <- data
@@ -203,6 +240,40 @@ hfun = NULL, fun = NULL, data, ...) {
       stop("you cannot provide 'data' and 'file' at the same time")
     }
   }
+
+  # Should the file be downloaded from internet?
+  if (!missing(file) && grepl("^(http|https|ftp|file)://", file)) {
+    # Is cache file defined, or should we use a temporary file?
+    if (is.null(cache_file)) {
+      ext <- type_from_extension(file, full = TRUE)
+      if (is.null(ext)) ext <- ""
+      # Make sure temp dir exists
+      tempdir(check = TRUE)
+      cache_file <- tempfile(fileext = ext)
+    }
+    # If cache_file exists, do not redownload the data, just use it.
+    if (file.exists(cache_file)) {
+      message("Using cached date in ", cache_file, "...")
+    } else {# Try downloading the file
+      # Try downloading the file
+      res <- try(download.file(file, destfile = cache_file, method = method,
+        quiet = quiet), silent = TRUE)
+      if (inherits(res, "try-error"))
+        stop("Error while downloading the file from ", file, "\n",
+          as.character(res))
+      # In case we want a sidecar file, try also to download it
+      if (isTRUE(sidecar_file)) {
+        file2 <- paste0(file, ".R")
+        cache_file2 <- paste0(cache_file, ".R")
+        try(download.file(file2, destfile = cache_file2, method = method,
+          quiet = quiet), silent = TRUE)
+      }
+    }
+
+    # file is now cache_file for the rest of the procedure
+    file <- cache_file
+  }
+
   if (!is.null(lang)) {
     if (length(lang) != 1 || !is.character(lang))
       stop("lang must be a single character string or NULL")
@@ -465,30 +536,46 @@ hfun = NULL, fun = NULL, data, ...) {
     comment(res) <- cmt2
   }
 
+  # as_dataframe is now always FALSE and this code is not run any more
+  # (deprecated argument!)
   if (isTRUE(as_dataframe)) {# Try to convert the object into a dataframe
     conv <- try(as_dataframe(res), silent = TRUE)
     if (!inherits(conv, "try_error"))
       res <- conv
   }
+
+  # If the returned object is a data.frame, data.table or tibble tbl_df,
+  # convert it now into the user preferred class
+  res <- default_dtx(res)
+
   res
-}, class = c("function", "subsettable_type"))
+}, class = c("function", "subsettable_type", "read_function_subset"))
 
 #' @export
 #' @rdname read
-type_from_extension <- function(file) {
+type_from_extension <- function(file, full = FALSE) {
   # TODO: special case for URLs with more arguments!
+
+  if (isTRUE(full)) {
+    substitution <- "\\1\\2\\3"
+  } else {
+    substitution <- "\\1" # Only first extension (no .xz or .tar.gz)
+  }
 
   # For a (compressed) .tar archive
   if (grepl("\\.([A-Za-z0-9]+)\\.tar(\\.gz|\\.xz|\\.bz2|\\.zip)?$", file))
-    return(sub("^.+\\.([A-Za-z0-9]+)\\.tar(\\.gz|\\.xz|\\.bz2|\\.zip)?$", "\\1", file))
+    return(sub("^.+\\.([A-Za-z0-9]+)(\\.tar)(\\.gz|\\.xz|\\.bz2|\\.zip)?$",
+      substitution, file))
 
   # For a compressed file
   if (grepl("\\.([A-Za-z0-9]+)(\\.gz|\\.xz|\\.bz2|\\.zip)$", file))
-    return(sub("^.+\\.([A-Za-z0-9]+)(\\.gz|\\.xz|\\.bz2|\\.zip)$", "\\1", file))
+    return(sub("^.+\\.([A-Za-z0-9]+)()(\\.gz|\\.xz|\\.bz2|\\.zip)$",
+      substitution, file))
 
   # For a regular extension
   if (grepl("\\.([A-Za-z0-9]+)$", file))
-    return(sub("^.+\\.([A-Za-z0-9]+)$", "\\1", file))
+    return(sub("^.+\\.([A-Za-z0-9]+)()()$",
+      substitution, file))
 
   # No rules apply
   NULL
@@ -525,3 +612,11 @@ hread_xlsx <- function(file, header.max, skip = 0L, locale = default_locale(),
 #' @method $ subsettable_type
 `$.subsettable_type` <- function(x, name)
   function(...) x(type = name, ...)
+
+#' @export
+#' @rdname read
+#' @method .DollarNames read_function_subset
+.DollarNames.read_function_subset <- function(x, pattern = "") {
+  dt <- data_types(types_only = FALSE, view = FALSE)
+  sort(dt$type[!is.na(dt$read_fun)])
+}

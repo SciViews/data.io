@@ -2,6 +2,7 @@
 % Please edit documentation in R/write.R
 \name{write}
 \alias{write}
+\alias{.DollarNames.write_function_subset}
 \title{Write data from \R in files in different formats}
 \usage{
 write(
@@ -15,6 +16,8 @@ write(
   x,
   ...
 )
+
+\method{.DollarNames}{write_function_subset}(x, pattern = "")
 }
 \arguments{
 \item{data}{An object to write in a file. The accepted class depends on what
@@ -38,7 +41,7 @@ provided by the delegated function if this parameter is present there.}
 
 \item{type}{The type (format) of data to read.}
 
-\item{fun_list}{The table with correspondance of the types, read, and write
+\item{fun_list}{The table with correspondence of the types, read, and write
 functions.}
 
 \item{x}{Same as \verb{data=}, for compatibility with \code{base::write()}. Please, do
@@ -47,6 +50,8 @@ generated.}
 
 \item{...}{Further arguments passed to the write function, when \code{type} is
 explicitly provided.}
+
+\item{pattern}{A regular expression to list matching names.}
 }
 \value{
 \code{data} is returned invisibly (on the contrary to \code{\link[base:write]{base::write()}}

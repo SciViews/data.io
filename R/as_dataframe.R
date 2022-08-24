@@ -1,9 +1,12 @@
-#' Convert objects into dataframes (subclassing tibble) and check for it.
+#' Deprecated! Convert objects into dataframes (subclassing tibble) and check for it.
 #'
 #' @param x An object to convert to a `dataframe`.
 #' @param ... Additional parameters.
 #'
-#' @description Convert an object into a `dataframe` and check for it. A
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' Convert an object into a `dataframe` and check for it. A
 #' `dataframe` (without dot) is both a `data.frame` (with dot, the default
 #' rectangular dataset structure in R) and a `tibble`, the tidyverse
 #' equivalence. In fact, `dataframe`s behave almost completely like a `tibble`,
@@ -47,8 +50,10 @@
 #' # compare with the base R function:
 #' as.data.frame(t1)
 #' }
-as_dataframe <- function(x, ...)
+as_dataframe <- function(x, ...) {
+  deprecate_soft("1.4.0", "as_dataframe()", "svBase::as_dtx()")
   UseMethod("as_dataframe")
+}
 
 #' @export
 #' @rdname as_dataframe
@@ -142,14 +147,19 @@ as_dataframe.table <- function(x, n = "n", ...) {
 
 #' @export
 #' @rdname as_dataframe
-is_dataframe <- function(x)
+is_dataframe <- function(x) {
+  deprecate_soft("1.4.0", "is_dataframe()", "svBase::is_dtx()")
   inherits(x, "dataframe")
+}
 
 #' @export
 #' @rdname as_dataframe
 is.dataframe <- is_dataframe
 
-# TODO: check all this!
+# Everything related to dataframe objects is nos deprtecated (from version 1.4.0)
+# and replaced by the svBase::dtx() mechanism that allows the end-user to indicate
+# which one of the thjree data frame objects he prefers (base R data.frame, or
+# data.table or tibble's tbl_df)
 #dataframe <- function(..., .data = NULL, .before = NULL, .after = NULL) {
 #  # TODO: check .before and .after!
 #  xs <- quos(..., .named = TRUE)

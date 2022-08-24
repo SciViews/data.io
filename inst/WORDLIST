@@ -6,8 +6,8 @@ biometry
 Cen
 cmd
 coelomic
-correspondance
 devtools
+df
 doi
 Elsevier
 EWR
@@ -38,12 +38,15 @@ phgrosjean
 phytoplankton
 pkgdown
 readr
+redownload
 RStudio
 sciviews
 SciViews
 subclassing
 subpath
 subsettable
+svBase
+tbl
 tibble
 tibble's
 tidyverse

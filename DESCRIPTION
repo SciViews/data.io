@@ -1,7 +1,6 @@
 Package: data.io
 Type: Package
-Version: 1.3.1
-Date: 2022-07-29
+Version: 1.4.0
 Title: 'SciViews' - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
   from statistic software, ...) into R objects. Add labels and units in
@@ -17,7 +16,9 @@ Imports:
     Hmisc,
     utils,
     readr,
-    rlang
+    rlang,
+    svBase,
+    lifecycle
 Suggests: 
     SciViews,
     readxl,

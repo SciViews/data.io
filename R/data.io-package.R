@@ -21,9 +21,11 @@
 
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble
-#' @importFrom utils data
+#' @importFrom utils .DollarNames data download.file
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos
+#' @importFrom svBase default_dtx
+#' @importFrom lifecycle badge deprecate_soft
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start

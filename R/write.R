@@ -17,13 +17,14 @@
 #' delimited output; default is `" "` when `type` is not provide, or the default
 #' provided by the delegated function if this parameter is present there.
 #' @param type The type (format) of data to read.
-#' @param fun_list The table with correspondance of the types, read, and write
+#' @param fun_list The table with correspondence of the types, read, and write
 #'   functions.
 #' @param x Same as `data=`, for compatibility with `base::write()`. Please, do
 #'   not use both `data=` and `x=` as the same time, or an error will be
 #'   generated.
 #' @param ... Further arguments passed to the write function, when `type` is
 #' explicitly provided.
+#' @param pattern A regular expression to list matching names.
 #'
 #' @description Write \R data into a file, in different formats.
 #'
@@ -109,4 +110,12 @@ type = NULL, fun_list = NULL, x, ...) {
     res <- fun(data, file, ...)
   }
   invisible(data)
-}, class = c("function", "subsettable_type"))
+}, class = c("function", "subsettable_type", "write_function_subset"))
+
+#' @export
+#' @rdname write
+#' @method .DollarNames write_function_subset
+.DollarNames.write_function_subset <- function(x, pattern = "") {
+  dt <- data_types(types_only = FALSE, view = FALSE)
+  sort(dt$type[!is.na(dt$write_fun)])
+}

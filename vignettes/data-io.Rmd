@@ -23,14 +23,14 @@ The 'data.io' package provides several example datasets in a standardized way, a
 
 There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
 
-- U.K. English,
+-   U.K. English,
 
-- snake_case names, both for the datasets and their variables,
+-   snake_case names, both for the datasets and their variables,
 
-- Uppercase for factor levels (but less strict),
+-   Uppercase for factor levels (but less strict),
 
-- data frames are converted, by default, into `c("dataframe", "tbl_df", "tbl", "data.frame")`. Thus, they are also 'tibble's, and an additional `dataframe` class, that can be used for custom methods like `summary()` (not used yet).
+-   data frames are converted according to user preferences indicated in `options(SciViews.as_dtx = ...)`. The default is `as_dtt` which converts into a data.table. Other options are `as_dtf` to concert into base R data.frame objects, or `as_dtbl` to convert into {tibble}'s tbl_df objects.
 
-- variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
+-   variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
 
-- the origin of the data is recorded as an `src` attribute to the comment if this is a R package dataset, or as a `srcfile` attribute to comment if it read from a file.
+-   the origin of the data is recorded as an `src` attribute to the comment if this is a R package dataset, or as a `srcfile` attribute to comment if it read from a file.
