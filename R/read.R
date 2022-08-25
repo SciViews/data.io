@@ -53,21 +53,23 @@
 #'   time.
 #' @param cache_file The path to a local file to use as a cache when file is
 #'   downloaded (http://, https://, ftp://, or file:// protocols). If cache_file
-#'   already exists, data are read from this cache. Otherwise, data are saved in
-#'   it before being used. If `cache_file = NULL` (the default), a temporary
-#'   file is used and data are read from the Internet every time. The function
-#'   also check if a sidecar file can be downloaded if `sidecar_file = TRUE`,
-#'   and the same cache mechanism is used for this second file too (same URL
-#'   than the main file + `.R`). This cache mechanism is particularly useful to
-#'   provide data associated with a git repository. Put cache_file in
-#'   `.gitignore` and use `cache_file=` in the code. That way, the data are
-#'   downloaded once in a freshly cloned repository, and they are **not**
-#'   included in the versioning system (useful for large datasets).
+#'   already exists, data are read from this cache, except if `force = TRUE`,
+#'   see here under. Otherwise, data are saved in it before being used. If
+#'   `cache_file = NULL` (the default), a temporary file is used and data are
+#'   read from the Internet every time. This cache mechanism is particularly
+#'   useful to provide data associated with a git repository. Put cache_file in
+#'   `.gitignore` and use `cache_file=` in the code (and `force = FALSE`). That
+#'   way, the data are downloaded once in a freshly cloned repository, and they
+#'   are not included in the versioning system (useful for large datasets).
 #' @param method The downloading method used (`"auto"` by default), see
 #'   [utils::download.file()].
 #' @param quiet In case we have to download files, do it silently (`TRUE`) or
 #'   do we provide feedback and a progression bar (`FALSE`, by default)?
-#' @param full Do we retrun the full extension, like `csv.tar.gz` (`TRUE`), or
+#' @param force If `TRUE` and an URL is provided for `file=` and a path for
+#'   `cache_file=`, then the content is downloaded all the time, even if the
+#'   cache file already exists (it overwrites it). By default, it is `FALSE`,
+#'   which is the most useful setting to make good use of the cache mechanism.
+#' @param full Do we return the full extension, like `csv.tar.gz` (`TRUE`), or
 #'   only the main extension, like `csv` (`FALSE`, by default).
 #' @param ... Further arguments passed to the function `fun=`.
 #' @param x An object.
@@ -226,7 +228,7 @@ skip = 0L, locale = default_locale(), lang = getOption("data.io_lang", "en"),
 lang_encoding = "UTF-8", as_dataframe = FALSE, as_labelled = FALSE,
 comments = NULL, package = NULL, sidecar_file = TRUE, fun_list = NULL,
 hfun = NULL, fun = NULL, data, cache_file = NULL, method = "auto",
-quiet = FALSE, ...) {
+quiet = FALSE, force = FALSE, ...) {
   # Note: this generates a warning when we use read()... not very nice!
   # However, I leave this as a comment in the code for developers
   #deprecate_soft("1.4.0", "read(as_dataframe)",
@@ -251,6 +253,9 @@ quiet = FALSE, ...) {
       tempdir(check = TRUE)
       cache_file <- tempfile(fileext = ext)
     }
+    # If cache_file exists, but we have force = TRUE, delete it now.
+    if (file.exists(cache_file) && isTRUE(force))
+      unlink(cache_file)
     # If cache_file exists, do not redownload the data, just use it.
     if (file.exists(cache_file)) {
       message("Using cached date in ", cache_file, "...")
@@ -259,15 +264,7 @@ quiet = FALSE, ...) {
       res <- try(download.file(file, destfile = cache_file, method = method,
         quiet = quiet), silent = TRUE)
       if (inherits(res, "try-error"))
-        stop("Error while downloading the file from ", file, "\n",
-          as.character(res))
-      # In case we want a sidecar file, try also to download it
-      if (isTRUE(sidecar_file)) {
-        file2 <- paste0(file, ".R")
-        cache_file2 <- paste0(cache_file, ".R")
-        try(download.file(file2, destfile = cache_file2, method = method,
-          quiet = quiet), silent = TRUE)
-      }
+        stop("Error while downloading the file from ", file, "\n", res)
     }
 
     # file is now cache_file for the rest of the procedure

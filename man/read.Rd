@@ -31,6 +31,7 @@ read(
   cache_file = NULL,
   method = "auto",
   quiet = FALSE,
+  force = FALSE,
   ...
 )
 
@@ -117,16 +118,14 @@ time.}
 
 \item{cache_file}{The path to a local file to use as a cache when file is
 downloaded (http://, https://, ftp://, or file:// protocols). If cache_file
-already exists, data are read from this cache. Otherwise, data are saved in
-it before being used. If \code{cache_file = NULL} (the default), a temporary
-file is used and data are read from the Internet every time. The function
-also check if a sidecar file can be downloaded if \code{sidecar_file = TRUE},
-and the same cache mechanism is used for this second file too (same URL
-than the main file + \code{.R}). This cache mechanism is particularly useful to
-provide data associated with a git repository. Put cache_file in
-\code{.gitignore} and use \verb{cache_file=} in the code. That way, the data are
-downloaded once in a freshly cloned repository, and they are \strong{not}
-included in the versioning system (useful for large datasets).}
+already exists, data are read from this cache, except if \code{force = TRUE},
+see here under. Otherwise, data are saved in it before being used. If
+\code{cache_file = NULL} (the default), a temporary file is used and data are
+read from the Internet every time. This cache mechanism is particularly
+useful to provide data associated with a git repository. Put cache_file in
+\code{.gitignore} and use \verb{cache_file=} in the code (and \code{force = FALSE}). That
+way, the data are downloaded once in a freshly cloned repository, and they
+are not included in the versioning system (useful for large datasets).}
 
 \item{method}{The downloading method used (\code{"auto"} by default), see
 \code{\link[utils:download.file]{utils::download.file()}}.}
@@ -134,9 +133,14 @@ included in the versioning system (useful for large datasets).}
 \item{quiet}{In case we have to download files, do it silently (\code{TRUE}) or
 do we provide feedback and a progression bar (\code{FALSE}, by default)?}
 
+\item{force}{If \code{TRUE} and an URL is provided for \verb{file=} and a path for
+\verb{cache_file=}, then the content is downloaded all the time, even if the
+cache file already exists (it overwrites it). By default, it is \code{FALSE},
+which is the most useful setting to make good use of the cache mechanism.}
+
 \item{...}{Further arguments passed to the function \verb{fun=}.}
 
-\item{full}{Do we retrun the full extension, like \code{csv.tar.gz} (\code{TRUE}), or
+\item{full}{Do we return the full extension, like \code{csv.tar.gz} (\code{TRUE}), or
 only the main extension, like \code{csv} (\code{FALSE}, by default).}
 
 \item{x}{A \code{subsettable_type} function.}

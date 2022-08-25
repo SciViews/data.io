@@ -6,7 +6,7 @@
 
 -   There is now a list completion for `read$<tab>` and `write$<tab>`.
 
--   The `read()` function can now download file (and sidecar file) directly for all types (previously, only for functions that accepted it internally, like `readr::read_csv()` but not for `readxl::read_xls()` for instance). The `cache_file=` argument allows to define a file to cache this download. If the file exists, the data are not redownloaded again. The `read()`function also tries to download a possible sidecar file from the URL + ".R" if `sidecar_file = TRUE`.
+-   The `read()` function can now download a file directly for all types (previously, only for functions that accepted it internally, like `readr::read_csv()` but not for `readxl::read_xls()` for instance). The `cache_file=` argument allows to define a file to cache this download. If the file exists, the data are not redownloaded again, except if `force = TRUE`.
 
 # data.io 1.3.1
 
