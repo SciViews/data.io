@@ -1,5 +1,7 @@
 # data.io To Do list
 
+-   Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use `units(x)` ans `units(x) <- value` or another form on all vectors.
+
 -   Implement `.DollarNames()` to get a list of `read()` and `write()` types available, with a mechanism to add more types from additional packages (completion in R and RStudio for `read$` and `write$`).
 
 -   An easier form to indicate labels and units
