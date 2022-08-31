@@ -1,3 +1,7 @@
+# data.io 1.4.1
+
+-   There was a conflict in attributing units with the {units} package. So, when this package was loaded, `units(x) <- value` when `x` is numeric became a `units`object treated by {units}. We don't want this, so, the previous code is replaced by `attr(x, "units") <- value` to avoid this clash.
+
 # data.io 1.4.0
 
 -   Dependency to {svBase} added. Now the `default_dtx()` function is used to output a data frame object in the user-preferred class (data.frame, data.table or tibble tbl_df) with `read()`.

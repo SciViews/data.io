@@ -509,8 +509,12 @@ quiet = FALSE, force = FALSE, ...) {
 
             # Possibly add units
             new_units <- attribs[i, "units"]
-            if (!is.na(new_units))
-              units(res[[i]]) <- new_units
+            if (!is.na(new_units)) {
+              # This conflicts with units::`units<-` that defines a method for
+              # numeric, so, I prefer to change the attribute directly
+              #units(res[[i]]) <- new_units
+              attr(res[[i]], "units") <- new_units
+            }
           }
         }
       }

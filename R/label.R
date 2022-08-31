@@ -85,8 +85,12 @@ labelize <- labelise
       class(x) <- c("labelled", class(x))
   }
 
-  if (!is.null(units) && !is.na(units))
-    units(x) <- units
+  if (!is.null(units) && !is.na(units)) {
+    # There may be aproblem with units::`units<-` that defines a method for
+    # numeric, so, I prefer to change the attribute directly!
+    #units(x) <- units
+    attr(x, "units") <- units
+  }
   x
 }
 
@@ -187,7 +191,10 @@ unlabelize <- unlabelise
 #' @method unlabelise default
 `unlabelise.default` <- function(x, ...) {
   attr(x, "label") <- NULL
-  units(x) <- NULL
+  # There may be a conflict with units::`units<-` that defines a method for
+  # numeric, so, I prefer to change the attributes directly!
+  #units(x) <- NULL
+  attr(x, "units") <- NULL
   cl <- class(x)
   class(x) <- cl[cl != "labelled"]
   x
@@ -202,7 +209,10 @@ unlabelize <- unlabelise
 
   if (isTRUE(self)) {
     attr(x, "label") <- NULL
-    units(x) <- NULL
+    # There may be a conflict with units::`units<-` that defines a method for
+    # numeric, so, I prefer to change the attributes directly!
+    #units(x) <- NULL
+    attr(x, "units") <- NULL
     cl <- class(x)
     class(x) <- cl[cl != "labelled"]
   } else {# self = FALSE, unlabelise variables within the data.frame

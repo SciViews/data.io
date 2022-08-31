@@ -17,6 +17,7 @@ getOption
 Github
 Hawai
 Hmisc
+http
 https
 io
 Labelised
@@ -39,6 +40,7 @@ phytoplankton
 pkgdown
 readr
 redownload
+redownloaded
 RStudio
 sciviews
 SciViews
