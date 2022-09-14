@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SciViews/data.io/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/data.io/actions) [![Win Build Status](https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&svg=true)](https://ci.appveyor.com/project/phgrosjean/data-io) [![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)](https://codecov.io/github/SciViews/data.io?branch=master) [![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io) [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![R-CMD-check](https://github.com/SciViews/data.io/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/data.io/actions) [![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)](https://codecov.io/github/SciViews/data.io?branch=master) [![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io) [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 <!-- badges: end -->
 
@@ -29,8 +29,6 @@ remotes::install_github("SciViews/data.io")
 ```
 
 R should install all required dependencies automatically, and then it should compile and install 'data.io'.
-
-Latest development version of {data.io} (source + Windows binaries for the latest stable version of R at the time of compilation) is also available from [appveyor](https://ci.appveyor.com/project/phgrosjean/data.io/build/artifacts).
 
 ## Further explore {data.io}
 

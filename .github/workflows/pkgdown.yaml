@@ -25,12 +25,11 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: pkgdown
           needs: website
 
       - name: Install svPkgdown
         run: |
-          install.packages('remotes')
+          install.packages(c('remotes', 'pkgdown'))
           remotes::install_github("SciViews/svPkgdown")
         shell: Rscript {0}
 
