@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.sciviews.org/data.io/404.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/TODO.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/articles/data-io.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/authors.html</loc>
+  </url>
+  <url>
     <loc>https://www.sciviews.org/data.io/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/news/index.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/data.io/reference/as_dataframe.html</loc>
@@ -17,6 +41,9 @@
   </url>
   <url>
     <loc>https://www.sciviews.org/data.io/reference/datasets.html</loc>
+  </url>
+  <url>
+    <loc>https://www.sciviews.org/data.io/reference/index.html</loc>
   </url>
   <url>
     <loc>https://www.sciviews.org/data.io/reference/labelise.html</loc>
@@ -47,8 +74,5 @@
   </url>
   <url>
     <loc>https://www.sciviews.org/data.io/reference/zooplankton.html</loc>
-  </url>
-  <url>
-    <loc>https://www.sciviews.org/data.io/articles/data-io.html</loc>
   </url>
 </urlset>

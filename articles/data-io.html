@@ -27,6 +27,8 @@
 </script>-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><!-- preloader start --><div class="preloader">
   <img src="../preloader.gif" alt="loading...">
@@ -44,7 +46,7 @@
       </button>
       <div class="navbar-brand-container">
        <div class="navbar-brand-logo">
-         <a class="navbar-brand" href="https://www.sciviews.org">
+         <a class="external-link navbar-brand" href="https://www.sciviews.org">
           <img src="../logo_full.png" alt="SciViews"></a>
        </div>
        <div class="navbar-brand-package">
@@ -63,12 +65,6 @@
       <!-- end svPkgdown global site search with Google -->
       <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/data-io.html">Get started</a>
 </li>
 <li>
@@ -78,14 +74,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/SciViews/data.io/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/SciViews/data.io/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 <div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.3.0</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.4.1</small></p></a>
       </div>
     </div>
 <!--/.nav-collapse -->
@@ -98,15 +94,15 @@
 
       
 
-      </header><div class="row">
+      </header><script src="data-io_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>SciViews datasets and read()/write() functions</h1>
-                        <h4 class="author">Philippe Grosjean (<a href="mailto:phgrosjean@sciviews.org" class="email">phgrosjean@sciviews.org</a>)</h4>
+                        <h4 data-toc-skip class="author">Philippe Grosjean (<a href="mailto:phgrosjean@sciviews.org" class="email">phgrosjean@sciviews.org</a>)</h4>
             
-            <h4 class="date">2020-05-04</h4>
+            <h4 data-toc-skip class="date">2022-09-14</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/master/vignettes/data-io.Rmd"><code>vignettes/data-io.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/vignettes/data-io.Rmd" class="external-link"><code>vignettes/data-io.Rmd</code></a></small>
       <div class="hidden name"><code>data-io.Rmd</code></div>
 
     </div>
@@ -119,7 +115,7 @@
 <li><p>U.K. English,</p></li>
 <li><p>snake_case names, both for the datasets and their variables,</p></li>
 <li><p>Uppercase for factor levels (but less strict),</p></li>
-<li><p>data frames are converted, by default, into <code><a href="https://rdrr.io/r/base/c.html">c("dataframe", "tbl_df", "tbl", "data.frame")</a></code>. Thus, they are also ’tibble’s, and an additional <code>dataframe</code> class, that can be used for custom methods like <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> (not used yet).</p></li>
+<li><p>data frames are converted according to user preferences indicated in <code>options(SciViews.as_dtx = ...)</code>. The default is <code>as_dtt</code> which converts into a data.table. Other options are <code>as_dtf</code> to concert into base R data.frame objects, or <code>as_dtbl</code> to convert into {tibble}’s tbl_df objects.</p></li>
 <li><p>variables have a <code>label</code> attribute with more meaningful (short) description of the variables, and a <code>units</code> attribute, if applicable.</p></li>
 <li><p>the origin of the data is recorded as an <code>src</code> attribute to the comment if this is a R package dataset, or as a <code>srcfile</code> attribute to comment if it read from a file.</p></li>
 </ul>
@@ -144,19 +140,19 @@
                         <!-- social icon -->
                         <ul class="list-inline">
 <li class="list-inline-item">
-                                <a class="social-icon-outline" href="https://github.com/SciViews">
+                                <a class="external-link social-icon-outline" href="https://github.com/SciViews">
                                     <i class="ti-github"></i>
                                 </a>
                             </li>
 
                             <li class="list-inline-item">
-                                <a class="social-icon-outline" href="https://twitter.com/PhilGrosjean">
+                                <a class="external-link social-icon-outline" href="https://twitter.com/PhilGrosjean">
                                     <i class="ti-twitter-alt"></i>
                                 </a>
                             </li>
 
                             <li class="list-inline-item">
-                                <a class="social-icon-outline" href="https://www.linkedin.com/in/philippe-grosjean-5b6b29a2/">
+                                <a class="external-link social-icon-outline" href="https://www.linkedin.com/in/philippe-grosjean-5b6b29a2/">
                                     <i class="ti-linkedin"></i>
                                 </a>
                             </li>
@@ -169,23 +165,23 @@
                     <p class="h4 text-white mb-4">Related</p>
                     <ul class="footer-links">
 <li>
-                            <a href="http://econum.umons.ac.be">Our Lab</a>
+                            <a href="http://econum.umons.ac.be" class="external-link">Our Lab</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/fs/en/">Our Faculty</a>
+                            <a href="https://web.umons.ac.be/fs/en/" class="external-link">Our Faculty</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/complexys/en/">Complexys</a>
+                            <a href="https://web.umons.ac.be/complexys/en/" class="external-link">Complexys</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/infortech/en/">InforTech</a>
+                            <a href="https://web.umons.ac.be/infortech/en/" class="external-link">InforTech</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/en/">UMONS</a>
+                            <a href="https://web.umons.ac.be/en/" class="external-link">UMONS</a>
                         </li>
 
                     </ul>
@@ -195,23 +191,23 @@
                     <p class="h4 text-white mb-4">Quick Link</p>
                     <ul class="footer-links">
 <li>
-                            <a href="https://www.sciviews.org/software/svbox">SciViews Box</a>
+                            <a href="https://www.sciviews.org/software/svbox" class="external-link">SciViews Box</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/software/sciviews-r">SciViews::R</a>
+                            <a href="https://www.sciviews.org/software/sciviews-r" class="external-link">SciViews::R</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/software/zooimage">Zoo/PhytoImage</a>
+                            <a href="https://www.sciviews.org/software/zooimage" class="external-link">Zoo/PhytoImage</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/blog">Blog</a>
+                            <a href="https://www.sciviews.org/blog" class="external-link">Blog</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/about">About</a>
+                            <a href="https://www.sciviews.org/about" class="external-link">About</a>
                         </li>
 
                     </ul>
@@ -238,7 +234,7 @@
                 <div class="col-lg-6 col-md-7">
                     <ul class="list-inline text-center text-md-right">
 <li class="list-inline-item mx-lg-3 my-lg-0 mx-2 my-2">
-                            <a class="font-secondary text-white" href="https://creativecommons.org/licenses/by/4.0/">Site content under CC-BY 4.0 license</a>
+                            <a class="external-link font-secondary text-white" href="https://creativecommons.org/licenses/by/4.0/">Site content under CC-BY 4.0 license</a>
                         </li>
 
                     </ul>
@@ -259,6 +255,8 @@
 
   
 
+
+  
 
   </body>
 </html>

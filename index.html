@@ -29,6 +29,8 @@
 </script>-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><!-- preloader start --><div class="preloader">
   <img src="preloader.gif" alt="loading...">
@@ -46,7 +48,7 @@
       </button>
       <div class="navbar-brand-container">
        <div class="navbar-brand-logo">
-         <a class="navbar-brand" href="https://www.sciviews.org">
+         <a class="external-link navbar-brand" href="https://www.sciviews.org">
           <img src="logo_full.png" alt="SciViews"></a>
        </div>
        <div class="navbar-brand-package">
@@ -65,12 +67,6 @@
       <!-- end svPkgdown global site search with Google -->
       <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="articles/data-io.html">Get started</a>
 </li>
 <li>
@@ -80,14 +76,14 @@
   <a href="news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/SciViews/data.io/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/SciViews/data.io/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 <div class="navbar-title">
-        <a class="navbar-brand" href="index.html"><p class="h2">data.io <small>v1.3.0</small></p></a>
+        <a class="navbar-brand" href="index.html"><p class="h2">data.io <small>v1.4.1</small></p></a>
       </div>
     </div>
 <!--/.nav-collapse -->
@@ -102,84 +98,86 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="dataio" class="section level1">
+<div class="section level1">
 
 <!-- badges: start -->
-<p><a href="https://travis-ci.com/SciViews/data.io"><img src="https://travis-ci.com/SciViews/data.io.svg" alt="Linux Build Status"></a> <a href="http://ci.appveyor.com/project/phgrosjean/data-io"><img src="https://ci.appveyor.com/api/projects/status/github/SciViews/data.io?branch=master&amp;svg=true" alt="Win Build Status"></a> <a href="https://codecov.io/github/SciViews/data.io?branch=master"><img src="https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg" alt="Coverage Status"></a> <a href="http://cran.r-project.org/package=data.io"><img src="https://www.r-pkg.org/badges/version/data.io" alt="CRAN Status"></a> <a href="http://www.gnu.org/licenses/gpl-2.0.html"><img src="https://img.shields.io/badge/license-GPL-blue.svg" alt="License"></a> <a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Life cycle stable"></a> <!-- badges: end --></p>
-<blockquote>
-<p>‘data.io’ main functions are <code><a href="reference/read.html">read()</a></code> and <code><a href="reference/write.html">write()</a></code>. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like ‘haven’, ‘readr’, ‘readxl’, ‘writexl’, …). They care about metadata, in particular, meaningful labels and units for the variables. Also, a mechanism to preprocess datasets using sidecar files, and to translate them into various languages are provided for a subset of R packages datasets.</p>
-</blockquote>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>The latest stable version of ‘data.io’ can simply be installed from <a href="http://cran.r-project.org">CRAN</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"data.io"</span>)</pre></div>
-<p>You can also install the latest developement version. Make sure you have the ‘devtools’ R package installed:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</pre></div>
-<p>Use <code>install_github()</code> to install the ‘data.io’ package from Github (source from <strong>master</strong> branch will be recompiled on your machine):</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"SciViews/data.io"</span>)</pre></div>
+<!-- badges: end --><p>{data.io} main functions are <code><a href="reference/read.html">read()</a></code> and <code><a href="reference/write.html">write()</a></code>. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like {haven}, {readr}, {readxl}, {writexl}, …). They care about metadata, in particular, meaningful labels and units for the variables. Also, a mechanism to preprocess data sets using sidecar files, and to translate them into various languages are provided for a subset of R packages data sets.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>The latest stable version of ‘data.io’ can simply be installed from <a href="http://cran.r-project.org" class="external-link">CRAN</a> (not yet!):</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"data.io"</span><span class="op">)</span></span></code></pre></div>
+<p>You can also install the latest development version. Make sure you have the {remotes} R package installed:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
+<p>Use <code>install_github()</code> to install the {data.io} package from Github (source from <strong>master</strong> branch will be recompiled on your machine):</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"SciViews/data.io"</span><span class="op">)</span></span></code></pre></div>
 <p>R should install all required dependencies automatically, and then it should compile and install ‘data.io’.</p>
-<p>Latest devel version of ‘data.io’ (source + Windows binaires for the latest stable version of R at the time of compilation) is also available from <a href="https://ci.appveyor.com/project/phgrosjean/data.io/build/artifacts">appveyor</a>.</p>
+<p>Latest development version of {data.io} (source + Windows binaries for the latest stable version of R at the time of compilation) is also available from <a href="https://ci.appveyor.com/project/phgrosjean/data.io/build/artifacts" class="external-link">appveyor</a>.</p>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-</div>
-<div id="further-explore-dataio" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-explore-dataio" class="anchor"></a>Further explore ‘data.io’</h2>
-<p>You can get further help about this package this way: Make the ‘data.io’ package available in your R session:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"data.io"</span>)</pre></div>
+<div class="section level2">
+<h2 id="further-explore-dataio">Further explore {data.io}<a class="anchor" aria-label="anchor" href="#further-explore-dataio"></a>
+</h2>
+<p>You can get further help about this package this way. Make the {data.io} package available in your R session:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/SciViews/data.io" class="external-link">"data.io"</a></span><span class="op">)</span></span></code></pre></div>
 <p>Get help about this package:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">help</span> <span class="kw">=</span> <span class="st">"data.io"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="st">"data.io-package"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"data-io"</span>) <span class="co"># None is installed with install_github()</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span>help <span class="op">=</span> <span class="st">"data.io"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span><span class="st">"data.io-package"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"data-io"</span><span class="op">)</span> <span class="co"># None is installed with install_github()</span></span></code></pre></div>
 <p>For further instructions, please, refer to these help pages at <a href="https://www.sciviews.org/data.io/" class="uri">https://www.sciviews.org/data.io/</a>.</p>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the svSweave project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the {data.io} project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/SciViews/data.io/">https://​github.com/​SciViews/​data.io/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/SciViews/data.io/issues">https://​github.com/​SciViews/​data.io/​issues</a>
-</li>
+<li><a href="https://github.com/SciViews/data.io/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/SciViews/data.io/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></small></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-2" class="external-link">GPL-2</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing data.io</a></li>
+<li><a href="authors.html#citation">Citing data.io</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://phgrosjean.sciviews.org">Philippe Grosjean</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2694-9471" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://phgrosjean.sciviews.org" class="external-link">Philippe Grosjean</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2694-9471" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
@@ -196,19 +194,19 @@
                         <!-- social icon -->
                         <ul class="list-inline">
 <li class="list-inline-item">
-                                <a class="social-icon-outline" href="https://github.com/SciViews">
+                                <a class="external-link social-icon-outline" href="https://github.com/SciViews">
                                     <i class="ti-github"></i>
                                 </a>
                             </li>
 
                             <li class="list-inline-item">
-                                <a class="social-icon-outline" href="https://twitter.com/PhilGrosjean">
+                                <a class="external-link social-icon-outline" href="https://twitter.com/PhilGrosjean">
                                     <i class="ti-twitter-alt"></i>
                                 </a>
                             </li>
 
                             <li class="list-inline-item">
-                                <a class="social-icon-outline" href="https://www.linkedin.com/in/philippe-grosjean-5b6b29a2/">
+                                <a class="external-link social-icon-outline" href="https://www.linkedin.com/in/philippe-grosjean-5b6b29a2/">
                                     <i class="ti-linkedin"></i>
                                 </a>
                             </li>
@@ -221,23 +219,23 @@
                     <p class="h4 text-white mb-4">Related</p>
                     <ul class="footer-links">
 <li>
-                            <a href="http://econum.umons.ac.be">Our Lab</a>
+                            <a href="http://econum.umons.ac.be" class="external-link">Our Lab</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/fs/en/">Our Faculty</a>
+                            <a href="https://web.umons.ac.be/fs/en/" class="external-link">Our Faculty</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/complexys/en/">Complexys</a>
+                            <a href="https://web.umons.ac.be/complexys/en/" class="external-link">Complexys</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/infortech/en/">InforTech</a>
+                            <a href="https://web.umons.ac.be/infortech/en/" class="external-link">InforTech</a>
                         </li>
 
                         <li>
-                            <a href="https://web.umons.ac.be/en/">UMONS</a>
+                            <a href="https://web.umons.ac.be/en/" class="external-link">UMONS</a>
                         </li>
 
                     </ul>
@@ -247,23 +245,23 @@
                     <p class="h4 text-white mb-4">Quick Link</p>
                     <ul class="footer-links">
 <li>
-                            <a href="https://www.sciviews.org/software/svbox">SciViews Box</a>
+                            <a href="https://www.sciviews.org/software/svbox" class="external-link">SciViews Box</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/software/sciviews-r">SciViews::R</a>
+                            <a href="https://www.sciviews.org/software/sciviews-r" class="external-link">SciViews::R</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/software/zooimage">Zoo/PhytoImage</a>
+                            <a href="https://www.sciviews.org/software/zooimage" class="external-link">Zoo/PhytoImage</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/blog">Blog</a>
+                            <a href="https://www.sciviews.org/blog" class="external-link">Blog</a>
                         </li>
 
                         <li>
-                            <a href="https://www.sciviews.org/about">About</a>
+                            <a href="https://www.sciviews.org/about" class="external-link">About</a>
                         </li>
 
                     </ul>
@@ -290,7 +288,7 @@
                 <div class="col-lg-6 col-md-7">
                     <ul class="list-inline text-center text-md-right">
 <li class="list-inline-item mx-lg-3 my-lg-0 mx-2 my-2">
-                            <a class="font-secondary text-white" href="https://creativecommons.org/licenses/by/4.0/">Site content under CC-BY 4.0 license</a>
+                            <a class="external-link font-secondary text-white" href="https://creativecommons.org/licenses/by/4.0/">Site content under CC-BY 4.0 license</a>
                         </li>
 
                     </ul>
@@ -311,6 +309,8 @@
 
   
 
+
+  
 
   </body>
 </html>
