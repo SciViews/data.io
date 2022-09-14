@@ -10,6 +10,7 @@
 [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Life
 cycle stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![R-CMD-check](https://github.com/SciViews/data.io/workflows/R-CMD-check/badge.svg)](https://github.com/SciViews/data.io/actions)
 <!-- badges: end -->
 
 > 'data.io' main functions are `read()` and `write()`. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like 'haven', 'readr', 'readxl', 'writexl', ...). They care about metadata, in particular, meaningful labels and units for the variables. Also, a mechanism to preprocess datasets using sidecar files, and to translate them into various languages are provided for a subset of R packages datasets.
