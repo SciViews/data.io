@@ -75,7 +75,9 @@
 
 <div id="dataio-to-do-list" class="section level1">
 
-<ul><li><p>Reimplement <code>options(data.io.lang = "xx")</code> as <code>options(SciViews.lang = "xx")</code>, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).</p></li>
+<ul><li><p>Should we always convert ts and mts objects into data frames? + see <code>co2</code>, <code>nottem</code>, <code>pastecs::marbio</code>, <code>pastecs::marphy</code>, <code>pastecs::releve</code>.</p></li>
+<li><p>Also see <code><a href="https://tidyr.tidyverse.org/reference/who.html" class="external-link">tidyr::who</a></code>, <code><a href="https://tidyr.tidyverse.org/reference/who.html" class="external-link">tidyr::population</a></code>, <code>UsingR::babies</code>, <code>ca::wg93</code>, <code>faraway::eggs</code>, <code>mlbench::PimaIndianDiabetes2</code></p></li>
+<li><p>Reimplement <code>options(data.io.lang = "xx")</code> as <code>options(SciViews.lang = "xx")</code>, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).</p></li>
 <li><p>Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use <code>units(x)</code> ans <code>units(x) &lt;- value</code> or another form on all vectors.</p></li>
 <li><p>Implement <code><a href="https://rdrr.io/r/utils/rcompgen.html" class="external-link">.DollarNames()</a></code> to get a list of <code><a href="reference/read.html">read()</a></code> and <code><a href="reference/write.html">write()</a></code> types available, with a mechanism to add more types from additional packages (completion in R and RStudio for <code>read$</code> and <code>write$</code>).</p></li>
 <li><p>An easier form to indicate labels and units</p></li>
