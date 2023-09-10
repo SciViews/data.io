@@ -7,10 +7,10 @@
 
   lynx <- labelise(lynx, self = FALSE,
     label = list(
-      time = "Time",
+      time = "Temps",
       trapping = "Lynx capturés"),
     units = list(
-      time = NA,
+      time = "années",
       trapping = NA),
     as_labelled = as_labelled)
 

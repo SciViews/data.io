@@ -1,5 +1,9 @@
 # data.io To Do list
 
+-   Should we always convert ts and mts objects into data frames? + see `co2`, `nottem`, `pastecs::marbio`, `pastecs::marphy`, `pastecs::releve`.
+
+-   Also see `tidyr::who`, `tidyr::population`, `UsingR::babies`, `ca::wg93`, `faraway::eggs`, `mlbench::PimaIndianDiabetes2`
+
 -   Reimplement `options(data.io.lang = "xx")` as `options(SciViews.lang = "xx")`, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).
 
 -   Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use `units(x)` ans `units(x) <- value` or another form on all vectors.

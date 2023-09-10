@@ -10,7 +10,7 @@
       time = "Time",
       trapping = "Lynx trapped"),
     units = list(
-      time = NA,
+      time = "years",
       trapping = NA),
     as_labelled = as_labelled)
 
