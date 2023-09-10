@@ -1,7 +1,7 @@
 .geyser_fr <- function(geyser, labels_only = FALSE, as_labelled = FALSE) {
 
   comment(geyser) <- c(
-    "Jeu de données 'geyser' du package 'MASS', converti en 'dataframe'")
+    "Jeu de données 'geyser' du package 'MASS'")
 
   geyser <- labelise(geyser, self = FALSE,
     label = list(

@@ -29,8 +29,8 @@
 #' is_dataframe(v1)
 #' (df1 <- as_dataframe(v1))
 #' is_dataframe(df1)
-#' # Validate an existing dataframe
-#' (as_dataframe(df1, validate = TRUE))
+#' # Check names of an existing dataframe
+#' (as_dataframe(df1, .name_repair = "universal"))
 #' # A data.frame with trivial row names
 #' datasets::iris
 #' as_dataframe(datasets::iris)
@@ -101,19 +101,22 @@ as_dataframe.data.frame <- function(x, ..., rownames = "rownames") {
 
 #' @export
 #' @rdname as_dataframe
-#' @param validate Do we validate the `dataframe` (check its structure is
-#'   correct)?
-as_dataframe.dataframe <- function(x, ..., validate = FALSE,
-rownames = "rownames") {
-  if (isTRUE(validate)) {
+#' @param .name_repair Treatment for problematic column names. `"check.unique"`
+#' (default value) do not repair names but make sure they are unique. `"unique"`
+#' make sure names are unique and non empty. `"universal"` make names unique and
+#' syntactic. `"minimal"`do not repair or check (just make sure names exist).
+as_dataframe.dataframe <- function(x, ..., rownames = "rownames",
+.name_repair = c("check_unique", "unique", "universal", "minimal")) {
+  if (.name_repair != "minimal") {
     NextMethod()
   } else x
 }
 
 #' @export
 #' @rdname as_dataframe
-as_dataframe.list <- function(x, validate = FALSE, ...) {
-  x <- as_tibble(x, validate = validate, ...)
+as_dataframe.list <- function(x,
+.name_repair = c("check_unique", "unique", "universal", "minimal"), ...) {
+  x <- as_tibble(x, .name_repair = .name_repair, ...)
   class(x) <- unique(c("dataframe", class(x)))
   x
 }

@@ -324,13 +324,20 @@ quiet = FALSE, force = FALSE, ...) {
       }
       suppressWarnings(utils::data(list = file, package = package, ...,
         envir = environment()))
+      # For datasets like palmerpenguins::penguins_raw, data() cannot
+      # retrieve it, both penguins and penguins_raw are retrieved with
+      # data(penguins), so, make an exception
+      if (!exists(file, envir = environment(), inherits = FALSE) &&
+          file == "penguins_raw")
+          suppressWarnings(utils::data(list = "penguins",
+            package = package, ..., envir = environment()))
       if (!exists(file, envir = environment(), inherits = FALSE))
         stop("dataset '", file, "' not found in package '", package, "'")
       res <- get(file, envir = environment(), inherits = FALSE)
       src <- paste(package, file, sep = "::")
 
       # Look for a translation function or script for this dataset
-      # Note thant, if language is not found, we also look for the default
+      # Note that, if language is not found, we also look for the default
       # 'en' version as a fallback
       if (!is.null(lang)) {
         trans_fun <- function(x, full_lang, main_lang) {
@@ -619,5 +626,6 @@ hread_xlsx <- function(file, header.max, skip = 0L, locale = default_locale(),
 #' @method .DollarNames read_function_subset
 .DollarNames.read_function_subset <- function(x, pattern = "") {
   dt <- data_types(types_only = FALSE, view = FALSE)
-  sort(dt$type[!is.na(dt$read_fun)])
+  types <- sort(dt$type[!is.na(dt$read_fun)])
+  types[grepl(pattern, types)]
 }

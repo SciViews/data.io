@@ -1,7 +1,7 @@
 .geyser_en <- function(geyser, labels_only = FALSE, as_labelled = FALSE) {
 
   comment(geyser) <- c(
-    "The 'geyser' dataset from 'MASS', translated into a 'dataframe'")
+    "The 'geyser' dataset from 'MASS'")
 
   geyser <- labelise(geyser, self = FALSE,
     label = list(

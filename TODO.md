@@ -1,5 +1,7 @@
 # data.io To Do list
 
+-   Reimplement `options(data.io.lang = "xx")` as `options(SciViews.lang = "xx")`, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).
+
 -   Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use `units(x)` ans `units(x) <- value` or another form on all vectors.
 
 -   Implement `.DollarNames()` to get a list of `read()` and `write()` types available, with a mechanism to add more types from additional packages (completion in R and RStudio for `read$` and `write$`).
@@ -10,7 +12,11 @@
 
 -   `dictionary()` function that constructs a data dictionary for a labelled dataset (we probably need more attributes too). Would contain something like: name, label, units, transformation, type, dimensions, missing, examples, comment.
 
--   Use 'fst' package + 'vroom'.
+-   Prefer `data.table::fread()` and `data.table::fwrite()` for CSV files.
+
+-   With {readr}, do not append attributes "spec" and "problems" to the object, but store them elsewhere (where?)
+
+-   Use 'fst' package + 'qs' + 'vroom'.
 
 -   Look for a support of 'datapackage.r'.
 

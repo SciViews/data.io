@@ -1,4 +1,4 @@
-.diamonds_en <- function(diamonds, labels_only = FALSE, as_labelled = FALSE) {
+.diamonds_fr <- function(diamonds, labels_only = FALSE, as_labelled = FALSE) {
   comment(diamonds) <- NULL
 
   diamonds <- labelise(diamonds, self = FALSE,

@@ -1,4 +1,4 @@
-.iris_en <- function(iris, labels_only = FALSE, as_labelled = FALSE) {
+.iris_fr <- function(iris, labels_only = FALSE, as_labelled = FALSE) {
   # Rename variables to stick to snake_case convention
   names(iris) <-
     c("sepal_length", "sepal_width", "petal_length", "petal_width", "species" )

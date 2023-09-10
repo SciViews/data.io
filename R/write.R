@@ -117,5 +117,6 @@ type = NULL, fun_list = NULL, x, ...) {
 #' @method .DollarNames write_function_subset
 .DollarNames.write_function_subset <- function(x, pattern = "") {
   dt <- data_types(types_only = FALSE, view = FALSE)
-  sort(dt$type[!is.na(dt$write_fun)])
+  types <- sort(dt$type[!is.na(dt$write_fun)])
+  types[grepl(pattern, types)]
 }

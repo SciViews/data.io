@@ -21,9 +21,18 @@ as.dataframe(x, ...)
 
 \method{as_dataframe}{data.frame}(x, ..., rownames = "rownames")
 
-\method{as_dataframe}{dataframe}(x, ..., validate = FALSE, rownames = "rownames")
+\method{as_dataframe}{dataframe}(
+  x,
+  ...,
+  rownames = "rownames",
+  .name_repair = c("check_unique", "unique", "universal", "minimal")
+)
 
-\method{as_dataframe}{list}(x, validate = FALSE, ...)
+\method{as_dataframe}{list}(
+  x,
+  .name_repair = c("check_unique", "unique", "universal", "minimal"),
+  ...
+)
 
 \method{as_dataframe}{matrix}(x, ..., rownames = "rownames")
 
@@ -47,8 +56,10 @@ support row names). If \code{NULL}, row names are dropped. The inclusion of the
 rownames column is \strong{not} done if row names are trivial, i.e., they equal
 the number of the rows in the data frame.}
 
-\item{validate}{Do we validate the \code{dataframe} (check its structure is
-correct)?}
+\item{.name_repair}{Treatment for problematic column names. \code{"check.unique"}
+(default value) do not repair names but make sure they are unique. \code{"unique"}
+make sure names are unique and non empty. \code{"universal"} make names unique and
+syntactic. \code{"minimal"}do not repair or check (just make sure names exist).}
 
 \item{n}{The name for the column containing the number of items, \code{"n"} by
 default.}
@@ -78,8 +89,8 @@ v1 <- 1:10
 is_dataframe(v1)
 (df1 <- as_dataframe(v1))
 is_dataframe(df1)
-# Validate an existing dataframe
-(as_dataframe(df1, validate = TRUE))
+# Check names of an existing dataframe
+(as_dataframe(df1, .name_repair = "universal"))
 # A data.frame with trivial row names
 datasets::iris
 as_dataframe(datasets::iris)

@@ -1,4 +1,4 @@
-.zooplankton_en <- function(zooplankton, labels_only = FALSE,
+.zooplankton_fr <- function(zooplankton, labels_only = FALSE,
 as_labelled = FALSE) {
   zooplankton <- labelise(zooplankton, self = FALSE,
     label = list(

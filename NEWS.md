@@ -1,3 +1,13 @@
+# data.io 1.5.0
+
+-   `.DollarNames()` implemented for `read()` and `write()` function, so that there is a completion list of the acceptable types.
+
+-   `as_dataframe.dataframe()` and `as_dataframe.list()`, argument `validate=` is replaced by `.name.repair=` according to changes made in {tibble} 3.0 where the `validate=` argument is defunct now.
+
+-   {palmerpenguins} `penguins` and `penguins_raw` data sets included (en and fr versions). The code of `read()` had to be patched because `data(penguins)` loads both `penguins` and `penguins_raw`, but `data(penguins_raw)` produces an error (sic!)
+
+-   The {datasets} `ChickWeight`, `failthful`, `ToothGrowth` are now translated (en and fr versions).
+
 # data.io 1.4.1
 
 -   There was a conflict in attributing units with the {units} package. So, when this package was loaded, `units(x) <- value` when `x` is numeric became a `units`object treated by {units}. We don't want this, so, the previous code is replaced by `attr(x, "units") <- value` to avoid this clash.

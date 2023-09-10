@@ -6,6 +6,8 @@
 \alias{data.io-package}
 \title{data.io: 'SciViews' - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Read or write data from many different formats (tabular datasets, from statistic software, ...) into R objects. Add labels and units in different languages.
 }
 \details{

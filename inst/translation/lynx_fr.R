@@ -1,4 +1,4 @@
-.lynx_en <- function(lynx, labels_only = FALSE, as_labelled = FALSE) {
+.lynx_fr <- function(lynx, labels_only = FALSE, as_labelled = FALSE) {
   lynx <- as_tsibble(lynx)
   names(lynx) <- c("time", "trapping" )
 
