@@ -89,7 +89,7 @@
 </li>
       </ul>
 <div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.4.1</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.0</small></p></a>
       </div>
     </div>
 <!--/.nav-collapse -->
@@ -105,10 +105,12 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>SciViews datasets and read()/write() functions</h1>
-                        <h4 data-toc-skip class="author">Philippe Grosjean (<a href="mailto:phgrosjean@sciviews.org" class="email">phgrosjean@sciviews.org</a>)</h4>
+      <h1 data-toc-skip>SciViews datasets and read()/write()
+functions</h1>
+                        <h4 data-toc-skip class="author">Philippe
+Grosjean (<a href="mailto:phgrosjean@sciviews.org" class="email">phgrosjean@sciviews.org</a>)</h4>
             
-            <h4 data-toc-skip class="date">2022-09-15</h4>
+            <h4 data-toc-skip class="date">2023-09-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/vignettes/data-io.Rmd" class="external-link"><code>vignettes/data-io.Rmd</code></a></small>
       <div class="hidden name"><code>data-io.Rmd</code></div>
@@ -117,15 +119,33 @@
 
     
     
-<p>The ‘data.io’ package provides several example datasets in a standardized way, as well as, a <code><a href="../reference/read.html">read()</a></code> function to retrieve them, or to import external datasets in different formats in an unified way.</p>
-<p>There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:</p>
+<p>The ‘data.io’ package provides several example datasets in a
+standardized way, as well as, a <code><a href="../reference/read.html">read()</a></code> function to retrieve
+them, or to import external datasets in different formats in an unified
+way.</p>
+<p>There are several datasets spread between various R packages, but
+there is no clear convention to name them, or their variables, on units
+to use (some are in metric units, but other ones use the imperial unit
+system), etc. Here, we propose a set of data, partly converted from
+other packages, partly new ones, that respect the following
+conventions:</p>
 <ul>
 <li><p>U.K. English,</p></li>
-<li><p>snake_case names, both for the datasets and their variables,</p></li>
+<li><p>snake_case names, both for the datasets and their
+variables,</p></li>
 <li><p>Uppercase for factor levels (but less strict),</p></li>
-<li><p>data frames are converted according to user preferences indicated in <code>options(SciViews.as_dtx = ...)</code>. The default is <code>as_dtt</code> which converts into a data.table. Other options are <code>as_dtf</code> to concert into base R data.frame objects, or <code>as_dtbl</code> to convert into {tibble}’s tbl_df objects.</p></li>
-<li><p>variables have a <code>label</code> attribute with more meaningful (short) description of the variables, and a <code>units</code> attribute, if applicable.</p></li>
-<li><p>the origin of the data is recorded as an <code>src</code> attribute to the comment if this is a R package dataset, or as a <code>srcfile</code> attribute to comment if it read from a file.</p></li>
+<li><p>data frames are converted according to user preferences indicated
+in <code>options(SciViews.as_dtx = ...)</code>. The default is
+<code>as_dtt</code> which converts into a data.table. Other options are
+<code>as_dtf</code> to concert into base R data.frame objects, or
+<code>as_dtbl</code> to convert into {tibble}’s tbl_df objects.</p></li>
+<li><p>variables have a <code>label</code> attribute with more
+meaningful (short) description of the variables, and a
+<code>units</code> attribute, if applicable.</p></li>
+<li><p>the origin of the data is recorded as an <code>src</code>
+attribute to the comment if this is a R package dataset, or as a
+<code>srcfile</code> attribute to comment if it read from a
+file.</p></li>
 </ul>
 </div>
 

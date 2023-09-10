@@ -58,7 +58,7 @@ import or export data for the different types (formats)."><meta property="og:ima
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.4.1</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.0</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -130,7 +130,7 @@ data.frame is also saved in the <code>read_write`` option, and can be retrieved 
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> txt   readr::read_file     <span style="color: #BB0000;">NA</span>                  readr::write_file      text f…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> raw   readr::read_file_raw <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                     binary…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ssv   readr::read_table    data.io::hread_text <span style="color: #BB0000;">NA</span>                     space …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 22 more rows</span></span>
 <span class="r-in"><span><span class="co"># To add a new type:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu">read_write_option</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"png"</span>, read_fun <span class="op">=</span> <span class="st">"png::readPNG"</span>,</span></span>
 <span class="r-in"><span>  read_header <span class="op">=</span> <span class="cn">NA</span>, write_fun <span class="op">=</span> <span class="st">"png::writePNG"</span>, comment <span class="op">=</span> <span class="st">"PNG image"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>

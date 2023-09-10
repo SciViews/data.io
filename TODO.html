@@ -57,7 +57,7 @@
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="index.html"><p class="h2">data.io <small>v1.4.1</small></p></a>
+        <a class="navbar-brand" href="index.html"><p class="h2">data.io <small>v1.5.0</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -73,12 +73,17 @@
       <h1>data.io To Do list</h1>
     </div>
 
-<div id="dataio-to-do-list" class="section level1"><ul><li><p>Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use <code>units(x)</code> ans <code>units(x) &lt;- value</code> or another form on all vectors.</p></li>
+<div id="dataio-to-do-list" class="section level1">
+
+<ul><li><p>Reimplement <code>options(data.io.lang = "xx")</code> as <code>options(SciViews.lang = "xx")</code>, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).</p></li>
+<li><p>Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use <code>units(x)</code> ans <code>units(x) &lt;- value</code> or another form on all vectors.</p></li>
 <li><p>Implement <code><a href="https://rdrr.io/r/utils/rcompgen.html" class="external-link">.DollarNames()</a></code> to get a list of <code><a href="reference/read.html">read()</a></code> and <code><a href="reference/write.html">write()</a></code> types available, with a mechanism to add more types from additional packages (completion in R and RStudio for <code>read$</code> and <code>write$</code>).</p></li>
 <li><p>An easier form to indicate labels and units</p></li>
 <li><p>Allow for data transformation and store info in a ‘transfo’ attribute. For instance, transforming “size [mm]” using <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log1p()</a></code> with something like <code>transfo(data = df, logsize = log1p(size))</code> would produce a <code>transfo = "log1p"</code> attribute in <code>logsize</code>. And when label is used in plots, we would get “log(size [mm] + 1)”. Also a <code>backtransfo()</code> function to back transform variables.</p></li>
 <li><p><code>dictionary()</code> function that constructs a data dictionary for a labelled dataset (we probably need more attributes too). Would contain something like: name, label, units, transformation, type, dimensions, missing, examples, comment.</p></li>
-<li><p>Use ‘fst’ package + ‘vroom’.</p></li>
+<li><p>Prefer <code><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread()</a></code> and <code><a href="https://Rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">data.table::fwrite()</a></code> for CSV files.</p></li>
+<li><p>With {readr}, do not append attributes “spec” and “problems” to the object, but store them elsewhere (where?)</p></li>
+<li><p>Use ‘fst’ package + ‘qs’ + ‘vroom’.</p></li>
 <li><p>Look for a support of ‘datapackage.r’.</p></li>
 <li><p>reimport <code>print.subsettable()</code> from {svMisc}</p></li>
 <li><p>label versus comment for a dataframe?</p></li>
