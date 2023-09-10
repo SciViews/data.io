@@ -27,6 +27,8 @@ Suggests:
     writexl,
     datasets,
     ggplot2,
+    lme4,
+    babynames,
     nycflights13,
     palmerpenguins,
     covr,

@@ -10,6 +10,8 @@
 
 -   The data sets `Penicillin` and `sleepstudy` from {lme4} are now translated (en and fr versions).
 
+-   The data sets `babynames`, `applicants`, `births`, and `lifetables` from {babynames} are now translated (en and fr versions).
+
 # data.io 1.4.1
 
 -   There was a conflict in attributing units with the {units} package. So, when this package was loaded, `units(x) <- value` when `x` is numeric became a `units`object treated by {units}. We don't want this, so, the previous code is replaced by `attr(x, "units") <- value` to avoid this clash.

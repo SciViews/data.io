@@ -2,7 +2,7 @@
 
 -   Should we always convert ts and mts objects into data frames? + see `co2`, `nottem`, `pastecs::marbio`, `pastecs::marphy`, `pastecs::releve`.
 
--   Also see `tidyr::who`, `tidyr::population`, `UsingR::babies`, `ca::wg93`, `faraway::eggs`, `mlbench::PimaIndianDiabetes2`
+-   Also see `tidyr::who`, `tidyr::population`, `vegan::BCI`, `vegan::mite`, `vegan::varespec`, `UsingR::babies`, `ca::wg93`, `faraway::eggs`, `mlbench::PimaIndianDiabetes2`
 
 -   Reimplement `options(data.io.lang = "xx")` as `options(SciViews.lang = "xx")`, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).
 
