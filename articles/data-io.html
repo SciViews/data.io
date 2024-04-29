@@ -514,36 +514,20 @@ labels and units are added for each variable of <code>iris_sc</code>.
 The sidecar file is convenient for quick preprocessing of you datasets.
 That way, you do not have to resave your data in a different format that
 keeps the metadata and types of your variables.</p>
+<p>The example sidecar file is rather complex and it deals with several
+languages through the <code>lang =</code> argument of
+<code><a href="../reference/read.html">read()</a></code>. Usually, your own sidecar file would be much
+shorter, just dealing with a couple of adjustments in the dataset.</p>
 </div>
 <div class="section level3">
 <h3 id="reading-data-from-urls-and-cache-mechanism">Reading data from URLs and cache mechanism<a class="anchor" aria-label="anchor" href="#reading-data-from-urls-and-cache-mechanism"></a>
 </h3>
 <p>The <code><a href="../reference/read.html">read()</a></code> function can also import data from an URL for
-all supported file formats.</p>
+all supported file formats (note the code that reads from an URL in
+<em>not</em> executed in the vignette to avoid problems when checking
+the package, but you can run the code yourself).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
-<span><span class="co">#&gt;      Ferme Variete Rendement</span></span>
-<span><span class="co">#&gt;     &lt;char&gt;  &lt;char&gt;     &lt;num&gt;</span></span>
-<span><span class="co">#&gt;  1:      X       A     0.327</span></span>
-<span><span class="co">#&gt;  2:      X       B     0.500</span></span>
-<span><span class="co">#&gt;  3:      X       C     0.442</span></span>
-<span><span class="co">#&gt;  4:      X       D     0.471</span></span>
-<span><span class="co">#&gt;  5:      Y       A     0.532</span></span>
-<span><span class="co">#&gt;  6:      Y       B     0.599</span></span>
-<span><span class="co">#&gt;  7:      Y       C     0.516</span></span>
-<span><span class="co">#&gt;  8:      Y       D     0.638</span></span>
-<span><span class="co">#&gt;  9:      Z       A     0.269</span></span>
-<span><span class="co">#&gt; 10:      Z       B     0.308</span></span>
-<span><span class="co">#&gt; 11:      Z       C     0.241</span></span>
-<span><span class="co">#&gt; 12:      Z       D     0.305</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>In the case the URL does not end with an explicit extension, you
 <em>have to</em> specify the file format as the type (here
 <code>read$csv(....)</code> because the dataset is in CSV format).
@@ -559,37 +543,11 @@ argument. Here is an example:</p>
 <span><span class="co"># but you should use a permanent directory in your project</span></span>
 <span><span class="va">ble_cache_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"ble.csv"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span>,</span>
-<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
-<span><span class="co">#&gt;      Ferme Variete Rendement</span></span>
-<span><span class="co">#&gt;     &lt;char&gt;  &lt;char&gt;     &lt;num&gt;</span></span>
-<span><span class="co">#&gt;  1:      X       A     0.327</span></span>
-<span><span class="co">#&gt;  2:      X       B     0.500</span></span>
-<span><span class="co">#&gt;  3:      X       C     0.442</span></span>
-<span><span class="co">#&gt;  4:      X       D     0.471</span></span>
-<span><span class="co">#&gt;  5:      Y       A     0.532</span></span>
-<span><span class="co">#&gt;  6:      Y       B     0.599</span></span>
-<span><span class="co">#&gt;  7:      Y       C     0.516</span></span>
-<span><span class="co">#&gt;  8:      Y       D     0.638</span></span>
-<span><span class="co">#&gt;  9:      Z       A     0.269</span></span>
-<span><span class="co">#&gt; 10:      Z       B     0.308</span></span>
-<span><span class="co">#&gt; 11:      Z       C     0.241</span></span>
-<span><span class="co">#&gt; 12:      Z       D     0.305</span></span></code></pre></div>
+<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now, there is a copy of the dataset in CSV format in
 <code>ble_cache_file</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">ble_cache_file</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; "Ferme","Variete","Rendement"</span></span>
-<span><span class="co">#&gt; "X","A",0.327</span></span>
-<span><span class="co">#&gt; "X","B",0.500</span></span>
-<span><span class="co">#&gt; "X","C",0.442</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">ble_cache_file</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <p>If you project is managed with git, you would most probably indicate
 the folder that contains the cached copies of your large datasets in
 .gitignore. That way, you can use large, or even huge datasets in your
@@ -599,30 +557,13 @@ downloaded from the internet only once. Every time you read the
 file.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span>,</span>
-<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using cached date in /tmp/RtmpQ4cQfB/ble.csv...</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span><span class="op">)</span></span></code></pre></div>
 <p>In case you have to refresh the cached version from the URL, just
 erase the cache file and read again, or use
 <code>force = TRUE</code>):</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span>,</span>
-<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="list-of-supported-file-formats">List of supported file formats<a class="anchor" aria-label="anchor" href="#list-of-supported-file-formats"></a>

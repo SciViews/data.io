@@ -593,29 +593,7 @@ across several <span style="R">R</span> packages. See <code>getOption("read_writ
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "m^3"</span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Read from a Github Gist (need to specify the type here!)</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (1): Rendement</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      Ferme Variete Rendement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;char&gt;  &lt;char&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:      X       A     0.327</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:      X       B     0.500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:      X       C     0.442</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:      X       D     0.471</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:      Y       A     0.532</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:      Y       B     0.599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:      Y       C     0.516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:      Y       D     0.638</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:      Z       A     0.269</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:      Z       B     0.308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:      Z       C     0.241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:      Z       D     0.305</span>
+<span class="r-in"><span><span class="co"># (ble &lt;- read$csv("http://tinyurl.com/Biostat-Ble"))</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Various versions of the famous iris dataset</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">iris</span> <span class="op">&lt;-</span> <span class="fu">read</span><span class="op">(</span><span class="fu"><a href="data_example.html">data_example</a></span><span class="op">(</span><span class="st">"iris.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
