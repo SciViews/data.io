@@ -7,6 +7,7 @@ development:
 
 template:
   package: svPkgdown
+  bootstrap: 5
   params:
     bootswatch: spacelab
     mathjax: true
@@ -19,4 +20,4 @@ home:
 
 authors:
   Philippe Grosjean:
-    href: https://phgrosjean.sciviews.org
+    href: https://phgrosjean.sciviews.org/

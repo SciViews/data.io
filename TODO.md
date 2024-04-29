@@ -1,6 +1,6 @@
 # data.io To Do list
 
--   Should we always convert ts and mts objects into data frames? + see `co2`, `nottem`, `pastecs::marbio`, `pastecs::marphy`, `pastecs::releve`.
+-   Should we always convert **ts** and **mts** objects into **data frames**? + see `co2`, `nottem`, `pastecs::marbio`, `pastecs::marphy`, `pastecs::releve`.
 
 -   Also see `tidyr::who`, `tidyr::population`, `vegan::BCI`, `vegan::mite`, `vegan::varespec`, `UsingR::babies`, `ca::wg93`, `faraway::eggs`, `mlbench::PimaIndianDiabetes2`
 

@@ -1,7 +1,8 @@
-#' @details
-#' The 'data.io' package focuses on reading and writing datasets in different
-#' formats in an unified and convenient format. It can deal with labels and
-#' units metadata for variables, translation in different languages, and even
+#' General Data Read and Write in Different Formats
+#'
+#' The {data.io} package focuses on reading and writing datasets in different
+#' formats in an unified and convenient way. It can deal with labels and units
+#' metadata for variables, translation in different languages, and even
 #' use a sidecar file for preprocessing the dataset automatically. The same
 #' features are also available for a subset of datasets from R packages.
 #'
@@ -16,9 +17,10 @@
 #' - [labelise()] adds a `label`, and possibly a `units` attributes to an
 #'   object, to be used while pretty printing a table or plot.
 #'
-#' @keywords internal
-"_PACKAGE"
+#' @docType package
+#' @name data.io-package
 
+## usethis namespace: start
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble
 #' @importFrom utils .DollarNames data download.file
@@ -26,8 +28,5 @@
 #' @importFrom rlang quos
 #' @importFrom svBase default_dtx
 #' @importFrom lifecycle badge deprecate_soft
-# The following block is used by usethis to automatically manage
-# roxygen namespace tags. Modify with care!
-## usethis namespace: start
 ## usethis namespace: end
 NULL

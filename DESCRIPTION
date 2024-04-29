@@ -1,15 +1,15 @@
 Package: data.io
 Type: Package
-Version: 1.5.0
-Title: 'SciViews' - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats
+Version: 1.5.1
+Title: General Data Read and Write in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
-  from statistic software, ...) into R objects. Add labels and units in
+  from statistic software ...) into R objects. Add labels and units in
   different languages.
 Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
   email = "phgrosjean@sciviews.org",
   comment = c(ORCID = "0000-0002-2694-9471")))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
-Depends: R (>= 3.3.0)
+Depends: R (>= 4.2.0)
 Imports:
     tibble,
     tsibble,
@@ -34,17 +34,19 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    testthat,
+    testthat (>= 3.0.0),
     spelling
 Remotes: 
     SciViews/svBase,
     SciViews/SciViews
-License: GPL-2
+License:  MIT + file LICENSE
 URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/
 BugReports: https://github.com/SciViews/data.io/issues
 LazyData: yes
+ByteCompile: yes
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US

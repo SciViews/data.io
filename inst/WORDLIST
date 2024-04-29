@@ -6,7 +6,9 @@ babynames
 biometry
 Cen
 cmd
+Codecov
 coelomic
+csv
 devtools
 df
 doi
@@ -16,6 +18,8 @@ extdata
 Feret
 getOption
 Github
+gitignore
+gz
 Hawai
 Hmisc
 http
@@ -25,6 +29,7 @@ Labelised
 labelled
 Leptograpsus
 LGA
+Lifecycle
 lividus
 lme
 Loa
@@ -33,6 +38,7 @@ micromol
 mol
 Morphometric
 Morphometry
+natively
 ORCID
 orthogonally
 palmerpenguins
@@ -41,9 +47,15 @@ Ph
 phgrosjean
 phytoplankton
 pkgdown
+POSIXt
+postprocessed
+preformat
+preprocess
 readr
+readxl
 redownload
 redownloaded
+resave
 RStudio
 sciviews
 SciViews
@@ -58,5 +70,6 @@ tidyverse
 Tulear
 unitless
 variegatus
+writexl
 Zhao
 ZooImage

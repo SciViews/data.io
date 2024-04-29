@@ -1,19 +1,20 @@
-# data.io - Data input and output for 'SciViews::R' <a href='https://www.sciviews.org/data.io'><img src="man/figures/logo.png" align="right" height="139"/></a>
+# data.io - General Data Read and Write in Different Formats' <a href='https://www.sciviews.org/data.io'><img src='man/figures/logo.png' align='right' height='139'/></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml) [![Coverage Status](https://img.shields.io/codecov/c/github/SciViews/data.io/master.svg)](https://codecov.io/github/SciViews/data.io?branch=master) [![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io) [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![R-CMD-check](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/data.io/branch/main/graph/badge.svg)](https://app.codecov.io/gh/SciViews/data.io?branch=main) [![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 <!-- badges: end -->
 
-{data.io} main functions are `read()` and `write()`. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like {haven}, {readr}, {readxl}, {writexl}, ...). They care about metadata, in particular, meaningful labels and units for the variables. Also, a mechanism to preprocess data sets using sidecar files, and to translate them into various languages are provided for a subset of R packages data sets.
+{data.io} main functions are `read()` and `write()`. They are made super-easy to import and export data in various formats in an unified way (they use functions from other packages under the hood like {haven}, {readr}, {readxl}, {writexl} ...). They care about metadata, in particular, meaningful labels and units for the variables. Also, a mechanism to preprocess data sets using sidecar files, and to translate them into various languages are provided for a subset of R packages data sets.
 
 ## Installation
 
-The latest stable version of 'data.io' can simply be installed from [CRAN](http://cran.r-project.org) (not yet!):
+{data.io} is not available from CRAN yet. You should install it from the [SciViews R-Universe](https://sciviews.r-universe.dev). To install this package and its dependencies, run the following command in R:
 
-``` r
-install.packages("data.io")
+```{r, eval=FALSE}
+install.packages('data.io', repos = c('https://sciviews.r-universe.dev',
+  'https://cloud.r-project.org'))
 ```
 
 You can also install the latest development version. Make sure you have the {remotes} R package installed:
@@ -22,13 +23,13 @@ You can also install the latest development version. Make sure you have the {rem
 install.packages("remotes")
 ```
 
-Use `install_github()` to install the {data.io} package from Github (source from **master** branch will be recompiled on your machine):
+Use `install_github()` to install the {data.io} package from Github (source from **main** branch will be recompiled on your machine):
 
 ``` r
 remotes::install_github("SciViews/data.io")
 ```
 
-R should install all required dependencies automatically, and then it should compile and install 'data.io'.
+R should install all required dependencies automatically, and then it should compile and install {data.io}.
 
 ## Further explore {data.io}
 

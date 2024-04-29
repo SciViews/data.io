@@ -2,18 +2,12 @@
 % Please edit documentation in R/data.io-package.R
 \docType{package}
 \name{data.io-package}
-\alias{data.io}
 \alias{data.io-package}
-\title{data.io: 'SciViews' - Data Input/Output, Read or Write Data from Files or Datasets in R Packages in Different Formats}
+\title{General Data Read and Write in Different Formats}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
-
-Read or write data from many different formats (tabular datasets, from statistic software, ...) into R objects. Add labels and units in different languages.
-}
-\details{
-The 'data.io' package focuses on reading and writing datasets in different
-formats in an unified and convenient format. It can deal with labels and
-units metadata for variables, translation in different languages, and even
+The {data.io} package focuses on reading and writing datasets in different
+formats in an unified and convenient way. It can deal with labels and units
+metadata for variables, translation in different languages, and even
 use a sidecar file for preprocessing the dataset automatically. The same
 features are also available for a subset of datasets from R packages.
 }
@@ -29,17 +23,3 @@ object, to be used while pretty printing a table or plot.
 }
 }
 
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://github.com/SciViews/data.io}
-  \item \url{https://www.sciviews.org/data.io/}
-  \item Report bugs at \url{https://github.com/SciViews/data.io/issues}
-}
-
-}
-\author{
-\strong{Maintainer}: Philippe Grosjean \email{phgrosjean@sciviews.org} (\href{https://orcid.org/0000-0002-2694-9471}{ORCID})
-
-}
-\keyword{internal}

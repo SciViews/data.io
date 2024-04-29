@@ -1,3 +1,7 @@
+# data.io 1.5.1
+
+-   License changed to MIT for better and wider use.
+
 # data.io 1.5.0
 
 -   `.DollarNames()` implemented for `read()` and `write()` function, so that there is a completion list of the acceptable types.

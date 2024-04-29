@@ -2,9 +2,7 @@
 title: "SciViews datasets and read()/write() functions"
 author: "Philippe Grosjean (phgrosjean@sciviews.org)"
 date: "`r Sys.Date()`"
-output:
-  rmarkdown::html_vignette:
-    fig_caption: yes
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SciViews datasets and read()/write() functions}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,25 +10,188 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(data.io)
 ```
 
-The 'data.io' package provides several example datasets in a standardized way, as well as, a `read()` function to retrieve them, or to import external datasets in different formats in an unified way.
+The {data.io} package provides several example datasets in a standardized way, as well as, a `read()` function to retrieve them, or to import external datasets in different formats in an unified way. A cache mechanism is implemented for those datasets that are read from an URL. Also a "sidecar" R script can be used to preformat or preprocess the data. A `write()` function also eases export of the R objects in various formats.
 
-There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, on units to use (some are in metric units, but other ones use the imperial unit system), etc. Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
+## Datasets in R packages
 
--   U.K. English,
+There are several datasets spread between various R packages, but there is no clear convention to name them, or their variables, or units to use (some are in metric units, but other ones use the imperial unit system). Here, we propose a set of data, partly converted from other packages, partly new ones, that respect the following conventions:
+
+-   English for variable names,
 
 -   snake_case names, both for the datasets and their variables,
 
 -   Uppercase for factor levels (but less strict),
 
--   data frames are converted according to user preferences indicated in `options(SciViews.as_dtx = ...)`. The default is `as_dtt` which converts into a data.table. Other options are `as_dtf` to concert into base R data.frame objects, or `as_dtbl` to convert into {tibble}'s tbl_df objects.
+-   data frames are converted according to user preferences indicated in `options(SciViews.as_dtx = ...)`. The default is `as_dtt` which converts into a **data.table**. Other options are `as_dtf` to concert into base R **data.frame** objects, or `as_dtbl` to convert into {tibble}'s **tbl_df** objects.
 
 -   variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
 
 -   the origin of the data is recorded as an `src` attribute to the comment if this is a R package dataset, or as a `srcfile` attribute to comment if it read from a file.
+
+For instance, the `iris` dataset in the {datasets} package uses names for its variables like `Petal.Length` that do not follow the rules exposed here above. Getting this dataset with `data.io::read()`, these names are "corrected". Labels and units are also automatically added.
+
+```{r}
+library(data.io)
+# Instead of data(iris), we use:
+iris <- read("iris", package = "datasets")
+head(iris)
+```
+
+With `str()` one can see the labels and units added for each variable:
+
+```{r}
+str(iris)
+```
+
+The comment gives some general information about the dataset.
+
+```{r}
+comment(iris)
+```
+
+French is supported too. Labels and comments are in French:
+
+```{r}
+iris <- read("iris", package = "datasets", lang = "fr")
+str(iris)
+```
+
+All datasets form R packages can be loaded with `read("<dataset_name>", package = "<package_name>")`, but only a small subset of these datasets have labels and units automatically set. They are listed in the man page `?Datasets`.
+
+Another feature is conversion of quantitative variables into the SI unit system, in case they are expressed in imperial system in use in the US. Here is an example with the `trees` dataset, from the {datasets} package whose lengths are in inches or feet and volume is in cubic feet. When this dataset is loaded with `read()`, the units are converted to meters and cubic meters (also `Girth` is replaced by `diameter`since it is really the diameter of the tree that is reported).
+
+```{r}
+trees <- read("trees", package = "datasets")
+head(trees)
+str(trees)
+```
+
+You got the same result using `lang = "fr"`. If you want the original data, you still can use `data()`, of course. Here it is, for comparison:
+
+```{r}
+data(trees)
+head(trees)
+str(trees)
+```
+
+### Discovering datasets in R packages
+
+If you use `read()` without arguments, a list with all datasets from installed R packages in opened in RStudio or in the web browser. If you just specify `package = "<package_name>"`, only datasets in that package are listed.
+
+
+## Read and write data
+
+The `read()` and `write()` functions implement a `type =` argument to specify the format. The format specification is optional for `read()` if the file extension is explicit enough. However, it is mandatory for `write()`. An alternate and more compact syntax is advised: one can "subset" the `read()` or `write()` function with the type. For instance, to write `df` in a CSV file "data/df.csv", one can use `write(df, "data/df.csv", type = "csv")`, but one can also use `write$csv(df, "data/df.csv")`. The later form is more compact and easier to read.
+
+The {data.io} contains an "extdata" folder with a series of example datasets in different formats. The `data_example()` function can be used to get the path to these files. For instance, to get the path to the "iris.csv.gz" file, one can use:
+
+```{r}
+data_example("iris.csv.gz")
+```
+
+Then, you can import this compressed CSV file with `read()`:
+
+```{r}
+read$csv.gz(data_example("iris.csv.gz")) # Type optional (explicit extension)
+```
+
+### Metadata (label and units)
+
+To add labels and units to variables in a **data.frame**, you can use the `labelise()` function. Here is an example with some synthetic data:
+
+```{r}
+df <- data.frame(
+  age = 1:10,
+  size = 3 + 0.5 * (1:10) + rnorm(10),
+  sex = sample(c("M", "F"), 10, replace = TRUE)
+)
+# Add labels and units
+df <- labelise(df,
+  label = list(age = "Age", size = "Body size", sex = "Sex"),
+  units = list(age = "years", size = "cm"))
+str(df)
+```
+
+You do not *have to* label or give units for *all* the variables (here, there is no units for `sex`). For more general metadata, you can add them with the base `comment() <- "Some metadata..."` instruction.
+
+
+### Sidecar R scripts
+
+Most file formats (except those who save R object natively) lack features to fully express the structure of the data or the metadata such as label and units. The ubiquitous CSV format is a good example. It is not possible to indicate in the CSV file that that a character string column should be treated as **character** or **factor** for instance. Also, **Date** or **POSIXt** fields are imported as **character** too. Consequently, the dataset must be postprocessed in R to bring those corrections.
+
+With `data.io::read()`, there is another mechanism available, using **sidecar** R scripts. Such a script is in the same folder as the dataset and bears the same name with the `.R` extension appended to the name of the dataset. In the "extdata" folder of {data.io}, there is an example with a dataset named "iris_sidecar.csv", and its complement, "iris_sidecar.csv.R".
+
+
+```{r}
+(iris_sidecar_csv_file <- data_example("iris_sidecar.csv"))
+data_example("iris_sidecar.csv.R")
+```
+
+The sidecar file contains code that is executed after the data is imported. It can transform or rename variables, add labels and units, calculate derived variables, handle code for missing data, etc. The sidecar file is used by default. You have to indicate the argument `sidecar_file = FALSE` in `read()` to *not* use it. Here the "iris_sidecar.csv" file is imported first without using the sidecar file, and then, with it:
+
+```{r}
+# Without sidecar file
+(iris_no_sc <- read$csv(iris_sidecar_csv_file, sidecar_file = FALSE))
+str(iris_no_sc)
+```
+
+```{r}
+# With sidecar file (sidecar_file = TRUE is the default)
+(iris_sc <- read$csv(iris_sidecar_csv_file))
+str(iris_sc)
+```
+
+The sidecar script did rename the variables in `iris_sc`. Note that the `species` variable of `iris_sc` is converted into **factor**, while `Species` of `iris_no_sc` is still a *character** variable. Note also that labels and units are added for each variable of `iris_sc`. The sidecar file is convenient for quick preprocessing of you datasets. That way, you do not have to resave your data in a different format that keeps the metadata and types of your variables.
+
+### Reading data from URLs and cache mechanism
+
+The `read()` function can also import data from an URL for all supported file formats.
+
+```{r}
+(ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
+```
+
+In the case the URL does not end with an explicit extension, you *have to* specify the file format as the type (here `read$csv(....)` because the dataset is in CSV format). Reading data from an external URL is convenient, especially for big datasets that you do not want to include, say, in a git repository. However, it could be slow to retrieve those big datasets each time from the internet. The `read()` function implements a cache mechanism that you activate by indicating in which file you want to store a cached copy of your dataset in the `cache_file =` argument. Here is an example:
+
+```{r}
+# Here, we use the temporary directory for the example
+# but you should use a permanent directory in your project
+ble_cache_file <- file.path(tempdir(), "ble.csv")
+(ble <- read$csv("http://tinyurl.com/Biostat-Ble",
+  cache_file = ble_cache_file))
+```
+
+Now, there is a copy of the dataset in CSV format in `ble_cache_file`.
+
+```{r}
+cat(readLines(ble_cache_file)[1:4], sep = "\n")
+```
+
+If you project is managed with git, you would most probably indicate the folder that contains the cached copies of your large datasets in .gitignore. That way, you can use large, or even huge datasets in your git repositories without versioning these large files. They are downloaded from the internet only once. Every time you read the `ble` dataset again, it is imported from the local cache file.
+
+```{r}
+ble <- read$csv("http://tinyurl.com/Biostat-Ble",
+  cache_file = ble_cache_file)
+```
+
+In case you have to refresh the cached version from the URL, just erase the cache file and read again, or use `force = TRUE`):
+
+```{r}
+ble <- read$csv("http://tinyurl.com/Biostat-Ble",
+  cache_file = ble_cache_file, force = TRUE)
+```
+
+
+### List of supported file formats
+
+The list of file formats that `read()` and `write()` can handle is summarized in the table produced by `data_types()` (using the default `view = TRUE` automatically opens a view in RStudio or the web browser with that table):
+
+```{r}
+data.io::data_types(view = FALSE)
+```
+
