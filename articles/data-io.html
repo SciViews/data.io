@@ -34,11 +34,12 @@
   gtag('config', 'UA-462421-8');
 </script>-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-article">
-      <header><!-- preloader start --><div class="preloader">
+    <!-- preloader start -->
+<div class="preloader">
   <img src="../preloader.gif" alt="loading...">
 </div>
 <!-- preloader end -->
@@ -72,24 +73,24 @@
       </form>
       <!-- end svPkgdown global site search with Google -->
       <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="../articles/data-io.html">Get started</a>
+<li class="active nav-item">
+  <a class="nav-link" href="../articles/data-io.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/SciViews/data.io/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/SciViews/data.io/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 <div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.0</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.1</small></p></a>
       </div>
     </div>
 <!--/.nav-collapse -->
@@ -100,45 +101,51 @@
 </div>
 <!--/.navbar -->
 
-      
+    <div class="container template-article">
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>SciViews datasets and read()/write()
-functions</h1>
+
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>SciViews datasets and read()/write() functions</h1>
                         <h4 data-toc-skip class="author">Philippe
 Grosjean (<a href="mailto:phgrosjean@sciviews.org" class="email">phgrosjean@sciviews.org</a>)</h4>
             
             <h4 data-toc-skip class="date">2024-04-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/vignettes/data-io.Rmd" class="external-link"><code>vignettes/data-io.Rmd</code></a></small>
-      <div class="hidden name"><code>data-io.Rmd</code></div>
-
+      <div class="d-none name"><code>data-io.Rmd</code></div>
     </div>
 
     
     
-<p>The ‘data.io’ package provides several example datasets in a
+<p>The {data.io} package provides several example datasets in a
 standardized way, as well as, a <code><a href="../reference/read.html">read()</a></code> function to retrieve
 them, or to import external datasets in different formats in an unified
-way.</p>
+way. A cache mechanism is implemented for those datasets that are read
+from an URL. Also a “sidecar” R script can be used to preformat or
+preprocess the data. A <code><a href="../reference/write.html">write()</a></code> function also eases export
+of the R objects in various formats.</p>
+<div class="section level2">
+<h2 id="datasets-in-r-packages">Datasets in R packages<a class="anchor" aria-label="anchor" href="#datasets-in-r-packages"></a>
+</h2>
 <p>There are several datasets spread between various R packages, but
-there is no clear convention to name them, or their variables, on units
+there is no clear convention to name them, or their variables, or units
 to use (some are in metric units, but other ones use the imperial unit
-system), etc. Here, we propose a set of data, partly converted from
-other packages, partly new ones, that respect the following
-conventions:</p>
+system). Here, we propose a set of data, partly converted from other
+packages, partly new ones, that respect the following conventions:</p>
 <ul>
-<li><p>U.K. English,</p></li>
+<li><p>English for variable names,</p></li>
 <li><p>snake_case names, both for the datasets and their
 variables,</p></li>
 <li><p>Uppercase for factor levels (but less strict),</p></li>
 <li><p>data frames are converted according to user preferences indicated
 in <code>options(SciViews.as_dtx = ...)</code>. The default is
-<code>as_dtt</code> which converts into a data.table. Other options are
-<code>as_dtf</code> to concert into base R data.frame objects, or
-<code>as_dtbl</code> to convert into {tibble}’s tbl_df objects.</p></li>
+<code>as_dtt</code> which converts into a <strong>data.table</strong>.
+Other options are <code>as_dtf</code> to concert into base R
+<strong>data.frame</strong> objects, or <code>as_dtbl</code> to convert
+into {tibble}’s <strong>tbl_df</strong> objects.</p></li>
 <li><p>variables have a <code>label</code> attribute with more
 meaningful (short) description of the variables, and a
 <code>units</code> attribute, if applicable.</p></li>
@@ -147,17 +154,509 @@ attribute to the comment if this is a R package dataset, or as a
 <code>srcfile</code> attribute to comment if it read from a
 file.</p></li>
 </ul>
+<p>For instance, the <code>iris</code> dataset in the {datasets} package
+uses names for its variables like <code>Petal.Length</code> that do not
+follow the rules exposed here above. Getting this dataset with
+<code><a href="../reference/read.html">data.io::read()</a></code>, these names are “corrected”. Labels and
+units are also automatically added.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SciViews/data.io" class="external-link">data.io</a></span><span class="op">)</span></span>
+<span><span class="co"># Instead of data(iris), we use:</span></span>
+<span><span class="va">iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.html">read</a></span><span class="op">(</span><span class="st">"iris"</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    sepal_length sepal_width petal_length petal_width species</span></span>
+<span><span class="co">#&gt;           &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;  &lt;fctr&gt;</span></span>
+<span><span class="co">#&gt; 1:          5.1         3.5          1.4         0.2  setosa</span></span>
+<span><span class="co">#&gt; 2:          4.9         3.0          1.4         0.2  setosa</span></span>
+<span><span class="co">#&gt; 3:          4.7         3.2          1.3         0.2  setosa</span></span>
+<span><span class="co">#&gt; 4:          4.6         3.1          1.5         0.2  setosa</span></span>
+<span><span class="co">#&gt; 5:          5.0         3.6          1.4         0.2  setosa</span></span>
+<span><span class="co">#&gt; 6:          5.4         3.9          1.7         0.4  setosa</span></span></code></pre></div>
+<p>With <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> one can see the labels and units added for
+each variable:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   150 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt;  $ sepal_length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Length of the sepals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ sepal_width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Width of the sepals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ petal_length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Length of the petals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ petal_width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Width of the petals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Iris species"</span></span>
+<span><span class="co">#&gt;  - attr(*, "comment")= chr [1:2] "The 'iris' from 'datasets', but with variables names in snake_case" "(Sepal.Length -&gt; sepal_length, Species -&gt; species)."</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang")= chr "en"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang_encoding")= chr "UTF-8"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "src")= chr "datasets::iris"</span></span>
+<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
+<p>The comment gives some general information about the dataset.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "The 'iris' from 'datasets', but with variables names in snake_case"</span></span>
+<span><span class="co">#&gt; [2] "(Sepal.Length -&gt; sepal_length, Species -&gt; species)."               </span></span>
+<span><span class="co">#&gt; attr(,"lang")</span></span>
+<span><span class="co">#&gt; [1] "en"</span></span>
+<span><span class="co">#&gt; attr(,"lang_encoding")</span></span>
+<span><span class="co">#&gt; [1] "UTF-8"</span></span>
+<span><span class="co">#&gt; attr(,"src")</span></span>
+<span><span class="co">#&gt; [1] "datasets::iris"</span></span></code></pre></div>
+<p>French is supported too. Labels and comments are in French:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.html">read</a></span><span class="op">(</span><span class="st">"iris"</span>, package <span class="op">=</span> <span class="st">"datasets"</span>, lang <span class="op">=</span> <span class="st">"fr"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   150 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt;  $ sepal_length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Longueur des sépales"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ sepal_width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Largeur des sépales"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ petal_length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Longueur des pétales"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ petal_width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Largeur des pétales"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Espèces d'Iris"</span></span>
+<span><span class="co">#&gt;  - attr(*, "comment")= chr [1:2] "Jeu de données 'iris' de 'datasets', mais avec noms de variables modifiées" "(Sepal.Length -&gt; sepal_length, Species -&gt; species)."</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang")= chr "fr"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang_encoding")= chr "UTF-8"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "src")= chr "datasets::iris"</span></span>
+<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
+<p>All datasets form R packages can be loaded with
+<code>read("&lt;dataset_name&gt;", package = "&lt;package_name&gt;")</code>,
+but only a small subset of these datasets have labels and units
+automatically set. They are listed in the man page
+<code><a href="../reference/datasets.html">?Datasets</a></code>.</p>
+<p>Another feature is conversion of quantitative variables into the SI
+unit system, in case they are expressed in imperial system in use in the
+US. Here is an example with the <code>trees</code> dataset, from the
+{datasets} package whose lengths are in inches or feet and volume is in
+cubic feet. When this dataset is loaded with <code><a href="../reference/read.html">read()</a></code>, the
+units are converted to meters and cubic meters (also <code>Girth</code>
+is replaced by <code>diameter</code>since it is really the diameter of
+the tree that is reported).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.html">read</a></span><span class="op">(</span><span class="st">"trees"</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    diameter height volume</span></span>
+<span><span class="co">#&gt;       &lt;num&gt;  &lt;num&gt;  &lt;num&gt;</span></span>
+<span><span class="co">#&gt; 1:    0.211   21.3  0.292</span></span>
+<span><span class="co">#&gt; 2:    0.218   19.8  0.292</span></span>
+<span><span class="co">#&gt; 3:    0.224   19.2  0.289</span></span>
+<span><span class="co">#&gt; 4:    0.267   21.9  0.464</span></span>
+<span><span class="co">#&gt; 5:    0.272   24.7  0.532</span></span>
+<span><span class="co">#&gt; 6:    0.274   25.3  0.558</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   31 obs. of  3 variables:</span></span>
+<span><span class="co">#&gt;  $ diameter: num  0.211 0.218 0.224 0.267 0.272 0.274 0.279 0.279 0.282 0.284 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Diameter at 1.4m"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "m"</span></span>
+<span><span class="co">#&gt;  $ height  : num  21.3 19.8 19.2 21.9 24.7 25.3 20.1 22.9 24.4 22.9 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Height"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "m"</span></span>
+<span><span class="co">#&gt;  $ volume  : num  0.292 0.292 0.289 0.464 0.532 0.558 0.442 0.515 0.64 0.563 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Volume of timber"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "m^3"</span></span>
+<span><span class="co">#&gt;  - attr(*, "comment")= chr [1:3] "The 'trees' from 'datasets' but with variables renamed and in m or m^3" "(Girth [in] -&gt; diameter [m], Height [ft] -&gt; height [m]," "Volume [ft^3] -&gt; volume [m^3])."</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang")= chr "en"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang_encoding")= chr "UTF-8"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "src")= chr "datasets::trees"</span></span>
+<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
+<p>You got the same result using <code>lang = "fr"</code>. If you want
+the original data, you still can use <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code>, of course.
+Here it is, for comparison:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Girth Height Volume</span></span>
+<span><span class="co">#&gt; 1   8.3     70   10.3</span></span>
+<span><span class="co">#&gt; 2   8.6     65   10.3</span></span>
+<span><span class="co">#&gt; 3   8.8     63   10.2</span></span>
+<span><span class="co">#&gt; 4  10.5     72   16.4</span></span>
+<span><span class="co">#&gt; 5  10.7     81   18.8</span></span>
+<span><span class="co">#&gt; 6  10.8     83   19.7</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    31 obs. of  3 variables:</span></span>
+<span><span class="co">#&gt;  $ Girth : num  8.3 8.6 8.8 10.5 10.7 10.8 11 11 11.1 11.2 ...</span></span>
+<span><span class="co">#&gt;  $ Height: num  70 65 63 72 81 83 66 75 80 75 ...</span></span>
+<span><span class="co">#&gt;  $ Volume: num  10.3 10.3 10.2 16.4 18.8 19.7 15.6 18.2 22.6 19.9 ...</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="discovering-datasets-in-r-packages">Discovering datasets in R packages<a class="anchor" aria-label="anchor" href="#discovering-datasets-in-r-packages"></a>
+</h3>
+<p>If you use <code><a href="../reference/read.html">read()</a></code> without arguments, a list with all
+datasets from installed R packages in opened in RStudio or in the web
+browser. If you just specify
+<code>package = "&lt;package_name&gt;"</code>, only datasets in that
+package are listed.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="read-and-write-data">Read and write data<a class="anchor" aria-label="anchor" href="#read-and-write-data"></a>
+</h2>
+<p>The <code><a href="../reference/read.html">read()</a></code> and <code><a href="../reference/write.html">write()</a></code> functions implement
+a <code>type =</code> argument to specify the format. The format
+specification is optional for <code><a href="../reference/read.html">read()</a></code> if the file extension
+is explicit enough. However, it is mandatory for <code><a href="../reference/write.html">write()</a></code>.
+An alternate and more compact syntax is advised: one can “subset” the
+<code><a href="../reference/read.html">read()</a></code> or <code><a href="../reference/write.html">write()</a></code> function with the type. For
+instance, to write <code>df</code> in a CSV file “data/df.csv”, one can
+use <code>write(df, "data/df.csv", type = "csv")</code>, but one can
+also use <code>write$csv(df, "data/df.csv")</code>. The later form is
+more compact and easier to read.</p>
+<p>The {data.io} contains an “extdata” folder with a series of example
+datasets in different formats. The <code><a href="../reference/data_example.html">data_example()</a></code> function
+can be used to get the path to these files. For instance, to get the
+path to the “iris.csv.gz” file, one can use:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/data_example.html">data_example</a></span><span class="op">(</span><span class="st">"iris.csv.gz"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/home/runner/work/_temp/Library/data.io/extdata/iris.csv.gz"</span></span></code></pre></div>
+<p>Then, you can import this compressed CSV file with
+<code><a href="../reference/read.html">read()</a></code>:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">read</span><span class="op">$</span><span class="fu">csv.gz</span><span class="op">(</span><span class="fu"><a href="../reference/data_example.html">data_example</a></span><span class="op">(</span><span class="st">"iris.csv.gz"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Type optional (explicit extension)</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">150</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (1): Species</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span><span class="co">#&gt;      Sepal.Length Sepal.Width Petal.Length Petal.Width   Species</span></span>
+<span><span class="co">#&gt;             &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;char&gt;</span></span>
+<span><span class="co">#&gt;   1:          5.1         3.5          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;   2:          4.9         3.0          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;   3:          4.7         3.2          1.3         0.2    setosa</span></span>
+<span><span class="co">#&gt;   4:          4.6         3.1          1.5         0.2    setosa</span></span>
+<span><span class="co">#&gt;   5:          5.0         3.6          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;  ---                                                            </span></span>
+<span><span class="co">#&gt; 146:          6.7         3.0          5.2         2.3 virginica</span></span>
+<span><span class="co">#&gt; 147:          6.3         2.5          5.0         1.9 virginica</span></span>
+<span><span class="co">#&gt; 148:          6.5         3.0          5.2         2.0 virginica</span></span>
+<span><span class="co">#&gt; 149:          6.2         3.4          5.4         2.3 virginica</span></span>
+<span><span class="co">#&gt; 150:          5.9         3.0          5.1         1.8 virginica</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="metadata-label-and-units">Metadata (label and units)<a class="anchor" aria-label="anchor" href="#metadata-label-and-units"></a>
+</h3>
+<p>To add labels and units to variables in a
+<strong>data.frame</strong>, you can use the <code><a href="../reference/labelise.html">labelise()</a></code>
+function. Here is an example with some synthetic data:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  size <span class="op">=</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="st">"F"</span><span class="op">)</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># Add labels and units</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/labelise.html">labelise</a></span><span class="op">(</span><span class="va">df</span>,</span>
+<span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="st">"Age"</span>, size <span class="op">=</span> <span class="st">"Body size"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span><span class="op">)</span>,</span>
+<span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="st">"years"</span>, size <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    10 obs. of  3 variables:</span></span>
+<span><span class="co">#&gt;  $ age : int  1 2 3 4 5 6 7 8 9 10</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Age"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "years"</span></span>
+<span><span class="co">#&gt;  $ size: num  2.1 4.26 2.06 4.99 6.12 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Body size"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ sex : chr  "M" "M" "F" "M" ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Sex"</span></span></code></pre></div>
+<p>You do not <em>have to</em> label or give units for <em>all</em> the
+variables (here, there is no units for <code>sex</code>). For more
+general metadata, you can add them with the base
+<code>comment() &lt;- "Some metadata..."</code> instruction.</p>
+</div>
+<div class="section level3">
+<h3 id="sidecar-r-scripts">Sidecar R scripts<a class="anchor" aria-label="anchor" href="#sidecar-r-scripts"></a>
+</h3>
+<p>Most file formats (except those who save R object natively) lack
+features to fully express the structure of the data or the metadata such
+as label and units. The ubiquitous CSV format is a good example. It is
+not possible to indicate in the CSV file that that a character string
+column should be treated as <strong>character</strong> or
+<strong>factor</strong> for instance. Also, <strong>Date</strong> or
+<strong>POSIXt</strong> fields are imported as
+<strong>character</strong> too. Consequently, the dataset must be
+postprocessed in R to bring those corrections.</p>
+<p>With <code><a href="../reference/read.html">data.io::read()</a></code>, there is another mechanism
+available, using <strong>sidecar</strong> R scripts. Such a script is in
+the same folder as the dataset and bears the same name with the
+<code>.R</code> extension appended to the name of the dataset. In the
+“extdata” folder of {data.io}, there is an example with a dataset named
+“iris_sidecar.csv”, and its complement, “iris_sidecar.csv.R”.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">iris_sidecar_csv_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data_example.html">data_example</a></span><span class="op">(</span><span class="st">"iris_sidecar.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/home/runner/work/_temp/Library/data.io/extdata/iris_sidecar.csv"</span></span>
+<span><span class="fu"><a href="../reference/data_example.html">data_example</a></span><span class="op">(</span><span class="st">"iris_sidecar.csv.R"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/home/runner/work/_temp/Library/data.io/extdata/iris_sidecar.csv.R"</span></span></code></pre></div>
+<p>The sidecar file contains code that is executed after the data is
+imported. It can transform or rename variables, add labels and units,
+calculate derived variables, handle code for missing data, etc. The
+sidecar file is used by default. You have to indicate the argument
+<code>sidecar_file = FALSE</code> in <code><a href="../reference/read.html">read()</a></code> to <em>not</em>
+use it. Here the “iris_sidecar.csv” file is imported first without using
+the sidecar file, and then, with it:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Without sidecar file</span></span>
+<span><span class="op">(</span><span class="va">iris_no_sc</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="va">iris_sidecar_csv_file</span>, sidecar_file <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">150</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (1): Species</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span><span class="co">#&gt;      Sepal.Length Sepal.Width Petal.Length Petal.Width   Species</span></span>
+<span><span class="co">#&gt;             &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;char&gt;</span></span>
+<span><span class="co">#&gt;   1:          5.1         3.5          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;   2:          4.9         3.0          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;   3:          4.7         3.2          1.3         0.2    setosa</span></span>
+<span><span class="co">#&gt;   4:          4.6         3.1          1.5         0.2    setosa</span></span>
+<span><span class="co">#&gt;   5:          5.0         3.6          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;  ---                                                            </span></span>
+<span><span class="co">#&gt; 146:          6.7         3.0          5.2         2.3 virginica</span></span>
+<span><span class="co">#&gt; 147:          6.3         2.5          5.0         1.9 virginica</span></span>
+<span><span class="co">#&gt; 148:          6.5         3.0          5.2         2.0 virginica</span></span>
+<span><span class="co">#&gt; 149:          6.2         3.4          5.4         2.3 virginica</span></span>
+<span><span class="co">#&gt; 150:          5.9         3.0          5.1         1.8 virginica</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">iris_no_sc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   150 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt;  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span><span class="co">#&gt;  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
+<span><span class="co">#&gt;  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span><span class="co">#&gt;  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
+<span><span class="co">#&gt;  $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...</span></span>
+<span><span class="co">#&gt;  - attr(*, "spec")=</span></span>
+<span><span class="co">#&gt;   .. cols(</span></span>
+<span><span class="co">#&gt;   ..   Sepal.Length = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Sepal.Width = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Petal.Length = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Petal.Width = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Species = <span style="color: #BB0000;">col_character()</span></span></span>
+<span><span class="co">#&gt;   .. )</span></span>
+<span><span class="co">#&gt;  - attr(*, "problems")=&lt;externalptr&gt; </span></span>
+<span><span class="co">#&gt;  - attr(*, "comment")= chr ""</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang")= chr "en"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang_encoding")= chr "UTF-8"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "srcfile")= chr "/home/runner/work/_temp/Library/data.io/extdata/iris_sidecar.csv"</span></span>
+<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># With sidecar file (sidecar_file = TRUE is the default)</span></span>
+<span><span class="op">(</span><span class="va">iris_sc</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="va">iris_sidecar_csv_file</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">150</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (1): Species</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (4): Sepal.Length, Sepal.Width, Petal.Length, Petal.Width</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span><span class="co">#&gt; Warning in cmt[] &lt;- c(cmt, comments): number of items to replace is not a</span></span>
+<span><span class="co">#&gt; multiple of replacement length</span></span>
+<span><span class="co">#&gt;      sepal_length sepal_width petal_length petal_width   species</span></span>
+<span><span class="co">#&gt;             &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;fctr&gt;</span></span>
+<span><span class="co">#&gt;   1:          5.1         3.5          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;   2:          4.9         3.0          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;   3:          4.7         3.2          1.3         0.2    setosa</span></span>
+<span><span class="co">#&gt;   4:          4.6         3.1          1.5         0.2    setosa</span></span>
+<span><span class="co">#&gt;   5:          5.0         3.6          1.4         0.2    setosa</span></span>
+<span><span class="co">#&gt;  ---                                                            </span></span>
+<span><span class="co">#&gt; 146:          6.7         3.0          5.2         2.3 virginica</span></span>
+<span><span class="co">#&gt; 147:          6.3         2.5          5.0         1.9 virginica</span></span>
+<span><span class="co">#&gt; 148:          6.5         3.0          5.2         2.0 virginica</span></span>
+<span><span class="co">#&gt; 149:          6.2         3.4          5.4         2.3 virginica</span></span>
+<span><span class="co">#&gt; 150:          5.9         3.0          5.1         1.8 virginica</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">iris_sc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   150 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt;  $ sepal_length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Length of the sepals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ sepal_width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Width of the sepals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ petal_length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Length of the petals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ petal_width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Width of the petals"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "units")= chr "cm"</span></span>
+<span><span class="co">#&gt;  $ species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Iris species"</span></span>
+<span><span class="co">#&gt;  - attr(*, "spec")=</span></span>
+<span><span class="co">#&gt;   .. cols(</span></span>
+<span><span class="co">#&gt;   ..   Sepal.Length = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Sepal.Width = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Petal.Length = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Petal.Width = <span style="color: #00BB00;">col_double()</span>,</span></span>
+<span><span class="co">#&gt;   ..   Species = <span style="color: #BB0000;">col_character()</span></span></span>
+<span><span class="co">#&gt;   .. )</span></span>
+<span><span class="co">#&gt;  - attr(*, "problems")=&lt;externalptr&gt; </span></span>
+<span><span class="co">#&gt;  - attr(*, "comment")= chr ""</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang")= chr "en"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "lang_encoding")= chr "UTF-8"</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "srcfile")= chr "/home/runner/work/_temp/Library/data.io/extdata/iris_sidecar.csv.R"</span></span>
+<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
+<p>The sidecar script did rename the variables in <code>iris_sc</code>.
+Note that the <code>species</code> variable of <code>iris_sc</code> is
+converted into <strong>factor</strong>, while <code>Species</code> of
+<code>iris_no_sc</code> is still a *character** variable. Note also that
+labels and units are added for each variable of <code>iris_sc</code>.
+The sidecar file is convenient for quick preprocessing of you datasets.
+That way, you do not have to resave your data in a different format that
+keeps the metadata and types of your variables.</p>
+</div>
+<div class="section level3">
+<h3 id="reading-data-from-urls-and-cache-mechanism">Reading data from URLs and cache mechanism<a class="anchor" aria-label="anchor" href="#reading-data-from-urls-and-cache-mechanism"></a>
+</h3>
+<p>The <code><a href="../reference/read.html">read()</a></code> function can also import data from an URL for
+all supported file formats.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span><span class="co">#&gt;      Ferme Variete Rendement</span></span>
+<span><span class="co">#&gt;     &lt;char&gt;  &lt;char&gt;     &lt;num&gt;</span></span>
+<span><span class="co">#&gt;  1:      X       A     0.327</span></span>
+<span><span class="co">#&gt;  2:      X       B     0.500</span></span>
+<span><span class="co">#&gt;  3:      X       C     0.442</span></span>
+<span><span class="co">#&gt;  4:      X       D     0.471</span></span>
+<span><span class="co">#&gt;  5:      Y       A     0.532</span></span>
+<span><span class="co">#&gt;  6:      Y       B     0.599</span></span>
+<span><span class="co">#&gt;  7:      Y       C     0.516</span></span>
+<span><span class="co">#&gt;  8:      Y       D     0.638</span></span>
+<span><span class="co">#&gt;  9:      Z       A     0.269</span></span>
+<span><span class="co">#&gt; 10:      Z       B     0.308</span></span>
+<span><span class="co">#&gt; 11:      Z       C     0.241</span></span>
+<span><span class="co">#&gt; 12:      Z       D     0.305</span></span></code></pre></div>
+<p>In the case the URL does not end with an explicit extension, you
+<em>have to</em> specify the file format as the type (here
+<code>read$csv(....)</code> because the dataset is in CSV format).
+Reading data from an external URL is convenient, especially for big
+datasets that you do not want to include, say, in a git repository.
+However, it could be slow to retrieve those big datasets each time from
+the internet. The <code><a href="../reference/read.html">read()</a></code> function implements a cache
+mechanism that you activate by indicating in which file you want to
+store a cached copy of your dataset in the <code>cache_file =</code>
+argument. Here is an example:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Here, we use the temporary directory for the example</span></span>
+<span><span class="co"># but you should use a permanent directory in your project</span></span>
+<span><span class="va">ble_cache_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"ble.csv"</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span>,</span>
+<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span><span class="co">#&gt;      Ferme Variete Rendement</span></span>
+<span><span class="co">#&gt;     &lt;char&gt;  &lt;char&gt;     &lt;num&gt;</span></span>
+<span><span class="co">#&gt;  1:      X       A     0.327</span></span>
+<span><span class="co">#&gt;  2:      X       B     0.500</span></span>
+<span><span class="co">#&gt;  3:      X       C     0.442</span></span>
+<span><span class="co">#&gt;  4:      X       D     0.471</span></span>
+<span><span class="co">#&gt;  5:      Y       A     0.532</span></span>
+<span><span class="co">#&gt;  6:      Y       B     0.599</span></span>
+<span><span class="co">#&gt;  7:      Y       C     0.516</span></span>
+<span><span class="co">#&gt;  8:      Y       D     0.638</span></span>
+<span><span class="co">#&gt;  9:      Z       A     0.269</span></span>
+<span><span class="co">#&gt; 10:      Z       B     0.308</span></span>
+<span><span class="co">#&gt; 11:      Z       C     0.241</span></span>
+<span><span class="co">#&gt; 12:      Z       D     0.305</span></span></code></pre></div>
+<p>Now, there is a copy of the dataset in CSV format in
+<code>ble_cache_file</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">ble_cache_file</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; "Ferme","Variete","Rendement"</span></span>
+<span><span class="co">#&gt; "X","A",0.327</span></span>
+<span><span class="co">#&gt; "X","B",0.500</span></span>
+<span><span class="co">#&gt; "X","C",0.442</span></span></code></pre></div>
+<p>If you project is managed with git, you would most probably indicate
+the folder that contains the cached copies of your large datasets in
+.gitignore. That way, you can use large, or even huge datasets in your
+git repositories without versioning these large files. They are
+downloaded from the internet only once. Every time you read the
+<code>ble</code> dataset again, it is imported from the local cache
+file.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span>,</span>
+<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using cached date in /tmp/Rtmpc6bZ8r/ble.csv...</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+<p>In case you have to refresh the cached version from the URL, just
+erase the cache file and read again, or use
+<code>force = TRUE</code>):</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ble</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="st">"http://tinyurl.com/Biostat-Ble"</span>,</span>
+<span>  cache_file <span class="op">=</span> <span class="va">ble_cache_file</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">12</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">chr</span> (2): Ferme, Variete</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">dbl</span> (1): Rendement</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="list-of-supported-file-formats">List of supported file formats<a class="anchor" aria-label="anchor" href="#list-of-supported-file-formats"></a>
+</h3>
+<p>The list of file formats that <code><a href="../reference/read.html">read()</a></code> and
+<code><a href="../reference/write.html">write()</a></code> can handle is summarized in the table produced by
+<code><a href="../reference/data_types.html">data_types()</a></code> (using the default <code>view = TRUE</code>
+automatically opens a view in RStudio or the web browser with that
+table):</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">data.io</span><span class="fu">::</span><span class="fu"><a href="../reference/data_types.html">data_types</a></span><span class="op">(</span>view <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 32 × 5</span></span></span>
+<span><span class="co">#&gt;    type  read_fun             read_header         write_fun              comment</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> csv   readr::read_csv      data.io::hread_text readr::write_csv       comma …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> csv2  readr::read_csv2     data.io::hread_text <span style="color: #BB0000;">NA</span>                     semico…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> xlcsv readr::read_csv      data.io::hread_text readr::write_excel_csv write …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> tsv   readr::read_tsv      data.io::hread_text readr::write_tsv       tab se…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> fwf   readr::read_fwf      data.io::hread_text <span style="color: #BB0000;">NA</span>                     fixed …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> log   readr::read_log      <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                     standa…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rds   readr::read_rds      <span style="color: #BB0000;">NA</span>                  readr::write_rds       R data…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> txt   readr::read_file     <span style="color: #BB0000;">NA</span>                  readr::write_file      text f…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> raw   readr::read_file_raw <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                     binary…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ssv   readr::read_table    data.io::hread_text <span style="color: #BB0000;">NA</span>                     space …</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 22 more rows</span></span></span></code></pre></div>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
-</div>
 
 
-
-      <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
+    <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
     <div class="py-100 border-bottom" style="border-color: #454547 !important">
         <div class="container">
             <div class="row">
@@ -278,11 +777,10 @@ file.</p></li>
 <!--</footer>-->
 <!-- /footer -->
 
-      </footer>
+    </footer>
 </div>
 
   
-
 
   
 

@@ -11,11 +11,12 @@ except for a few details explained in the details section."><meta property="og:i
   gtag('js', new Date());
 
   gtag('config', 'UA-462421-8');
-</script>--></head><body data-spy="scroll" data-target="#toc">
+</script>--></head><body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-reference-topic">
-      <header><!-- preloader start --><div class="preloader">
+    <!-- preloader start -->
+<div class="preloader">
   <img src="../preloader.gif" alt="loading..."></div>
 <!-- preloader end -->
 
@@ -46,23 +47,23 @@ except for a few details explained in the details section."><meta property="og:i
           <input type="text" class="form-control-global search-form-input" name="q" id="q" placeholder="Search..." required><input type="hidden" name="sitesearch" value="https://www.sciviews.org"></div>
       </form>
       <!-- end svPkgdown global site search with Google -->
-      <ul class="nav navbar-nav navbar-right"><li>
-  <a href="../articles/data-io.html">Get started</a>
+      <ul class="nav navbar-nav navbar-right"><li class="nav-item">
+  <a class="nav-link" href="../articles/data-io.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/SciViews/data.io/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/SciViews/data.io/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.0</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.1</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -70,17 +71,15 @@ except for a few details explained in the details section."><meta property="og:i
   </div>
 </div><!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
-    <h1>Deprecated! Convert objects into dataframes (subclassing tibble) and check for it.</h1>
-    <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/R/as_dataframe.R" class="external-link"><code>R/as_dataframe.R</code></a></small>
-    <div class="hidden name"><code>as_dataframe.Rd</code></div>
+    <div class="container template-reference-topic">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Deprecated! Convert objects into dataframes (subclassing tibble) and check for it.</h1>
+      <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/R/as_dataframe.R" class="external-link"><code>R/as_dataframe.R</code></a></small>
+      <div class="d-none name"><code>as_dataframe.Rd</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p>
 <p>Convert an object into a <code>dataframe</code> and check for it. A
 <code>dataframe</code> (without dot) is both a <code>data.frame</code> (with dot, the default
@@ -89,7 +88,8 @@ equivalence. In fact, <code>dataframe</code>s behave almost completely like a <c
 except for a few details explained in the <strong>details</strong> section.</p>
     </div>
 
-    <div id="ref-usage">
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">as.dataframe</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -126,8 +126,8 @@ except for a few details explained in the <strong>details</strong> section.</p>
 <span><span class="fu">is.dataframe</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
-    <div id="arguments">
-    <h2>Arguments</h2>
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>An object to convert to a <code>dataframe</code>.</p></dd>
 
@@ -161,28 +161,28 @@ syntactic. <code>"minimal"</code>do not repair or check (just make sure names ex
 default.</p></dd>
 
 </dl></div>
-    <div id="value">
-    <h2>Value</h2>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
 <p>A <code>dataframe</code>, which is an S3 object with class
 <code>c("dataframe", "tbl_df", "tbl", "data.frame")</code>.</p>
     </div>
-    <div id="details">
-    <h2>Details</h2>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>TODO: explain difference between <code>dataframe</code>s and <code>tibble</code>s here...</p>
     </div>
-    <div id="see-also">
-    <h2>See also</h2>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>as_tibble()</code>, <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code></p></div>
     </div>
-    <div id="author">
-    <h2>Author</h2>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Philippe Grosjean <a href="mailto:phgrosjean@sciviews.org">phgrosjean@sciviews.org</a></p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="fu">as.dataframe</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`as_dataframe()` was deprecated in data.io 1.4.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `svBase::as_dtx()` instead.</span>
@@ -493,14 +493,11 @@ default.</p></dd>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
-      <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
+    <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
     <div class="py-100 border-bottom" style="border-color: #454547 !important">
         <div class="container">
             <div class="row">
@@ -613,10 +610,9 @@ default.</p></dd>
 <!--</footer>-->
 <!-- /footer -->
 
-      </footer></div>
+    </footer></div>
 
   
-
 
   
 

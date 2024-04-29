@@ -7,11 +7,12 @@ import or export data for the different types (formats)."><meta property="og:ima
   gtag('js', new Date());
 
   gtag('config', 'UA-462421-8');
-</script>--></head><body data-spy="scroll" data-target="#toc">
+</script>--></head><body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-reference-topic">
-      <header><!-- preloader start --><div class="preloader">
+    <!-- preloader start -->
+<div class="preloader">
   <img src="../preloader.gif" alt="loading..."></div>
 <!-- preloader end -->
 
@@ -42,23 +43,23 @@ import or export data for the different types (formats)."><meta property="og:ima
           <input type="text" class="form-control-global search-form-input" name="q" id="q" placeholder="Search..." required><input type="hidden" name="sitesearch" value="https://www.sciviews.org"></div>
       </form>
       <!-- end svPkgdown global site search with Google -->
-      <ul class="nav navbar-nav navbar-right"><li>
-  <a href="../articles/data-io.html">Get started</a>
+      <ul class="nav navbar-nav navbar-right"><li class="nav-item">
+  <a class="nav-link" href="../articles/data-io.html">Get started</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-        <li>
-  <a href="https://github.com/SciViews/data.io/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+        <li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/SciViews/data.io/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.0</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.5.1</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -66,27 +67,26 @@ import or export data for the different types (formats)."><meta property="og:ima
   </div>
 </div><!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
-    <h1>Define default read/write options and add items to it</h1>
-    <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/R/read_write_option.R" class="external-link"><code>R/read_write_option.R</code></a></small>
-    <div class="hidden name"><code>read_write_option.Rd</code></div>
+    <div class="container template-reference-topic">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Define default read/write options and add items to it</h1>
+      <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/HEAD/R/read_write_option.R" class="external-link"><code>R/read_write_option.R</code></a></small>
+      <div class="d-none name"><code>read_write_option.Rd</code></div>
     </div>
 
-    <div class="ref-description">
+    <div class="ref-description section level2">
     <p>Define the functions that <code><a href="read.html">read()</a></code> or write() must call to
 import or export data for the different types (formats).</p>
     </div>
 
-    <div id="ref-usage">
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_write_option</span><span class="op">(</span><span class="va">new_type</span><span class="op">)</span></span></code></pre></div>
     </div>
 
-    <div id="arguments">
-    <h2>Arguments</h2>
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>new_type</dt>
 <dd><p>A data.frame with four columns: <code>type</code>, <code>read_fun</code>,
 <code>read_header</code> and <code>write_fun</code> containing each a single character string or
@@ -97,24 +97,24 @@ with "pkg::fun" format ("pkg" is the package containing the function and
 is visible on the search path.</p></dd>
 
 </dl></div>
-    <div id="value">
-    <h2>Value</h2>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
 <p>The data.frame with all known formats is returned invisibly. The same
 data.frame is also saved in the <code>read_write`` option, and can be retrieved directly with </code>getOption("read_write")`.</p>
     </div>
-    <div id="see-also">
-    <h2>See also</h2>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="read.html">read()</a></code>, <code><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption()</a></code></p></div>
     </div>
-    <div id="author">
-    <h2>Author</h2>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Philippe Grosjean <a href="mailto:phgrosjean@sciviews.org">phgrosjean@sciviews.org</a></p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># The default options</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="fu">read_write_option</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 5</span></span>
@@ -145,14 +145,11 @@ data.frame is also saved in the <code>read_write`` option, and can be retrieved 
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> png      png::readPNG    <span style="color: #BB0000;">NA</span>          png::writePNG    PNG image               </span>
 </code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
-      <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
+    <footer><!-- footer --><!--<footer class="bg-secondary">--><div class="bg-secondary full-width">
     <div class="py-100 border-bottom" style="border-color: #454547 !important">
         <div class="container">
             <div class="row">
@@ -265,10 +262,9 @@ data.frame is also saved in the <code>read_write`` option, and can be retrieved 
 <!--</footer>-->
 <!-- /footer -->
 
-      </footer></div>
+    </footer></div>
 
   
-
 
   
 
