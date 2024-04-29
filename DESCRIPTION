@@ -1,7 +1,7 @@
 Package: data.io
 Type: Package
 Version: 1.5.1
-Title: General Data Read and Write in Different Formats
+Title: Read and Write Data in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
   from statistic software ...) into R objects. Add labels and units in
   different languages.

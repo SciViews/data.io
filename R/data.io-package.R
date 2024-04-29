@@ -1,6 +1,6 @@
-#' General Data Read and Write in Different Formats
+#' Read and Write Data in Different Formats
 #'
-#' The {data.io} package focuses on reading and writing datasets in different
+#' The \{data.io\} package focuses on reading and writing datasets in different
 #' formats in an unified and convenient way. It can deal with labels and units
 #' metadata for variables, translation in different languages, and even
 #' use a sidecar file for preprocessing the dataset automatically. The same
