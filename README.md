@@ -1,4 +1,4 @@
-# data.io - Read and Write Data in Different Formats <a href='https://www.sciviews.org/data.io'><img src='man/figures/logo.png' align='right' height='139'/></a>
+# Read and Write Data in Different Formats <a href='https://www.sciviews.org/data.io'><img src='man/figures/logo.png' align='right' height='139'/></a>
 
 <!-- badges: start -->
 
