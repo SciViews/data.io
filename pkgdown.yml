@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   data-io: data-io.html
-last_built: 2024-04-29T14:29Z
+last_built: 2024-04-29T14:54Z
 urls:
   reference: https://www.sciviews.org/data.io/reference
   article: https://www.sciviews.org/data.io/articles
