@@ -2,7 +2,10 @@
 title: "SciViews datasets and read()/write() functions"
 author: "Philippe Grosjean (phgrosjean@sciviews.org)"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{SciViews datasets and read()/write() functions}
   %\VignetteEngine{knitr::rmarkdown}
@@ -148,17 +151,19 @@ str(iris_sc)
 
 The sidecar script did rename the variables in `iris_sc`. Note that the `species` variable of `iris_sc` is converted into **factor**, while `Species` of `iris_no_sc` is still a *character** variable. Note also that labels and units are added for each variable of `iris_sc`. The sidecar file is convenient for quick preprocessing of you datasets. That way, you do not have to resave your data in a different format that keeps the metadata and types of your variables.
 
+The example sidecar file is rather complex and it deals with several languages through the `lang =` argument of `read()`. Usually, your own sidecar file would be much shorter, just dealing with a couple of adjustments in the dataset.
+
 ### Reading data from URLs and cache mechanism
 
-The `read()` function can also import data from an URL for all supported file formats.
+The `read()` function can also import data from an URL for all supported file formats (note the code that reads from an URL in *not* executed in the vignette to avoid problems when checking the package, but you can run the code yourself).
 
-```{r}
+```{r, eval=FALSE}
 (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 ```
 
 In the case the URL does not end with an explicit extension, you *have to* specify the file format as the type (here `read$csv(....)` because the dataset is in CSV format). Reading data from an external URL is convenient, especially for big datasets that you do not want to include, say, in a git repository. However, it could be slow to retrieve those big datasets each time from the internet. The `read()` function implements a cache mechanism that you activate by indicating in which file you want to store a cached copy of your dataset in the `cache_file =` argument. Here is an example:
 
-```{r}
+```{r, eval=FALSE}
 # Here, we use the temporary directory for the example
 # but you should use a permanent directory in your project
 ble_cache_file <- file.path(tempdir(), "ble.csv")
@@ -168,20 +173,20 @@ ble_cache_file <- file.path(tempdir(), "ble.csv")
 
 Now, there is a copy of the dataset in CSV format in `ble_cache_file`.
 
-```{r}
+```{r, eval=FALSE}
 cat(readLines(ble_cache_file)[1:4], sep = "\n")
 ```
 
 If you project is managed with git, you would most probably indicate the folder that contains the cached copies of your large datasets in .gitignore. That way, you can use large, or even huge datasets in your git repositories without versioning these large files. They are downloaded from the internet only once. Every time you read the `ble` dataset again, it is imported from the local cache file.
 
-```{r}
+```{r, eval=FALSE}
 ble <- read$csv("http://tinyurl.com/Biostat-Ble",
   cache_file = ble_cache_file)
 ```
 
 In case you have to refresh the cached version from the URL, just erase the cache file and read again, or use `force = TRUE`):
 
-```{r}
+```{r, eval=FALSE}
 ble <- read$csv("http://tinyurl.com/Biostat-Ble",
   cache_file = ble_cache_file, force = TRUE)
 ```

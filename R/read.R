@@ -135,7 +135,7 @@
 #' trees2$volume
 #' \donttest{
 #' # Read from a Github Gist (need to specify the type here!)
-#' (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
+#' # (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 #'
 #' # Various versions of the famous iris dataset
 #' (iris <- read(data_example("iris.csv")))

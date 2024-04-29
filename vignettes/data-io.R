@@ -60,26 +60,26 @@ str(iris_no_sc)
 (iris_sc <- read$csv(iris_sidecar_csv_file))
 str(iris_sc)
 
-## -----------------------------------------------------------------------------
-(ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
+## ---- eval=FALSE--------------------------------------------------------------
+#  (ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
 
-## -----------------------------------------------------------------------------
-# Here, we use the temporary directory for the example
-# but you should use a permanent directory in your project
-ble_cache_file <- file.path(tempdir(), "ble.csv")
-(ble <- read$csv("http://tinyurl.com/Biostat-Ble",
-  cache_file = ble_cache_file))
+## ---- eval=FALSE--------------------------------------------------------------
+#  # Here, we use the temporary directory for the example
+#  # but you should use a permanent directory in your project
+#  ble_cache_file <- file.path(tempdir(), "ble.csv")
+#  (ble <- read$csv("http://tinyurl.com/Biostat-Ble",
+#    cache_file = ble_cache_file))
 
-## -----------------------------------------------------------------------------
-cat(readLines(ble_cache_file)[1:4], sep = "\n")
+## ---- eval=FALSE--------------------------------------------------------------
+#  cat(readLines(ble_cache_file)[1:4], sep = "\n")
 
-## -----------------------------------------------------------------------------
-ble <- read$csv("http://tinyurl.com/Biostat-Ble",
-  cache_file = ble_cache_file)
+## ---- eval=FALSE--------------------------------------------------------------
+#  ble <- read$csv("http://tinyurl.com/Biostat-Ble",
+#    cache_file = ble_cache_file)
 
-## -----------------------------------------------------------------------------
-ble <- read$csv("http://tinyurl.com/Biostat-Ble",
-  cache_file = ble_cache_file, force = TRUE)
+## ---- eval=FALSE--------------------------------------------------------------
+#  ble <- read$csv("http://tinyurl.com/Biostat-Ble",
+#    cache_file = ble_cache_file, force = TRUE)
 
 ## -----------------------------------------------------------------------------
 data.io::data_types(view = FALSE)
