@@ -9,44 +9,44 @@ Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
   email = "phgrosjean@sciviews.org",
   comment = c(ORCID = "0000-0002-2694-9471")))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
-Depends: R (>= 4.2.0)
+Depends:
+    R (>= 4.2.0)
 Imports:
-    tibble,
-    tsibble,
-    Hmisc,
-    utils,
-    readr,
-    rlang,
-    svBase,
-    lifecycle
+    Hmisc (>= 5.0.1),
+    lifecycle (>= 1.0.3),
+    utils (>= 4.2.0),
+    readr (>= 2.1.4),
+    rlang (>= 1.1.1),
+    svBase (>= 1.4.0),
+    tibble (>= 3.2.1),
+    tsibble (>= 1.1.3)
 Suggests: 
-    SciViews,
-    readxl,
-    haven,
-    WriteXLS,
-    writexl,
-    datasets,
-    ggplot2,
-    lme4,
-    babynames,
-    nycflights13,
-    palmerpenguins,
-    covr,
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0),
-    spelling
+    babynames (>= 1.0.1),
+    datasets (>= 4.2.0),
+    ggplot2 (>= 3.4.2),
+    haven (>= 2.5.2),
+    lme4 (>= 1.1.32),
+    nycflights13 (>= 1.0.2),
+    palmerpenguins (>= 0.1.1),
+    SciViews (>= 1.6.0),
+    readxl (>= 1.4.2),
+    writexl (>= 1.4.2),
+    WriteXLS (>= 6.4.0),
+    knitr (>= 1.42),
+    rmarkdown (>= 2.21),
+    spelling (>= 2.2.1),
+    testthat (>= 3.0.0)
 Remotes: 
-    SciViews/svBase,
-    SciViews/SciViews
+    SciViews/SciViews,
+    SciViews/svBase
 License:  MIT + file LICENSE
 URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/
 BugReports: https://github.com/SciViews/data.io/issues
-LazyData: yes
-ByteCompile: yes
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Config/testthat/edition: 3
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
+LazyData: yes
+ByteCompile: yes
+Config/testthat/edition: 3

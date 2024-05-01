@@ -1,16 +1,16 @@
 ---
-title: "SciViews datasets and read()/write() functions"
-author: "Philippe Grosjean (phgrosjean@sciviews.org)"
+title: "Read and Write Data in Different Formats"
+author: "Philippe Grosjean"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 3
+    fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{SciViews datasets and read()/write() functions}
+  %\VignetteIndexEntry{Read and Write Data in Different Formats}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}

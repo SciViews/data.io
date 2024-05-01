@@ -1,18 +1,20 @@
-citHeader("To cite SciViews-R in publications, please use:")
+citHeader("To cite SciViews-R in publications use:")
 
-citEntry(entry="Manual",
-  title = "SciViews-R",
-  author = personList(as.person("Philippe Grosjean")),
+citEntry(
+  entry        = "Manual",
+  title        = "SciViews::R",
+  author       = personList(as.person("Philippe Grosjean"),
+                            as.person("Guyliann Engels")),
   organization = "UMONS",
   address      = "MONS, Belgium",
   year         = version$year,
-  url          = "https://www.sciviews.org/SciViews-R/",
+  url          = "https://sciviews.r-universe.dev/",
 
   textVersion =
-    paste("Grosjean, Ph. (", version$year, "). ",
-      "SciViews-R. ",
+    paste("Grosjean, Ph. & Engels, G. (", version$year, "). ",
+      "SciViews::R. ",
       "UMONS, Mons, Belgium. ",
-      "URL https://www.sciviews.org/SciViews-R/.",
+      "URL https://sciviews.r-universe.dev/.",
       sep = "")
 )
 

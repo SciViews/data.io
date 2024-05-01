@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/data.io/branch/main/graph/badge.svg)](https://app.codecov.io/gh/SciViews/data.io?branch=main) [![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![R-CMD-check](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SciViews/data.io/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/SciViews/data.io/branch/main/graph/badge.svg)](https://app.codecov.io/gh/SciViews/data.io?branch=main) [![CRAN Status](https://www.r-pkg.org/badges/version/data.io)](https://cran.r-project.org/package=data.io) [![r-universe status](https://sciviews.r-universe.dev/badges/data.io)](https://sciviews.r-universe.dev/data.io) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable))
 
 <!-- badges: end -->
 
@@ -51,4 +51,4 @@ For further instructions, please, refer to these help pages at <https://www.sciv
 
 ## Code of Conduct
 
-Please note that the {data.io} project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the {data.io} package is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
