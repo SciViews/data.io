@@ -28,7 +28,6 @@ Suggests:
     lme4 (>= 1.1.32),
     nycflights13 (>= 1.0.2),
     palmerpenguins (>= 0.1.1),
-    SciViews (>= 1.6.0),
     readxl (>= 1.4.2),
     writexl (>= 1.4.2),
     WriteXLS (>= 6.4.0),
@@ -36,8 +35,7 @@ Suggests:
     rmarkdown (>= 2.21),
     spelling (>= 2.2.1),
     testthat (>= 3.0.0)
-Remotes: 
-    SciViews/SciViews,
+Remotes:
     SciViews/svBase
 License:  MIT + file LICENSE
 URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/
