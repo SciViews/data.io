@@ -13,6 +13,7 @@ Depends:
     R (>= 4.2.0)
 Imports:
     data.table (>= 1.15.4),
+    data.trame (>= 0.9.0),
     Hmisc (>= 5.0.1),
     lifecycle (>= 1.0.3),
     utils (>= 4.2.0),
@@ -38,6 +39,7 @@ Suggests:
     spelling (>= 2.2.1),
     testthat (>= 3.0.0)
 Remotes:
+    SciViews/data.trame,
     SciViews/svBase
 License:  MIT + file LICENSE
 URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/

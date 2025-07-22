@@ -20,6 +20,7 @@
 
 ## usethis namespace: start
 #' @importFrom data.table fread fwrite
+#' @importFrom data.trame data.trame as.data.trame is.data.trame
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble
 #' @importFrom utils .DollarNames data download.file
