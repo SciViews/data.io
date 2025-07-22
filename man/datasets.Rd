@@ -45,10 +45,10 @@ cars. 11 vars x 234 obs. Data are for most popular U.S. market cars only. }
 
 From \code{MASS}:
 \describe{
-\item{\code{\link{crabs}}}{Morphological measurements on Leptograpsus
+\item{\link[MASS:crabs]{MASS::crabs}}{Morphological measurements on Leptograpsus
 crabs. 8 vars x 200 obs. Morphological measurements of \emph{Leptograpsus
 variegatus} crabs, either blue or orange, males and females. }
-\item{\code{\link{geyser}}}{Old Faithful geyser data. 2 vars x 299 obs.
+\item{\link[MASS:geyser]{MASS::geyser}}{Old Faithful geyser data. 2 vars x 299 obs.
 Duration and waiting time for eruptions from August 1 to August 15, 1985. }
 }
 

@@ -39,7 +39,7 @@
 #' functions (see [data_types()]) to write the data in different formats.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
-#' @seealso [data_types()], [read()], [write_csv()], [base::write()]
+#' @seealso [data_types()], [read()], [readr::write_csv()], [base::write()]
 #' @keywords utilities
 #' @concept write and export data
 #' @examples

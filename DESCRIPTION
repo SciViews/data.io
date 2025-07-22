@@ -29,6 +29,7 @@ Suggests:
     ggplot2 (>= 3.4.2),
     haven (>= 2.5.2),
     lme4 (>= 1.1.32),
+    MASS (>= 7.3.65),
     nycflights13 (>= 1.0.2),
     palmerpenguins (>= 0.1.1),
     readxl (>= 1.4.2),

@@ -17,7 +17,7 @@
 #' @details TODO: explain difference between `dataframe`s and `tibble`s here...
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
-#' @seealso [as_tibble()], [as.data.frame()]
+#' @seealso [tibble::as_tibble()], [as.data.frame()]
 #' @keywords utilities
 #' @concept convert objects
 #' @examples

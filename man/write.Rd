@@ -97,7 +97,7 @@ unlink("my_temporary_data.txt")
 rm(mat1)
 }
 \seealso{
-\code{\link[=data_types]{data_types()}}, \code{\link[=read]{read()}}, \code{\link[=write_csv]{write_csv()}}, \code{\link[base:write]{base::write()}}
+\code{\link[=data_types]{data_types()}}, \code{\link[=read]{read()}}, \code{\link[readr:write_delim]{readr::write_csv()}}, \code{\link[base:write]{base::write()}}
 }
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}

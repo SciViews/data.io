@@ -84,7 +84,7 @@
 #' across several \R packages. See `getOption("read_write")`.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export
-#' @seealso [data_types()], [write()], [read_csv()]
+#' @seealso [data_types()], [write()], [readr::read_csv()]
 #' @keywords utilities
 #' @concept read and import data
 #' @examples

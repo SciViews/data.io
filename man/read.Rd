@@ -303,7 +303,7 @@ haven_example <- function(path)
 }
 }
 \seealso{
-\code{\link[=data_types]{data_types()}}, \code{\link[=write]{write()}}, \code{\link[=read_csv]{read_csv()}}
+\code{\link[=data_types]{data_types()}}, \code{\link[=write]{write()}}, \code{\link[readr:read_delim]{readr::read_csv()}}
 }
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}

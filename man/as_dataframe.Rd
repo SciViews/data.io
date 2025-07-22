@@ -112,7 +112,7 @@ as.data.frame(t1)
 }
 }
 \seealso{
-\code{\link[=as_tibble]{as_tibble()}}, \code{\link[=as.data.frame]{as.data.frame()}}
+\code{\link[tibble:as_tibble]{tibble::as_tibble()}}, \code{\link[=as.data.frame]{as.data.frame()}}
 }
 \author{
 Philippe Grosjean \href{mailto:phgrosjean@sciviews.org}{phgrosjean@sciviews.org}
