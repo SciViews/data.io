@@ -1,6 +1,6 @@
 Package: data.io
 Type: Package
-Version: 1.5.1
+Version: 1.6.0
 Title: Read and Write Data in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
   from statistic software ...) into R objects. Add labels and units in
@@ -12,9 +12,11 @@ Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends:
     R (>= 4.2.0)
 Imports:
+    data.table (>= 1.15.4),
     Hmisc (>= 5.0.1),
     lifecycle (>= 1.0.3),
     utils (>= 4.2.0),
+    R.utils (>= 2.13.0),
     readr (>= 2.1.4),
     rlang (>= 1.1.1),
     svBase (>= 1.4.0),
@@ -41,7 +43,7 @@ License:  MIT + file LICENSE
 URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/
 BugReports: https://github.com/SciViews/data.io/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US

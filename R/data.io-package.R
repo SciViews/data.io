@@ -17,16 +17,16 @@
 #' - [labelise()] adds a `label`, and possibly a `units` attributes to an
 #'   object, to be used while pretty printing a table or plot.
 #'
-#' @docType package
-#' @name data.io-package
 
 ## usethis namespace: start
+#' @importFrom data.table fread fwrite
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble
 #' @importFrom utils .DollarNames data download.file
+#' @importFrom R.utils gunzip
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos
 #' @importFrom svBase default_dtx
 #' @importFrom lifecycle badge deprecate_soft
 ## usethis namespace: end
-NULL
+"_PACKAGE"

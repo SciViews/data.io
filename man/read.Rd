@@ -219,7 +219,7 @@ trees2$volume
 (iris <- read(data_example("iris.tsv")))
 (iris <- read(data_example("iris.xls")))
 (iris <- read(data_example("iris.xlsx")))
-(iris <- read(data_example("iris.rds"))) # Does not tranform into tibble!
+(iris <- read(data_example("iris.rds")))
 #(iris <- read(data_example("iris.syd"))) ##
 #(iris <- read(data_example("iris.csvy"))) ##
 #(iris <- read(data_example("iris.csvy.zip"))) ##
@@ -246,7 +246,11 @@ library(readr)
 (mtcars <- read(readr_example("mtcars.csv")))
 (mtcars <- read(readr_example("mtcars.csv.zip")))
 (mtcars <- read(readr_example("mtcars.csv.bz2")))
-(challenge <- read(readr_example("challenge.csv"), guess_max = 1001))
+(challenge <- read(readr_example("challenge.csv")))
+# Or using readr::read_csv()... There are differences!
+(challenge2 <- read$csv_alt(readr_example("challenge.csv"), guess_max = 1001))
+sapply(challenge, class)
+sapply(challenge2, class)
 (massey <- read(readr_example("massey-rating.txt")))
 # By default, the type cannot be guessed from the extension
 # This is a space-separated vaules file (ssv)

@@ -30,7 +30,7 @@ There are several datasets spread between various R packages, but there is no cl
 
 -   Uppercase for factor levels (but less strict),
 
--   data frames are converted according to user preferences indicated in `options(SciViews.as_dtx = ...)`. The default is `as_dtt` which converts into a **data.table**. Other options are `as_dtf` to concert into base R **data.frame** objects, or `as_dtbl` to convert into {tibble}'s **tbl_df** objects.
+-   data frames are converted according to user preferences indicated in `options(SciViews.as_dtx = ...)`. The default is `as_dtrm` which converts into a **data.trame**. Other options are `as_dtf` to concert into base R **data.frame** objects, `as_dtt` to convert into a **data.table**, or `as_dtbl` to convert into {tibble}'s **tbl_df** objects.
 
 -   variables have a `label` attribute with more meaningful (short) description of the variables, and a `units` attribute, if applicable.
 
@@ -158,7 +158,7 @@ The example sidecar file is rather complex and it deals with several languages t
 The `read()` function can also import data from an URL for all supported file formats (note the code that reads from an URL in *not* executed in the vignette to avoid problems when checking the package, but you can run the code yourself).
 
 ```{r, eval=FALSE}
-(ble <- read$csv("http://tinyurl.com/Biostat-Ble"))
+(ble <- read$csv("http://tinyurl.com/Biostat-Ble", lang = "fr"))
 ```
 
 In the case the URL does not end with an explicit extension, you *have to* specify the file format as the type (here `read$csv(....)` because the dataset is in CSV format). Reading data from an external URL is convenient, especially for big datasets that you do not want to include, say, in a git repository. However, it could be slow to retrieve those big datasets each time from the internet. The `read()` function implements a cache mechanism that you activate by indicating in which file you want to store a cached copy of your dataset in the `cache_file =` argument. Here is an example:
@@ -168,7 +168,7 @@ In the case the URL does not end with an explicit extension, you *have to* speci
 # but you should use a permanent directory in your project
 ble_cache_file <- file.path(tempdir(), "ble.csv")
 (ble <- read$csv("http://tinyurl.com/Biostat-Ble",
-  cache_file = ble_cache_file))
+  cache_file = ble_cache_file, lang = "fr"))
 ```
 
 Now, there is a copy of the dataset in CSV format in `ble_cache_file`.
@@ -181,14 +181,14 @@ If you project is managed with git, you would most probably indicate the folder 
 
 ```{r, eval=FALSE}
 ble <- read$csv("http://tinyurl.com/Biostat-Ble",
-  cache_file = ble_cache_file)
+  cache_file = ble_cache_file, lang = "fr")
 ```
 
 In case you have to refresh the cached version from the URL, just erase the cache file and read again, or use `force = TRUE`):
 
 ```{r, eval=FALSE}
 ble <- read$csv("http://tinyurl.com/Biostat-Ble",
-  cache_file = ble_cache_file, force = TRUE)
+  cache_file = ble_cache_file, lang = "fr", force = TRUE)
 ```
 
 

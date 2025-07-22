@@ -1,3 +1,9 @@
+# data.io 1.6.0
+
+-   Now the default object returned by `read()` is a `data.trame` object.
+
+-   The `read()` function now uses `data.table::fread()` and `data.table::fwrite()` for CSV and TSV files instead of the {readr} function. Consequently, {data.table} and {R.utils} (that {data.table} uses to read compressed CSV/TSV data) are now also imported. The previous `readr::read_csv()` and `readr::write_csv()` functions are now accessible with type `csv_alt`. Idem for types `csv2_alt` and `tsv_alt`.
+
 # data.io 1.5.1
 
 -   License changed to MIT for better and wider use.
