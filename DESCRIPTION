@@ -1,13 +1,14 @@
 Package: data.io
 Type: Package
 Version: 1.6.0
-Title: Read and Write Data in Different Formats
+Title: 'SciViews::R' - Read and Write Data in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
   from statistic software ...) into R objects. Add labels and units in
   different languages.
-Authors@R: c(person("Philippe", "Grosjean", role = c("aut", "cre"),
-  email = "phgrosjean@sciviews.org",
-  comment = c(ORCID = "0000-0002-2694-9471")))
+Authors@R: c(
+  person("Philippe", "Grosjean", role = c("aut", "cre"),
+    email = "phgrosjean@sciviews.org",
+    comment = c(ORCID = "0000-0002-2694-9471")))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends:
     R (>= 4.2.0)
@@ -15,7 +16,7 @@ Imports:
     data.table (>= 1.15.4),
     data.trame (>= 0.9.0),
     Hmisc (>= 5.0.1),
-    lifecycle (>= 1.0.3),
+    lifecycle (>= 1.0.0),
     utils (>= 4.2.0),
     R.utils (>= 2.13.0),
     readr (>= 2.1.4),
@@ -35,6 +36,7 @@ Suggests:
     readxl (>= 1.4.2),
     writexl (>= 1.4.2),
     WriteXLS (>= 6.4.0),
+    covr (>= 3.5.0),
     knitr (>= 1.42),
     rmarkdown (>= 2.21),
     spelling (>= 2.2.1),
@@ -42,8 +44,8 @@ Suggests:
 Remotes:
     SciViews/data.trame,
     SciViews/svBase
-License:  MIT + file LICENSE
-URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/
+License: MIT + file LICENSE
+URL: https://github.com/SciViews/data.io, https://www.sciviews.org/data.io/, https://sciviews.r-universe.dev/data.io
 BugReports: https://github.com/SciViews/data.io/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

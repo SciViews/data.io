@@ -1,5 +1,5 @@
 ---
-title: "Read and Write Data in Different Formats"
+title: "'SciViews::R' - Read and Write Data in Different Formats"
 author: "Philippe Grosjean"
 date: "`r Sys.Date()`"
 output:
@@ -8,7 +8,7 @@ output:
     toc_depth: 3
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Read and Write Data in Different Formats}
+  %\VignetteIndexEntry{'SciViews::R' - Read and Write Data in Different Formats}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -29,6 +29,7 @@ Useful links:
 \itemize{
   \item \url{https://github.com/SciViews/data.io}
   \item \url{https://www.sciviews.org/data.io/}
+  \item \url{https://sciviews.r-universe.dev/data.io}
   \item Report bugs at \url{https://github.com/SciViews/data.io/issues}
 }
 

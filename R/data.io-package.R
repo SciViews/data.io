@@ -18,16 +18,18 @@
 #'   object, to be used while pretty printing a table or plot.
 #'
 
+# The following block is used by usethis to automatically manage
+# roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom data.table fread fwrite
 #' @importFrom data.trame data.trame as.data.trame is.data.trame
-#' @importFrom tibble tibble tribble as_tibble is_tibble add_column
-#' @importFrom tsibble as_tsibble
-#' @importFrom utils .DollarNames data download.file
+#' @importFrom lifecycle badge deprecated deprecate_soft
 #' @importFrom R.utils gunzip
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos
 #' @importFrom svBase default_dtx
-#' @importFrom lifecycle badge deprecate_soft
+#' @importFrom tibble tibble tribble as_tibble is_tibble add_column
+#' @importFrom tsibble as_tsibble
+#' @importFrom utils .DollarNames data download.file
 ## usethis namespace: end
 "_PACKAGE"
