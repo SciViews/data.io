@@ -86,7 +86,7 @@
 </li>
       </ul>
 <div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.6.0</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.6.1</small></p></a>
       </div>
     </div>
 <!--/.nav-collapse -->
@@ -107,7 +107,7 @@ Formats</h1>
                         <h4 data-toc-skip class="author">Philippe
 Grosjean</h4>
             
-            <h4 data-toc-skip class="date">2025-08-02</h4>
+            <h4 data-toc-skip class="date">2025-08-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/main/vignettes/data-io.Rmd" class="external-link"><code>vignettes/data-io.Rmd</code></a></small>
       <div class="hidden name"><code>data-io.Rmd</code></div>
@@ -162,7 +162,6 @@ units are also automatically added.</p>
 <span><span class="va">iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.html">read</a></span><span class="op">(</span><span class="st">"iris"</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data.trame: [6 × 5]</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Language:     en</span></span></span>
 <span><span class="co">#&gt;   sepal_length sepal_width petal_length petal_width species</span></span>
 <span><span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>          5.1         3.5          1.4         0.2 setosa </span></span>
@@ -247,7 +246,6 @@ the tree that is reported).</p>
 <code class="sourceCode R"><span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.html">read</a></span><span class="op">(</span><span class="st">"trees"</span>, package <span class="op">=</span> <span class="st">"datasets"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">trees</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data.trame: [6 × 3]</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Language:     en</span></span></span>
 <span><span class="co">#&gt;   diameter height volume</span></span>
 <span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    0.211   21.3  0.292</span></span>
@@ -325,7 +323,6 @@ path to the “iris.csv.gz” file, one can use:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">read</span><span class="op">$</span><span class="fu">csv.gz</span><span class="op">(</span><span class="fu"><a href="../reference/data_example.html">data_example</a></span><span class="op">(</span><span class="st">"iris.csv.gz"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Type optional (explicit extension)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data.trame: [150 × 5]</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Language:     en</span></span></span>
 <span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          5.1         3.5          1.4         0.2 setosa </span></span>
@@ -404,7 +401,6 @@ the sidecar file, and then, with it:</p>
 <code class="sourceCode R"><span><span class="co"># Without sidecar file</span></span>
 <span><span class="op">(</span><span class="va">iris_no_sc</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="va">iris_sidecar_csv_file</span>, sidecar_file <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data.trame: [150 × 5]</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Language:     en</span></span></span>
 <span><span class="co">#&gt;    Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          5.1         3.5          1.4         0.2 setosa </span></span>
@@ -434,7 +430,6 @@ the sidecar file, and then, with it:</p>
 <code class="sourceCode R"><span><span class="co"># With sidecar file (sidecar_file = TRUE is the default)</span></span>
 <span><span class="op">(</span><span class="va">iris_sc</span> <span class="op">&lt;-</span> <span class="va">read</span><span class="op">$</span><span class="fu">csv</span><span class="op">(</span><span class="va">iris_sidecar_csv_file</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data.trame: [150 × 5]</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Language:     en</span></span></span>
 <span><span class="co">#&gt;    sepal_length sepal_width petal_length petal_width species</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>          5.1         3.5          1.4         0.2 setosa </span></span>
