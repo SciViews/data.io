@@ -619,14 +619,6 @@ hread_xlsx <- function(file, header.max, skip = 0L, locale = default_locale(),
 
 #' @export
 #' @rdname read
-#' @param x A `subsettable_type` function.
-#' @param name The value to use for the `type=` argument.
-#' @method $ subsettable_type
-`$.subsettable_type` <- function(x, name)
-  function(...) x(type = name, ...)
-
-#' @export
-#' @rdname read
 #' @method .DollarNames read_function_subset
 .DollarNames.read_function_subset <- function(x, pattern = "") {
   dt <- data_types(types_only = FALSE, view = FALSE)

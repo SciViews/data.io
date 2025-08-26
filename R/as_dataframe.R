@@ -159,10 +159,11 @@ is_dataframe <- function(x) {
 #' @rdname as_dataframe
 is.dataframe <- is_dataframe
 
-# Everything related to dataframe objects is nos deprtecated (from version 1.4.0)
+# Everything related to dataframe objects is nos deprecated (from version 1.4.0)
 # and replaced by the svBase::dtx() mechanism that allows the end-user to indicate
-# which one of the thjree data frame objects he prefers (base R data.frame, or
+# which one of the three data frame objects he prefers (base R data.frame, or
 # data.table or tibble's tbl_df)
+# Alsoo look at the new data.trame object and package.
 #dataframe <- function(..., .data = NULL, .before = NULL, .after = NULL) {
 #  # TODO: check .before and .after!
 #  xs <- quos(..., .named = TRUE)

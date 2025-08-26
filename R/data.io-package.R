@@ -27,6 +27,7 @@
 #' @importFrom R.utils gunzip
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos
+#' @importFrom svMisc aka
 #' @importFrom svBase default_dtx
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble

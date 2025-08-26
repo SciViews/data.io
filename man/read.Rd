@@ -6,7 +6,6 @@
 \alias{hread_text}
 \alias{hread_xls}
 \alias{hread_xlsx}
-\alias{$.subsettable_type}
 \alias{.DollarNames.read_function_subset}
 \title{Read data in \R in different formats}
 \usage{
@@ -42,8 +41,6 @@ hread_text(file, header.max, skip = 0L, locale = default_locale(), ...)
 hread_xls(file, header.max, skip = 0L, locale = default_locale(), ...)
 
 hread_xlsx(file, header.max, skip = 0L, locale = default_locale(), ...)
-
-\method{$}{subsettable_type}(x, name)
 
 \method{.DollarNames}{read_function_subset}(x, pattern = "")
 }
@@ -143,9 +140,7 @@ which is the most useful setting to make good use of the cache mechanism.}
 \item{full}{Do we return the full extension, like \code{csv.tar.gz} (\code{TRUE}), or
 only the main extension, like \code{csv} (\code{FALSE}, by default).}
 
-\item{x}{A \code{subsettable_type} function.}
-
-\item{name}{The value to use for the \verb{type=} argument.}
+\item{x}{An object.}
 
 \item{pattern}{A regular expression to list matching names.}
 }

@@ -1,3 +1,7 @@
+# data.io 1.6.1
+
+-   The `$.subsettable_type()` method is now in {svMisc}.
+
 # data.io 1.6.0
 
 -   Now the default object returned by `read()` is a `data.trame` object.
