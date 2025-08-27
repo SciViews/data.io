@@ -1,3 +1,7 @@
+# data.io 1.7.0
+
+-   Functions `labelise()`/`labelize()`, `cl()`, `unlabelise()`/`unlabelize()`, `label()` and `label<-()` are moved from here to svBase.
+
 # data.io 1.6.1
 
 -   The `$.subsettable_type()` method is now in {svMisc}.

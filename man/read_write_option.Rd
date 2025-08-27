@@ -17,7 +17,8 @@ is visible on the search path.}
 }
 \value{
 The data.frame with all known formats is returned invisibly. The same
-data.frame is also saved in the \verb{read_write`` option, and can be retrieved directly with }getOption("read_write")`.
+data.frame is also saved in the \code{read_write} option, and can be retrieved
+directly with \code{getOption("read_write")}.
 }
 \description{
 Define the functions that \code{\link[=read]{read()}} or write() must call to

@@ -36,7 +36,7 @@
 .diamonds_en_us <- function(diamonds, labels_only = FALSE) {
   diamonds <- .diamonds_en(diamonds, labels_only = labels_only)
 
-  label(diamonds$color) <- "Color"
+  svBase::label(diamonds$color) <- "Color"
 
   diamonds
 }

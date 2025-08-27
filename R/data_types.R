@@ -45,7 +45,7 @@ data_types <- function(types_only = FALSE, view = TRUE) {
     # defines another version of that function, and we ant to use it instead!
     view <- get0("View", mode = "function")
     if (is.null(view)) {
-      warning("'View' function not found, return the data instead")
+      warning("'View()' function not found, return the data instead")
       `data types`
     } else {
       view(`data types`)

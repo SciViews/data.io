@@ -12,7 +12,7 @@
 #' import or export data for the different types (formats).
 #'
 #' @return The data.frame with all known formats is returned invisibly. The same
-#' data.frame is also saved in the `read_write`` option, and can be retrieved
+#' data.frame is also saved in the `read_write` option, and can be retrieved
 #' directly with `getOption("read_write")`.
 #' @author Philippe Grosjean <phgrosjean@sciviews.org>
 #' @export

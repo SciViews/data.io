@@ -19,8 +19,6 @@ features are also available for a subset of datasets from R packages.
 \item \code{\link[=write]{write()}} is the main function to write data to disk. It is compatible
 with \code{\link[base:write]{base::write()}} but provides many more features if you indicate
 \verb{type=} or use it like \code{write$type()}.
-\item \code{\link[=labelise]{labelise()}} adds a \code{label}, and possibly a \code{units} attributes to an
-object, to be used while pretty printing a table or plot.
 }
 }
 

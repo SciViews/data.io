@@ -16,7 +16,7 @@ read(
   header.max = 50L,
   skip = 0L,
   locale = default_locale(),
-  lang = getOption("data.io_lang", "en"),
+  lang = getOption("SciViews_lang", "en"),
   lang_encoding = "UTF-8",
   as_dataframe = FALSE,
   as_labelled = FALSE,
@@ -65,7 +65,7 @@ much as possible.}
 \item{lang}{The language to use (mainly for comment, label and units), but
 also for factor levels or other character strings if a translation exists
 and if the language is spelled with uppercase characters (e.g., \code{"FR"}).
-The default value can be set with, e.g., \code{options(data.io_lang = "fr")} for
+The default value can be set with, e.g., \code{options(SciViews_lang = "fr")} for
 French.}
 
 \item{lang_encoding}{Encoding used by R scripts for translation. They should

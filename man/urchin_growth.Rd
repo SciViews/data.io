@@ -27,8 +27,8 @@ derived from the number of measurements made at each time period, since
 library(ggplot2)
 ggplot(urchin_growth, aes(age, diameter)) +
   geom_jitter(alpha = 0.2) +
-  xlab(label(urchin_growth$age, units = TRUE)) +
-  ylab(label(urchin_growth$diameter, units = TRUE)) +
+  xlab(svBase::label(urchin_growth$age, units = TRUE)) +
+  ylab(svBase::label(urchin_growth$diameter, units = TRUE)) +
   ggtitle("Growth of a cohort of sea urchins")
 }
 \keyword{datasets}

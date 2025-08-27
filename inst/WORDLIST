@@ -63,6 +63,7 @@ subclassing
 subpath
 subsettable
 svBase
+svMisc
 tbl
 tibble
 tibble's

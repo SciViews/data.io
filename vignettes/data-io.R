@@ -41,7 +41,7 @@ df <- data.frame(
   sex = sample(c("M", "F"), 10, replace = TRUE)
 )
 # Add labels and units
-df <- labelise(df,
+df <- svBase::labelise(df,
   label = list(age = "Age", size = "Body size", sex = "Sex"),
   units = list(age = "years", size = "cm"))
 str(df)

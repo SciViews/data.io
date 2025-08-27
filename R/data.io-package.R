@@ -14,9 +14,6 @@
 #'   with [base::write()] but provides many more features if you indicate
 #'   `type=` or use it like `write$type()`.
 #'
-#' - [labelise()] adds a `label`, and possibly a `units` attributes to an
-#'   object, to be used while pretty printing a table or plot.
-#'
 
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
@@ -27,7 +24,7 @@
 #' @importFrom R.utils gunzip
 #' @importFrom readr default_locale read_lines
 #' @importFrom rlang quos
-#' @importFrom svMisc aka
+#' @importFrom svBase aka labelise labelize cl unlabelise unlabelize label label<-
 #' @importFrom svBase default_dtx
 #' @importFrom tibble tibble tribble as_tibble is_tibble add_column
 #' @importFrom tsibble as_tsibble

@@ -1,6 +1,6 @@
 Package: data.io
 Type: Package
-Version: 1.6.1
+Version: 1.7.0
 Title: 'SciViews::R' - Read and Write Data in Different Formats
 Description: Read or write data from many different formats (tabular datasets,
   from statistic software ...) into R objects. Add labels and units in
@@ -15,14 +15,12 @@ Depends:
 Imports:
     data.table (>= 1.15.4),
     data.trame (>= 0.9.0),
-    Hmisc (>= 5.0.1),
     lifecycle (>= 1.0.0),
     utils (>= 4.2.0),
     R.utils (>= 2.13.0),
-    svMisc (>= 1.5.0),
     readr (>= 2.1.4),
     rlang (>= 1.1.1),
-    svBase (>= 1.4.0),
+    svBase (>= 1.7.0),
     tibble (>= 3.2.1),
     tsibble (>= 1.1.3)
 Suggests: 
