@@ -57,7 +57,7 @@
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.6.1</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.7.0</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -75,6 +75,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.0" id="dataio-170">data.io 1.7.0<a class="anchor" aria-label="anchor" href="#dataio-170"></a></h2>
+<ul><li>Functions <code>labelise()</code>/<code>labelize()</code>, <code>cl()</code>, <code>unlabelise()</code>/<code>unlabelize()</code>, <code>label()</code> and <code>label&lt;-()</code> are moved from here to svBase.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.1" id="dataio-161">data.io 1.6.1<a class="anchor" aria-label="anchor" href="#dataio-161"></a></h2>
 <ul><li>The <code>$.subsettable_type()</code> method is now in {svMisc}.</li>
 </ul></div>
@@ -90,7 +94,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.5.0" id="dataio-150">data.io 1.5.0<a class="anchor" aria-label="anchor" href="#dataio-150"></a></h2>
 <ul><li><p><code><a href="https://rdrr.io/r/utils/rcompgen.html" class="external-link">.DollarNames()</a></code> implemented for <code><a href="../reference/read.html">read()</a></code> and <code><a href="../reference/write.html">write()</a></code> function, so that there is a completion list of the acceptable types.</p></li>
-<li><p><code><a href="../reference/as_dataframe.html">as_dataframe.dataframe()</a></code> and <code><a href="../reference/as_dataframe.html">as_dataframe.list()</a></code>, argument <code>validate=</code> is replaced by <code>.name.repair=</code> according to changes made in {tibble} 3.0 where the <code>validate=</code> argument is defunct now.</p></li>
+<li><p><code>as_dataframe.dataframe()</code> and <code>as_dataframe.list()</code>, argument <code>validate=</code> is replaced by <code>.name.repair=</code> according to changes made in {tibble} 3.0 where the <code>validate=</code> argument is defunct now.</p></li>
 <li><p>{palmerpenguins} <code>penguins</code> and <code>penguins_raw</code> data sets included (en and fr versions). The code of <code><a href="../reference/read.html">read()</a></code> had to be patched because <code>data(penguins)</code> loads both <code>penguins</code> and <code>penguins_raw</code>, but <code>data(penguins_raw)</code> produces an error (sic!)</p></li>
 <li><p>The {datasets} <code>ChickWeight</code>, <code>failthful</code>, <code>ToothGrowth</code> are now translated (en and fr versions).</p></li>
 <li><p>The data sets <code>Penicillin</code> and <code>sleepstudy</code> from {lme4} are now translated (en and fr versions).</p></li>
@@ -103,7 +107,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.0" id="dataio-140">data.io 1.4.0<a class="anchor" aria-label="anchor" href="#dataio-140"></a></h2>
 <ul><li><p>Dependency to {svBase} added. Now the <code>default_dtx()</code> function is used to output a data frame object in the user-preferred class (data.frame, data.table or tibble tbl_df) with <code><a href="../reference/read.html">read()</a></code>.</p></li>
-<li><p>The <strong>dataframe</strong> object class is deprecated. Consequently, <code><a href="../reference/read.html">read()</a></code> does not output <strong>dataframe</strong> objects any more and <code><a href="../reference/as_dataframe.html">as_dataframe()</a></code> or <code><a href="../reference/as_dataframe.html">is_dataframe()</a></code> and similar functions are also deprecated. The <code>as_dataframe=</code> argument of <code><a href="../reference/read.html">read()</a></code> is also deprecated now.</p></li>
+<li><p>The <strong>dataframe</strong> object class is deprecated. Consequently, <code><a href="../reference/read.html">read()</a></code> does not output <strong>dataframe</strong> objects any more and <code>as_dataframe()</code> or <code>is_dataframe()</code> and similar functions are also deprecated. The <code>as_dataframe=</code> argument of <code><a href="../reference/read.html">read()</a></code> is also deprecated now.</p></li>
 <li><p>There is now a list completion for <code>read$&lt;tab&gt;</code> and <code>write$&lt;tab&gt;</code>.</p></li>
 <li><p>The <code><a href="../reference/read.html">read()</a></code> function can now download a file directly for all types (previously, only for functions that accepted it internally, like <code><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">readr::read_csv()</a></code> but not for <code><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_xls()</a></code> for instance). The <code>cache_file=</code> argument allows to define a file to cache this download. If the file exists, the data are not redownloaded again, except if <code>force = TRUE</code>.</p></li>
 </ul></div>

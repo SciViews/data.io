@@ -86,7 +86,7 @@
 </li>
       </ul>
 <div class="navbar-title">
-        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.6.1</small></p></a>
+        <a class="navbar-brand" href="../index.html"><p class="h2">data.io <small>v1.7.0</small></p></a>
       </div>
     </div>
 <!--/.nav-collapse -->
@@ -107,7 +107,7 @@ Formats</h1>
                         <h4 data-toc-skip class="author">Philippe
 Grosjean</h4>
             
-            <h4 data-toc-skip class="date">2025-08-26</h4>
+            <h4 data-toc-skip class="date">2025-08-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/SciViews/data.io/blob/main/vignettes/data-io.Rmd" class="external-link"><code>vignettes/data-io.Rmd</code></a></small>
       <div class="hidden name"><code>data-io.Rmd</code></div>
@@ -340,7 +340,7 @@ path to the “iris.csv.gz” file, one can use:</p>
 <h3 id="metadata-label-and-units">Metadata (label and units)<a class="anchor" aria-label="anchor" href="#metadata-label-and-units"></a>
 </h3>
 <p>To add labels and units to variables in a
-<strong>data.frame</strong>, you can use the <code><a href="../reference/labelise.html">labelise()</a></code>
+<strong>data.frame</strong>, you can use the <code>labelise()</code>
 function. Here is an example with some synthetic data:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -349,7 +349,7 @@ function. Here is an example with some synthetic data:</p>
 <span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="st">"F"</span><span class="op">)</span>, <span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co"># Add labels and units</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/labelise.html">labelise</a></span><span class="op">(</span><span class="va">df</span>,</span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">svBase</span><span class="fu">::</span><span class="fu"><a href="https://www.sciviews.org/svBase/reference/labelise.html" class="external-link">labelise</a></span><span class="op">(</span><span class="va">df</span>,</span>
 <span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="st">"Age"</span>, size <span class="op">=</span> <span class="st">"Body size"</span>, sex <span class="op">=</span> <span class="st">"Sex"</span><span class="op">)</span>,</span>
 <span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>age <span class="op">=</span> <span class="st">"years"</span>, size <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>

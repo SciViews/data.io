@@ -57,7 +57,7 @@
   </a>
 </li>
       </ul><div class="navbar-title">
-        <a class="navbar-brand" href="index.html"><p class="h2">data.io <small>v1.6.1</small></p></a>
+        <a class="navbar-brand" href="index.html"><p class="h2">data.io <small>v1.7.0</small></p></a>
       </div>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -77,7 +77,6 @@
 
 <ul><li><p>Should we always convert <strong>ts</strong> and <strong>mts</strong> objects into <strong>data frames</strong>? + see <code>co2</code>, <code>nottem</code>, <code>pastecs::marbio</code>, <code>pastecs::marphy</code>, <code>pastecs::releve</code>.</p></li>
 <li><p>Also see <code><a href="https://tidyr.tidyverse.org/reference/who.html" class="external-link">tidyr::who</a></code>, <code><a href="https://tidyr.tidyverse.org/reference/who.html" class="external-link">tidyr::population</a></code>, <code>vegan::BCI</code>, <code>vegan::mite</code>, <code>vegan::varespec</code>, <code>UsingR::babies</code>, <code>ca::wg93</code>, <code>faraway::eggs</code>, <code>mlbench::PimaIndianDiabetes2</code></p></li>
-<li><p>Reimplement <code>options(data.io.lang = "xx")</code> as <code>options(SciViews.lang = "xx")</code>, and make changes in all SciViews packages (this option is not solely for {data.io} indeed).</p></li>
 <li><p>Check the {units} package and verify there is no conflicts any more, or better, use it. Make sure one could use <code>units(x)</code> ans <code>units(x) &lt;- value</code> or another form on all vectors.</p></li>
 <li><p>Implement <code><a href="https://rdrr.io/r/utils/rcompgen.html" class="external-link">.DollarNames()</a></code> to get a list of <code><a href="reference/read.html">read()</a></code> and <code><a href="reference/write.html">write()</a></code> types available, with a mechanism to add more types from additional packages (completion in R and RStudio for <code>read$</code> and <code>write$</code>).</p></li>
 <li><p>An easier form to indicate labels and units</p></li>
@@ -87,7 +86,6 @@
 <li><p>With {readr}, do not append attributes “spec” and “problems” to the object, but store them elsewhere (where?)</p></li>
 <li><p>Use ‘fst’ package + ‘qs’ + ‘vroom’.</p></li>
 <li><p>Look for a support of ‘datapackage.r’.</p></li>
-<li><p>reimport <code>print.subsettable()</code> from {svMisc}</p></li>
 <li><p>label versus comment for a dataframe?</p></li>
 <li><p>Rework and modularize the <code><a href="reference/read.html">read()</a></code> function.</p></li>
 <li><p><code>rio::characterize()</code> or <code>factorize()</code> for SPSS or SAS datasets + more {rio}.</p></li>
